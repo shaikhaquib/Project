@@ -70,7 +70,7 @@ public class ProductAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHold
         Glide.with(context).load(current.product_image).into(myHolder.proimg);
         wt = Float.valueOf(current.product_weight);
 
-        myHolder.serItemClickListener(new ItemClickListener() {
+       /* myHolder.serItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
                 Intent intent = new Intent(context,Category.class);
@@ -78,7 +78,7 @@ public class ProductAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHold
                 Toast.makeText(context, ""+current.product_id, Toast.LENGTH_SHORT).show();
                 context.startActivity(intent);
             }
-        });
+        });*/
 
 
         myHolder.viewdetails.setOnClickListener(new View.OnClickListener() {
