@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Kirana2Door</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_register">REGISTER</string>
+</resources>

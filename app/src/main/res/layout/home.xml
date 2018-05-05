@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/bg1">
+
+
+
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                 android:padding="8dp"
+                 android:gravity="center_vertical"
+                 android:background="@color/white"
+                 android:layout_gravity="center_vertical"
+                 >
+
+
+                 <ImageView
+                     android:layout_width="wrap_content"
+                     android:layout_height="match_parent"
+                     android:layout_gravity="center_vertical"
+                     android:src="@drawable/ic_arrow_back_black_24dp" />
+
+                 <fr.ganfra.materialspinner.MaterialSpinner
+                     android:id="@+id/hmCategory"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="center"
+                     android:spinnerMode="dialog"
+                     app:ms_arrowColor="@color/colorPrimary"
+                     app:ms_baseColor="@android:color/transparent"
+                     app:ms_hint="Select Category"
+                     app:ms_hintColor="@color/cardview_dark_background" />
+
+                <com.yarolegovich.discretescrollview.DiscreteScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rewardSlider"
+                    android:visibility="gone"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    />
+
+             </LinearLayout>
+                 <android.support.v7.widget.RecyclerView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginBottom="50dp"
+                     android:layout_gravity="center"
+                     android:id="@+id/homelist"/>
+
+             </LinearLayout>
+
+
+
+
+
