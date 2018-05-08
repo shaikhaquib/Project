@@ -43,7 +43,6 @@ public class Product extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
         review = findViewById(R.id.productreviews);
         review.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +51,7 @@ public class Product extends AppCompatActivity {
             }
         });
 
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
 
         sliderDotspanel = (LinearLayout) findViewById(R.id.SliderDots);
 

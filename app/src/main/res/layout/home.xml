@@ -13,31 +13,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                 android:padding="8dp"
+                 android:padding="12dp"
                  android:gravity="center_vertical"
                  android:background="@color/white"
                  android:layout_gravity="center_vertical"
                  >
 
+                 <ImageView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:src="@drawable/ic_arrow_back_black_24dp"/>
+
+                 <Spinner
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+                     android:textSize="10sp"
+                     android:gravity="center"
+                     android:background="@color/white"
+                     android:id="@+id/postpaidoperator"
+                     android:layout_gravity="center"
+                     android:layout_marginRight="4dp"
+                     android:spinnerMode="dialog"
+                     />
 
                  <ImageView
                      android:layout_width="wrap_content"
-                     android:layout_height="match_parent"
-                     android:layout_gravity="center_vertical"
-                     android:src="@drawable/ic_arrow_back_black_24dp" />
-
-                 <fr.ganfra.materialspinner.MaterialSpinner
-                     android:id="@+id/hmCategory"
-                     android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_gravity="center"
-                     android:spinnerMode="dialog"
-                     app:ms_arrowColor="@color/colorPrimary"
-                     app:ms_baseColor="@android:color/transparent"
-                     app:ms_hint="Select Category"
-                     app:ms_hintColor="@color/cardview_dark_background" />
+                     android:layout_marginRight="4dp"
+                     android:src="@drawable/ic_down_arrow_in_small_circle"/>
 
-                <com.yarolegovich.discretescrollview.DiscreteScrollView
+             </LinearLayout>
+                 <com.yarolegovich.discretescrollview.DiscreteScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/rewardSlider"
@@ -45,7 +52,7 @@
                     android:paddingTop="@dimen/activity_vertical_margin"
                     />
 
-             </LinearLayout>
+
                  <android.support.v7.widget.RecyclerView
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"

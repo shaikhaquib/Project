@@ -5,5 +5,5 @@ package com.completewallet.grocery;
  */
 
 public class Connecttodb {
-    public static final String path = "http://192.168.43.232:80/kirana/";
+    public static final String path = "http://192.168.42.43:80/kirana/";
 }

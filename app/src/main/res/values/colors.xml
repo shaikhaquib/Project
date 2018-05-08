@@ -6,4 +6,8 @@
     <color name="colorRed">#FF0000</color>
     <color name="white">#ffffff</color>
     <color name="green1">#8cff28</color>
+
+    <color name="colorWhite">#ffffff</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="trans">#00ffffff</color>
 </resources>

@@ -25,6 +25,8 @@ import com.yarolegovich.discretescrollview.InfiniteScrollAdapter;
 import com.yarolegovich.discretescrollview.transform.Pivot;
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
 import fr.ganfra.materialspinner.MaterialSpinner;
+
+import android.widget.Spinner;
 import android.widget.Toast;
 import com.completewallet.grocery.Connecttodb;
 import org.json.JSONArray;
@@ -95,7 +97,7 @@ public class Home extends Fragment {
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.activity_horzontal);
 
 
-        MaterialSpinner spinner =  rootview.findViewById(R.id.hmCategory);
+        Spinner spinner =  rootview.findViewById(R.id.postpaidoperator);
         String[] ITEMS = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, ITEMS);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
