@@ -33,6 +33,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/productname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="This is sample Text"
@@ -41,6 +42,7 @@
                     android:singleLine="true"
                     android:layout_marginTop="8dp"/>
                 <TextView
+                    android:id="@+id/description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Description will goes from here this is sample Description"
@@ -50,9 +52,11 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="₹250/ Kg"
@@ -62,11 +66,12 @@
                         />
 
                     <TextView
+                        android:id="@+id/mrp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/strike_through"
                         android:text="₹270/ Kg"
                         android:textSize="12dp"
-                        android:layout_marginLeft="@dimen/activity_vertical_margin"
                         />
 
                 </LinearLayout>
@@ -84,7 +89,7 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/RemoveQunt"
+                android:id="@+id/minus"
                 android:button="@drawable/ic_remove"/>
 
 
@@ -98,12 +103,13 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/addQunt"
+                android:id="@+id/plus"
                 android:button="@drawable/ic_add_circle"/>
 
 
 
             <CheckBox
+                android:id="@+id/removefromcart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:button="@drawable/ic_remove_shopping_cart"
@@ -115,6 +121,7 @@
                 android:orientation="vertical">
 
                     <Button
+                        android:id="@+id/buynow"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_margin="5dp"

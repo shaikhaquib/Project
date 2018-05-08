@@ -219,6 +219,9 @@ public class LoginActivity extends AppCompatActivity {
                  */
 
                 Intent intent = new Intent(LoginActivity.this,Category.class);
+                Credentials Data = new Credentials();
+                Data.email_id= etEmail.getText().toString();
+                Data.password = etPassword.getText().toString();
                 SharedPreferences login = getSharedPreferences("login", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = login.edit();
                 editor.putString("password", etPassword.getText().toString());

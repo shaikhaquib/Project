@@ -30,7 +30,6 @@
 
         <LinearLayout
             android:id="@+id/catSliderDots"
-            android:layout_below="@+id/viewPager"
             android:orientation="horizontal"
             android:gravity="center_vertical|center_horizontal"
             android:layout_width="match_parent"

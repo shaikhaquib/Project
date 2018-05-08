@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.completewallet.grocery.Activity.Category;
+import com.completewallet.grocery.Activity.Credentials;
 import com.completewallet.grocery.Activity.DataVar;
 import com.completewallet.grocery.Activity.ItemClickListener;
 import com.completewallet.grocery.Activity.MainActivity;
@@ -29,6 +30,7 @@ public class ProductAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHold
     float wt;
     int i=0;
     public View view;
+    public Credentials CData;
     private Context context;
     private LayoutInflater inflater;
     List<DataVar> data;
@@ -119,7 +121,7 @@ public class ProductAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHold
                 MainActivity outerObject = new MainActivity();
                 MainActivity.AddToCart innerObject = outerObject.new AddToCart();
                //MainActivity.new AddToCart().execute(current.product_id,current.product_weight,"qwerty@gmail.com");
-                innerObject.execute(current.product_id,current.product_weight,"qwerty@gmail.com");
+                innerObject.execute(current.product_id,current.product_weight,CData.email_id.trim());
                 Snackbar snackbar = Snackbar.make(view, "Product Successfully Added To Cart !", Snackbar.LENGTH_LONG);
                 snackbar.show();
             }

@@ -16,20 +16,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.LoginActivity" >
+        <activity android:name=".Activity.LoginActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
            </intent-filter>
         </activity>
-        <activity android:name=".Activity.Registration" />
-        <activity android:name=".Activity.MainActivity"></activity>
-        <activity android:name=".CustomerRegisterActivity" />
-        <activity android:name=".Activity.Category">
-        </activity>
-        <activity android:name=".Activity.Product"></activity>
-        <activity android:name=".Activity.ProductReview"/>
+        <activity android:name=".Activity.Registration"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.MainActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".CustomerRegisterActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.Category"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.Product"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.ProductReview"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
 
     </application>
 
