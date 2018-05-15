@@ -9,10 +9,25 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.completewallet.grocery.Adapter.ViewPagerAdapter;
+import com.completewallet.grocery.Connecttodb;
 import com.completewallet.grocery.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -23,6 +38,9 @@ public class Product extends AppCompatActivity {
     LinearLayout sliderDotspanel;
     private int dotscount;
     private ImageView[] dots;
+    RequestQueue queue ;
+
+    TextView title , desription , mrp ,stock ;
 
     private int[] img1 = {
             R.drawable.img,
@@ -43,6 +61,8 @@ public class Product extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
+        queue= Volley.newRequestQueue(this);
+
         review = findViewById(R.id.productreviews);
         review.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +71,50 @@ public class Product extends AppCompatActivity {
             }
         });
 
+        Slider();
+        productDetail();
+    }
+
+    private void productDetail() {
+
+        title =findViewById(R.id.prtitle);
+        desription = findViewById(R.id.prdesc);
+        mrp=findViewById(R.id.prmrp);
+        stock=findViewById(R.id.prstock);
+
+        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "productdetail.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray array = new JSONArray(response);
+                    JSONObject jsonObject = array.getJSONObject(0);
+
+                    title.setText(jsonObject.getString("product_name"));
+                    mrp.setText(jsonObject.getString("product_price"));
+                    desription.setText(jsonObject.getString("product_discription_1")+jsonObject.getString("product_discription_2"));
+                    stock.setText(jsonObject.getString("status"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Product.this, "Connection problem !", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                HashMap <String ,String> map = new HashMap<>();
+                map.put("product_id",getIntent().getStringExtra("product_id"));
+                return map;
+            }
+        };
+        queue.add(request);
+    }
+
+    private void Slider() {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 
         sliderDotspanel = (LinearLayout) findViewById(R.id.SliderDots);
@@ -107,10 +171,7 @@ public class Product extends AppCompatActivity {
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new MyTimerTask(), 2000, 4000);
-
     }
-
-
     public class MyTimerTask extends TimerTask {
 
         @Override

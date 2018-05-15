@@ -36,7 +36,7 @@ public class ProductHolder extends RecyclerView.ViewHolder implements View.OnCli
         proimg = (ImageView) itemView.findViewById(R.id.proimg);
         /*test=itemView.findViewById(R.id.testtext);
         checkBox=itemView.findViewById(R.id.test);*/
-        itemView.setOnClickListener(this);
+        //itemView.setOnClickListener(this);
 
     }
 
