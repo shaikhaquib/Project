@@ -121,7 +121,7 @@ public class ProductAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHold
                 MainActivity outerObject = new MainActivity();
                 MainActivity.AddToCart innerObject = outerObject.new AddToCart();
                //MainActivity.new AddToCart().execute(current.product_id,current.product_weight,"qwerty@gmail.com");
-                innerObject.execute(current.product_id,current.product_weight,CData.email_id.trim());
+                innerObject.execute(current.product_id,current.product_weight,"qwerty@gmail.com");
                 Snackbar snackbar = Snackbar.make(view, "Product Successfully Added To Cart !", Snackbar.LENGTH_LONG);
                 snackbar.show();
             }

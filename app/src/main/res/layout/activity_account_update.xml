@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.AccountUpdate">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view_outer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                >
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/first"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/btn_round"
+                        android:backgroundTint="@color/white"
+                        android:hint="First Name"
+                        android:inputType="textPersonName"
+                        android:padding="10dp"
+                        android:singleLine="true"
+                        android:drawableRight="@drawable/ic_person"/>
+                    <EditText
+                        android:id="@+id/last"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/btn_round"
+                        android:backgroundTint="@color/white"
+                        android:hint="Last Name"
+                        android:inputType="textPersonName"
+                        android:padding="10dp"
+                        android:singleLine="true"
+                        android:drawableRight="@drawable/ic_person"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            =
+
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/address"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/btn_round"
+                        android:backgroundTint="@color/white"
+                        android:hint="Address"
+                        android:inputType="textMultiLine"
+                        android:padding="10dp"
+                        android:singleLine="true"
+                        android:drawableRight="@drawable/ic_place_black_24dp"/>
+                    <EditText
+                        android:id="@+id/pin"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/btn_round"
+                        android:backgroundTint="@color/white"
+                        android:hint="Pincode"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:singleLine="true"
+                        android:drawableRight="@drawable/ic_place_black_24dp"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                >
+
+
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Circle"
+                    app:ms_hint="City"
+                    card_view:ms_hintColor="#000"
+                    card_view:ms_arrowColor="@color/colorPrimary"
+                    card_view:ms_baseColor="@color/white"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    tools:ignore="HardcodedText"
+                    android:spinnerMode="dialog"
+                    />
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/contact"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/btn_round"
+                        android:backgroundTint="@color/white"
+                        android:hint="Contact"
+                        android:inputType="phone"
+                        android:padding="10dp"
+                        android:singleLine="true"
+                        android:drawableRight="@drawable/ic_phone"/>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/email"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/btn_round"
+                        android:backgroundTint="@color/white"
+                        android:hint="Email"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:clickable="false"
+                        android:inputType="textEmailAddress"
+                        android:padding="10dp"
+                        android:singleLine="true"
+                        android:drawableRight="@drawable/ic_email"/>
+
+
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <Button
+                android:id="@+id/btnreg"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textSize="18sp"
+                android:background="@drawable/btn_round"
+                android:text="@string/btn_register"
+                android:onClick="UpdateData"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

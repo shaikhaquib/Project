@@ -50,7 +50,9 @@
             android:name=".Activity.ProductReview"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activity.ChangePassword"></activity>
+        <activity android:name=".Activity.ChangePassword" />
+        <activity android:name=".Activity.AccountUpdate" />
+        <activity android:name=".Activity.AboutUs"></activity>
     </application>
 
 </manifest>

@@ -13,7 +13,7 @@ public class ProductHolder extends RecyclerView.ViewHolder implements View.OnCli
 
     public TextView productname,description,price,mrp,quantity,test;
     public CheckBox checkBox;
-    public CheckBox minus,plus,wish,addtocart,viewdetails;
+    public CheckBox minus,plus,addtocart,viewdetails;
     public Button buynow;
     public ImageView proimg;
     ItemClickListener itemClickListener;
@@ -29,7 +29,6 @@ public class ProductHolder extends RecyclerView.ViewHolder implements View.OnCli
         quantity= (TextView) itemView.findViewById(R.id.quantity);
         minus= (CheckBox) itemView.findViewById(R.id.minus);
         plus= (CheckBox) itemView.findViewById(R.id.plus);
-        wish= (CheckBox) itemView.findViewById(R.id.wish);
         addtocart= (CheckBox) itemView.findViewById(R.id.addtocart);
         viewdetails= (CheckBox) itemView.findViewById(R.id.viewdetails);
         buynow= (Button) itemView.findViewById(R.id.buynow);

@@ -113,14 +113,6 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:button="@drawable/selector"
-                android:id="@+id/wish"
-                android:drawableTint="@color/colorRed"
-                android:layout_marginLeft="@dimen/activity_vertical_margin"/>
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/addtocart"
                 android:button="@drawable/ic_add_shopping_cart"
                 android:layout_marginLeft="@dimen/activity_vertical_margin"/>
@@ -132,16 +124,23 @@
                 android:id="@+id/viewdetails"
                 android:layout_marginLeft="@dimen/activity_vertical_margin"
                 />
-
-            <Button
+            <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="30dp"
-                android:background="@drawable/border"
-                android:drawableTint="#17a5da"
-                android:id="@+id/buynow"
-                android:textColor="#17a5da"
-                android:layout_margin="5dp"
-                android:text="Buy Now"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/buynow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/border"
+                    android:drawableTint="#17a5da"
+                    android:text="Buy Now"
+                    android:layout_gravity="end"
+                    android:textColor="#17a5da" />
+
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
