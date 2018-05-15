@@ -7,7 +7,30 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="CounterOverFlowO" parent="TextAppearance.Design.Counter.Overflow">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#ff0000</item>
+    </style>
 
+    <style name="CounterTextO" parent="TextAppearance.Design.Counter">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="HintTextO" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="CounterText1" parent="TextAppearance.Design.Counter">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="HintText1" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#000000</item>
+    </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
 </resources>

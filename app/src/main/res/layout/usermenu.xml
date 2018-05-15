@@ -75,7 +75,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="My Order"
+                android:text="Order History"
                 android:textSize="@dimen/activity_vertical_margin"
                 android:drawableLeft="@drawable/ic_shopping_cart_black_24dp"
                 android:drawableTint="@android:color/darker_gray"
@@ -88,11 +88,12 @@
                 android:background="#e0e0e0"/>
 
             <TextView
+                android:id="@+id/changepass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Wish list"
+                android:text="Change Password"
                 android:textSize="@dimen/activity_vertical_margin"
-                android:drawableLeft="@drawable/ic_favorite"
+                android:drawableLeft="@drawable/ic_key"
                 android:drawableTint="@android:color/darker_gray"
                 android:drawablePadding="@dimen/activity_vertical_margin"
                 android:padding="12dp"/>

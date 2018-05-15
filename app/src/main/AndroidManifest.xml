@@ -16,34 +16,41 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.LoginActivity"
+        <activity
+            android:name=".Activity.LoginActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-           </intent-filter>
+            </intent-filter>
         </activity>
-        <activity android:name=".Activity.Registration"
+        <activity
+            android:name=".Activity.Registration"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activity.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.MainActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".CustomerRegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CustomerRegisterActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activity.Category"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Category"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activity.Product"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Product"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activity.ProductReview"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.ProductReview"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
+        <activity android:name=".Activity.ChangePassword"></activity>
     </application>
 
 </manifest>
