@@ -2,6 +2,7 @@ package com.completewallet.grocery.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class ProductAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHolder>  {
     //ProductHolder myHolder;
     float wt;
@@ -37,6 +40,7 @@ public class ProductAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHold
     DataVar current;
     int currentPos=0;
     int[] img;
+    String s;
 
     public ProductAdapter(Context context, List<DataVar> data){
         this.context=context;
@@ -56,6 +60,8 @@ public class ProductAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHold
         final ProductHolder myHolder= (ProductHolder) holder;
         final DataVar current=data.get(position);
 
+        SharedPreferences shared = context.getSharedPreferences("login", MODE_PRIVATE);
+        final String email = (shared.getString( "email", ""));
         myHolder.productname.setText(current.product_name);
         myHolder.description.setText(current.product_discription_1);
         myHolder.price.setText("₹. "+current.product_price+" "+"/"+" "+current.product_weight+current.units);
@@ -99,7 +105,7 @@ public class ProductAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHold
                 float qt = Float.valueOf(current.minimum_quantity);
                 wt = wt + qt;
 
-                String s = Float.toString(wt);
+                 s = Float.toString(wt);
                 myHolder.quantity.setText(s);
             }
         });
@@ -111,7 +117,7 @@ public class ProductAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHold
                     wt = wt - qt;
                 }
 
-                String s = Float.toString(wt);
+                 s = Float.toString(wt);
                 myHolder.quantity.setText(s);
             }
         });
@@ -121,7 +127,7 @@ public class ProductAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHold
                 MainActivity outerObject = new MainActivity();
                 MainActivity.AddToCart innerObject = outerObject.new AddToCart();
                //MainActivity.new AddToCart().execute(current.product_id,current.product_weight,"qwerty@gmail.com");
-                innerObject.execute(current.product_id,current.product_weight,"qwerty@gmail.com");
+                innerObject.execute(current.product_id,s,email);
                 Snackbar snackbar = Snackbar.make(view, "Product Successfully Added To Cart !", Snackbar.LENGTH_LONG);
                 snackbar.show();
             }
