@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.completewallet.grocery.Activity.Credentials;
 import com.completewallet.grocery.Activity.DataVar;
@@ -229,10 +230,10 @@ public class Cart extends Fragment {
 
 
             } catch (JSONException e) {
-                Snackbar snackbar = Snackbar.make(parentLayout, "Connection Problem! OR No Internet Connection !", LENGTH_LONG);
-
-                snackbar.show();
-                //Toast.makeText(context, "Please Check Internet Connection", Toast.LENGTH_LONG).show();
+//                Snackbar snackbar = Snackbar.make(parentLayout, "Connection Problem! OR No Internet Connection !", LENGTH_LONG);
+//
+//                snackbar.show();
+                Toast.makeText(context, "No Item In Cart Or Please Check Internet Connection", Toast.LENGTH_LONG).show();
             }
 
         }

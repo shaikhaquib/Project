@@ -61,14 +61,10 @@ public class CartAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
         myHolder.mrp.setText("₹."+current.cartproduct_mrp+" "+"/"+" "+current.cartproduct_weight+current.cartunits);
         //  myHolder.quantity.setText(current.product_weight);
 
-        myHolder.quantity.setText(current.cartqty);
-        myHolder.plus.setTag(current);
-        myHolder.minus.setTag(current);
-        myHolder.quantity.setTag(current);
         myHolder.removefromcart.setTag(current);
 
         Glide.with(context).load(current.cartproduct_image).into(myHolder.proimg);
-        wt = Float.valueOf(current.cartqty);
+
 
        /* myHolder.serItemClickListener(new ItemClickListener() {
             @Override
@@ -81,37 +77,14 @@ public class CartAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
         });*/
 
 
-        myHolder.plus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                float qt = Float.valueOf(current.cartminimum_quantity);
-                wt = wt + qt;
-
-                String s = Float.toString(wt);
-                myHolder.quantity.setText(s);
-            }
-        });
-        myHolder.minus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                float qt = Float.valueOf(current.cartminimum_quantity);
-                if(wt>0){
-                    wt = wt - qt;
-                }
-
-                String s = Float.toString(wt);
-                myHolder.quantity.setText(s);
-            }
-        });
         myHolder.removefromcart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MainActivity outerObject = new MainActivity();
-                MainActivity.AddToCart innerObject = outerObject.new AddToCart();
+                MainActivity.RemoveFromCart innerObject = outerObject.new RemoveFromCart();
                 //MainActivity.new AddToCart().execute(current.product_id,current.product_weight,"qwerty@gmail.com");
-                innerObject.execute(current.product_id,current.product_weight,"qwerty@gmail.com");
-                Snackbar snackbar = Snackbar.make(view, "Product Successfully Added To Cart !", Snackbar.LENGTH_LONG);
+                innerObject.execute(current.cart_id);
+                Snackbar snackbar = Snackbar.make(view, "Product Successfully Removed From Cart !"+current.cart_id, Snackbar.LENGTH_LONG);
                 snackbar.show();
             }
         });

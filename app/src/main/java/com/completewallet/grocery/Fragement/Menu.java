@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.completewallet.grocery.Activity.AboutUs;
 import com.completewallet.grocery.Activity.AccountUpdate;
 import com.completewallet.grocery.Activity.ChangePassword;
+import com.completewallet.grocery.Activity.OrderHistoryActivity;
 import com.completewallet.grocery.R;
 import com.completewallet.grocery.SessionManager;
 
@@ -25,7 +26,7 @@ import com.completewallet.grocery.SessionManager;
 
 public class Menu extends Fragment {
 
-    TextView login ,logout,chpassword,acc,about;
+    TextView login ,logout,chpassword,acc,about,ohis;
     SessionManager manager;
 
     @Override
@@ -46,6 +47,7 @@ public class Menu extends Fragment {
         chpassword=rootview.findViewById(R.id.changepass);
         acc=rootview.findViewById(R.id.acc);
         about=rootview.findViewById(R.id.about);
+        ohis=rootview.findViewById(R.id.ohis);
         manager=new SessionManager(getActivity());
 
         if (manager.isSkip()){
@@ -73,6 +75,13 @@ public class Menu extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AboutUs.class);
+                startActivity(intent);
+            }
+        });
+        ohis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), OrderHistoryActivity.class);
                 startActivity(intent);
             }
         });

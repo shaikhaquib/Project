@@ -25,9 +25,6 @@ public class CartHolder extends RecyclerView.ViewHolder implements View.OnClickL
         description= (TextView) itemView.findViewById(R.id.description);
         price= (TextView) itemView.findViewById(R.id.price);
         mrp= (TextView) itemView.findViewById(R.id.mrp);
-        quantity= (TextView) itemView.findViewById(R.id.quantity);
-        minus= (CheckBox) itemView.findViewById(R.id.minus);
-        plus= (CheckBox) itemView.findViewById(R.id.plus);
         removefromcart= (CheckBox) itemView.findViewById(R.id.removefromcart);
         buynow= (Button) itemView.findViewById(R.id.buynow);
         proimg = (ImageView) itemView.findViewById(R.id.proimg);

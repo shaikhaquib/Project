@@ -49,10 +49,10 @@ public class ProductReview extends AppCompatActivity {
              @Override
              public void onClick(View v) {
 
-                 Context context=getApplicationContext();
-                 Intent intent = new Intent(context,AddReview.class);
-                 intent.putExtra("product_id",getIntent().getStringExtra("product_id"));
-                 startActivity(intent);
+//                 Context context=getApplicationContext();
+//                 Intent intent = new Intent(context,AddReview.class);
+//                 intent.putExtra("product_id",getIntent().getStringExtra("product_id"));
+//                 startActivity(intent);
              }
          });
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
