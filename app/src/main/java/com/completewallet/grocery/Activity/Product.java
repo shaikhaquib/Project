@@ -1,11 +1,13 @@
 package com.completewallet.grocery.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -40,7 +42,10 @@ public class Product extends AppCompatActivity {
     private ImageView[] dots;
     RequestQueue queue ;
 
-    TextView title , desription , mrp ,stock ;
+    TextView title , desription , mrp  ,price ,quantity ;
+    CheckBox minus ,plus;
+    String minimum_quantity,amount ,unit;
+    float wt ,strprice;
 
     private int[] img1 = {
             R.drawable.img,
@@ -64,23 +69,67 @@ public class Product extends AppCompatActivity {
         queue= Volley.newRequestQueue(this);
 
         review = findViewById(R.id.productreviews);
+        quantity = findViewById(R.id.prquantity);
+        minus =findViewById(R.id.prminus);
+        plus = findViewById(R.id.replus);
+        title =findViewById(R.id.prtitle);
+        desription = findViewById(R.id.prdesc);
+        mrp=findViewById(R.id.prmrp);
+        //  stock=findViewById(R.id.prstock);
+        price=findViewById(R.id.prprice);
         review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),ProductReview.class));
-            }
+                Context context=getApplicationContext();
+                Intent intent = new Intent(context,ProductReview.class);
+                intent.putExtra("product_id",getIntent().getStringExtra("product_id"));
+                startActivity(intent);            }
         });
 
         Slider();
         productDetail();
+
+        plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                float qt = Float.valueOf(minimum_quantity);
+                wt = wt + qt;
+
+                String s = Float.toString(wt);
+                quantity.setText(s);
+
+                float amt = Float.valueOf(amount);
+               strprice  = strprice + amt;
+                String s2 = Float.toString(strprice);
+
+                mrp.setText("MRP: Rs."+s2+" /"+ s +" "+ unit);
+
+            }
+        });
+        minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                float qt = Float.valueOf(minimum_quantity);
+                if(wt>0){
+                    wt = wt - qt;
+                }
+
+                String s = Float.toString(wt);
+                quantity.setText(s);
+
+                float amt = Float.valueOf(amount);
+                strprice  = strprice - amt;
+                String s2 = Float.toString(strprice);
+
+                mrp.setText("MRP: Rs."+s2+" /"+ s +" "+ unit);
+            }
+        });
     }
 
     private void productDetail() {
 
-        title =findViewById(R.id.prtitle);
-        desription = findViewById(R.id.prdesc);
-        mrp=findViewById(R.id.prmrp);
-        stock=findViewById(R.id.prstock);
+
 
         final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "productdetail.php", new Response.Listener<String>() {
             @Override
@@ -90,9 +139,16 @@ public class Product extends AppCompatActivity {
                     JSONObject jsonObject = array.getJSONObject(0);
 
                     title.setText(jsonObject.getString("product_name"));
-                    mrp.setText(jsonObject.getString("product_price"));
+                    quantity.setText(jsonObject.getString("minimum_quantity"));
+                    minimum_quantity = jsonObject.getString("product_weight");
+                    unit=jsonObject.getString("units");
+                    mrp.setText("MRP: Rs."+jsonObject.getString("product_price")+" /" +jsonObject.getString("product_weight")+" " + jsonObject.getString("units"));
                     desription.setText(jsonObject.getString("product_discription_1")+jsonObject.getString("product_discription_2"));
-                    stock.setText(jsonObject.getString("status"));
+                    strprice = Float.parseFloat(jsonObject.getString("product_price"));
+                    amount = (jsonObject.getString("product_price"));
+                 //   stock.setText(jsonObject.getString("status"));
+                    wt = Float.valueOf(jsonObject.getString("product_weight"));
+                    price.setText("₹"+jsonObject.getString("product_mrp")+" /" +jsonObject.getString("product_weight")+" " + jsonObject.getString("units"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

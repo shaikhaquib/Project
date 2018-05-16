@@ -19,6 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="7"
+            android:id="@+id/rename"
             android:textColor="@color/cardview_dark_background"
             android:textSize="@dimen/activity_vertical_margin"
             android:text="Shaikh Aquib"
@@ -28,6 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:layout_gravity="end"
+            android:visibility="visible"
+            android:id="@+id/retime"
             android:gravity="end"
             android:text="04 May 2017"/></LinearLayout>
         <RatingBar
@@ -45,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/activity_vertical_margin"
+            android:id="@+id/reComment"
             android:text="This is dummy review with text color black"/>
 
 

@@ -39,4 +39,9 @@ public class DataVar {
     public String cartstatus;
     public String cartqty;
     public String cartcustomer_id;
+
+    public String id ;
+    public String rating;
+    public String comment;
+    public String time;
 }

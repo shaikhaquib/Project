@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.completewallet.grocery.Activity.AboutUs;
 import com.completewallet.grocery.Activity.AccountUpdate;
 import com.completewallet.grocery.Activity.ChangePassword;
+import com.completewallet.grocery.Activity.LoginActivity;
 import com.completewallet.grocery.R;
 import com.completewallet.grocery.SessionManager;
 
@@ -74,6 +75,14 @@ public class Menu extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AboutUs.class);
                 startActivity(intent);
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                manager.setLogin(false);
+                startActivity(new Intent(getActivity(), LoginActivity.class));
             }
         });
 
