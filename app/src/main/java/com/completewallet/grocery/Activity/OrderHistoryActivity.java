@@ -1,32 +1,25 @@
-package com.completewallet.grocery.Fragement;
+package com.completewallet.grocery.Activity;
 
-import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.CursorAdapter;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.completewallet.grocery.Activity.Credentials;
-import com.completewallet.grocery.Activity.DataVar;
-import com.completewallet.grocery.Activity.Product;
 import com.completewallet.grocery.Adapter.CartAdapter;
-import com.completewallet.grocery.Adapter.Holder;
+import com.completewallet.grocery.Adapter.OrderHistoryAdapter;
 import com.completewallet.grocery.Connecttodb;
 import com.completewallet.grocery.R;
 import com.completewallet.grocery.SessionManager;
-import com.completewallet.grocery.SpacesItemDecoration;
-import com.yarolegovich.discretescrollview.DiscreteScrollView;
-import com.yarolegovich.discretescrollview.InfiniteScrollAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,48 +40,45 @@ import java.util.List;
 
 import static android.support.design.widget.Snackbar.LENGTH_LONG;
 
-/**
- * Created by Shaikh Aquib on 10-Apr-18.
- */
-
-public class Cart extends Fragment {
-
+public class OrderHistoryActivity extends AppCompatActivity {
     public static final int CONNECTION_TIMEOUT = 10000;
     public static final int READ_TIMEOUT = 15000;
     private String[] strArrData = {"No Suggestions"};
     public Context context;
     public String email;
     View parentLayout;
+    SwipeRefreshLayout mSwipeRefreshLayout;
     public Credentials CData;
     public RecyclerView recyclerView;
     LinearLayout guestlayout ;
     SessionManager manager ;
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.cartview,container,false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_order_history);
+        parentLayout = findViewById(android.R.id.content);
+        manager=new SessionManager(OrderHistoryActivity.this);
+        guestlayout = findViewById(R.id.guesusererror);
+        recyclerView=findViewById(R.id.rvHistory);
 
-        manager=new SessionManager(getActivity());
-            guestlayout = view.findViewById(R.id.guesusererror);
-            recyclerView=view.findViewById(R.id.cartRecycler);
-
-            if (manager.isSkip()){
-                guestlayout.setVisibility(View.VISIBLE);
-                recyclerView.setVisibility(View.GONE);
+        if (manager.isSkip()){
+            guestlayout.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
         }
-
-        recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        context = getActivity();
-        email = "qwerty@gmail.com";
-        parentLayout = view.findViewById(android.R.id.content);
-        new Cart.ProductFetch().execute(email);
-
-        return view;
+        LinearLayoutManager layoutManager = new LinearLayoutManager(OrderHistoryActivity.this,LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(layoutManager);
+        mSwipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swifeRefresh);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new OrderFetch().execute("qwerty@gmail.com");
+            }
+        });
+        //Make call to AsyncTask
+        new OrderFetch().execute("qwerty@gmail.com");
     }
-    private class ProductFetch extends AsyncTask<String, String, String> {
-        ProgressDialog pdLoading = new ProgressDialog(context);
+    private class OrderFetch extends AsyncTask<String, String, String> {
+        ProgressDialog pdLoading = new ProgressDialog(OrderHistoryActivity.this);
         HttpURLConnection conn;
         URL url = null;
 
@@ -109,7 +99,7 @@ public class Cart extends Fragment {
             try {
 
                 // Enter URL address where your json file resides
-                url = new URL(Connecttodb.path+"getcartitem.php");
+                url = new URL(Connecttodb.path+"orderhistory.php");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
@@ -201,31 +191,28 @@ public class Cart extends Fragment {
                 // Extract data from json and store into ArrayList as class objects
                 for(int i=0;i<jArray.length();i++){
                     JSONObject json_data = jArray.getJSONObject(i);
-                    dataList.add(json_data.getString("cart_id"));
+                    dataList.add(json_data.getString("id"));
                     DataVar EData = new DataVar();
-                    EData.cart_id = json_data.getString("cart_id");
-                    EData.cartproduct_id = json_data.getString("product_id");
-                    EData.cartproduct_name = json_data.getString("product_name");
-                    EData.carthsn_code = json_data.getString("hsn_code");
-                    EData.cartproduct_discription_1 = json_data.getString("product_discription_1");
-                    EData.cartproduct_discription_2 = json_data.getString("product_discription_2");
-                    EData.cartproduct_image = json_data.getString("product_image");
-                    EData.cartgst_id = json_data.getString("gst_id");
-                    EData.cartpcategory_id = json_data.getString("category_id");
-                    EData.cartproduct_price = json_data.getString("product_price");
-                    EData.cartproduct_mrp = json_data.getString("product_mrp");
-                    EData.cartproduct_weight = json_data.getString("product_weight");
-                    EData.cartminimum_quantity = json_data.getString("minimum_quantity");
-                    EData.cartunits = json_data.getString("units");
-                    EData.cartstatus = json_data.getString("status");
-                    EData.cartqty = json_data.getString("product_qty");
-                    EData.cartcustomer_id = json_data.getString("customer_id");
+                    EData.id = json_data.getString("id");
+                    EData.order_id = json_data.getString("order_id");
+                    EData.customer_id = json_data.getString("customer_id");
+                    EData.order_date = json_data.getString("order_date");
+                    EData.total_ammount = json_data.getString("total_ammount");
+                    EData.gst = json_data.getString("gst");
+                    EData.gst_ammount = json_data.getString("gst_ammount");
+                    EData.shipping_charges = json_data.getString("shipping_charges");
+                    EData.final_ammount = json_data.getString("final_ammount");
+                    EData.delivery_type = json_data.getString("delivery_type");
+                    EData.payment_type = json_data.getString("payment_type");
+                    EData.pincode = json_data.getString("pincode");
+                    EData.order_status = json_data.getString("order_status");
+                    EData.status_change_time = json_data.getString("status_change_time");
                     data.add(EData);
                 }
                 strArrData = dataList.toArray(new String[dataList.size()]);
 
                 // Setup and Handover data to recyclerview
-                recyclerView.setAdapter(new CartAdapter(context,data));
+                recyclerView.setAdapter(new OrderHistoryAdapter(OrderHistoryActivity.this,data));
 
 
             } catch (JSONException e) {

@@ -39,4 +39,25 @@ public class DataVar {
     public String cartstatus;
     public String cartqty;
     public String cartcustomer_id;
+
+    //order history
+    public String id;
+    public String order_id;
+    public String customer_id;
+    public String order_date;
+    public String total_ammount;
+    public String gst;
+    public String gst_ammount;
+    public String shipping_charges;
+    public String final_ammount;
+    public String delivery_type;
+    public String payment_type;
+    public String pincode;
+    public String order_status;
+    public String status_change_time;
+    //sub order
+    public String quantity;
+    public String order_product_price;
+    public String orderproduct_image;
+    public String orderproduct_name;
 }

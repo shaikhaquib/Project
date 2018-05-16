@@ -52,7 +52,9 @@
             android:screenOrientation="portrait" />
         <activity android:name=".Activity.ChangePassword" />
         <activity android:name=".Activity.AccountUpdate" />
-        <activity android:name=".Activity.AboutUs"></activity>
+        <activity android:name=".Activity.AboutUs" />
+        <activity android:name=".Activity.OrderHistoryActivity" />
+        <activity android:name=".Activity.SubOrderHistory" />
     </application>
 
 </manifest>

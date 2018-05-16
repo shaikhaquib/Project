@@ -9,7 +9,7 @@
     android:layout_marginBottom="54dp">
 
 
-
+<!--
              <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,6 +45,7 @@
                      android:src="@drawable/ic_down_arrow_in_small_circle"/>
 
              </LinearLayout>
+             -->
                  <com.yarolegovich.discretescrollview.DiscreteScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

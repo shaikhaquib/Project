@@ -26,17 +26,10 @@
                 android:gravity="center">
 
             <ImageView
-                android:layout_width="80dp"
+                android:layout_width="280dp"
                 android:layout_height="80dp"
-                android:src="@drawable/ic_user"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="User Name"
-                android:textSize="20sp"
-                app:layout_scrollFlags="scroll|enterAlways"
-                android:textColor="@color/white"
-                android:gravity="center"/></LinearLayout>
+                android:src="@drawable/klogo"/>
+            </LinearLayout>
             <android.support.v7.widget.Toolbar
                 android:id="@+id/z_toolbar"
                 android:layout_width="match_parent"
@@ -74,6 +67,7 @@
                 android:background="#e0e0e0"/>
 
             <TextView
+                android:id="@+id/ohis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Order History"

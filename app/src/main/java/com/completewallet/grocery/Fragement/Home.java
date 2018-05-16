@@ -97,12 +97,12 @@ public class Home extends Fragment {
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.activity_horzontal);
 
 
-        Spinner spinner =  rootview.findViewById(R.id.postpaidoperator);
-        String[] ITEMS = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, ITEMS);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinner.setAdapter(adapter);
+//        Spinner spinner =  rootview.findViewById(R.id.postpaidoperator);
+//        String[] ITEMS = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6"};
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, ITEMS);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//        spinner.setAdapter(adapter);
 
         MainRecycler.setNestedScrollingEnabled(false);
         MainRecycler.addItemDecoration(new SpacesItemDecoration(spacingInPixels));

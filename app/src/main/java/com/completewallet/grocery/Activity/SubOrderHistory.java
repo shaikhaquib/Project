@@ -1,32 +1,22 @@
-package com.completewallet.grocery.Fragement;
+package com.completewallet.grocery.Activity;
 
-import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
-import com.completewallet.grocery.Activity.Credentials;
-import com.completewallet.grocery.Activity.DataVar;
-import com.completewallet.grocery.Activity.Product;
-import com.completewallet.grocery.Adapter.CartAdapter;
-import com.completewallet.grocery.Adapter.Holder;
+import com.completewallet.grocery.Adapter.OrderHistoryAdapter;
+import com.completewallet.grocery.Adapter.SubOrderAdapter;
 import com.completewallet.grocery.Connecttodb;
 import com.completewallet.grocery.R;
 import com.completewallet.grocery.SessionManager;
-import com.completewallet.grocery.SpacesItemDecoration;
-import com.yarolegovich.discretescrollview.DiscreteScrollView;
-import com.yarolegovich.discretescrollview.InfiniteScrollAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,48 +37,38 @@ import java.util.List;
 
 import static android.support.design.widget.Snackbar.LENGTH_LONG;
 
-/**
- * Created by Shaikh Aquib on 10-Apr-18.
- */
-
-public class Cart extends Fragment {
-
+public class SubOrderHistory extends AppCompatActivity {
     public static final int CONNECTION_TIMEOUT = 10000;
     public static final int READ_TIMEOUT = 15000;
     private String[] strArrData = {"No Suggestions"};
     public Context context;
-    public String email;
+    public String email,oid,cid;
     View parentLayout;
+    SwipeRefreshLayout mSwipeRefreshLayout;
     public Credentials CData;
     public RecyclerView recyclerView;
-    LinearLayout guestlayout ;
-    SessionManager manager ;
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.cartview,container,false);
-
-        manager=new SessionManager(getActivity());
-            guestlayout = view.findViewById(R.id.guesusererror);
-            recyclerView=view.findViewById(R.id.cartRecycler);
-
-            if (manager.isSkip()){
-                guestlayout.setVisibility(View.VISIBLE);
-                recyclerView.setVisibility(View.GONE);
-        }
-
-        recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        context = getActivity();
-        email = "qwerty@gmail.com";
-        parentLayout = view.findViewById(android.R.id.content);
-        new Cart.ProductFetch().execute(email);
-
-        return view;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sub_order_history);
+        parentLayout = findViewById(android.R.id.content);
+        oid = getIntent().getStringExtra("orderid");
+        cid = getIntent().getStringExtra("custid");
+        recyclerView=findViewById(R.id.rvsubHistory);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(SubOrderHistory.this,LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(layoutManager);
+        mSwipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swifeRefresh);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new SubOrderHistory.SubOrderFetch().execute(cid.trim(),oid.trim());
+            }
+        });
+        //Make call to AsyncTask
+        new SubOrderHistory.SubOrderFetch().execute(cid.trim(),oid.trim());
     }
-    private class ProductFetch extends AsyncTask<String, String, String> {
-        ProgressDialog pdLoading = new ProgressDialog(context);
+    private class SubOrderFetch extends AsyncTask<String, String, String> {
+        ProgressDialog pdLoading = new ProgressDialog(SubOrderHistory.this);
         HttpURLConnection conn;
         URL url = null;
 
@@ -109,7 +89,7 @@ public class Cart extends Fragment {
             try {
 
                 // Enter URL address where your json file resides
-                url = new URL(Connecttodb.path+"getcartitem.php");
+                url = new URL(Connecttodb.path+"suborderhistory.php");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
@@ -130,7 +110,8 @@ public class Cart extends Fragment {
 
                 // Append parameters to URL
                 Uri.Builder builder = new Uri.Builder()
-                        .appendQueryParameter("email",params[0]);
+                        .appendQueryParameter("cid",params[0])
+                        .appendQueryParameter("oid",params[1]);
 
                 String query = builder.build().getEncodedQuery();
 
@@ -201,38 +182,23 @@ public class Cart extends Fragment {
                 // Extract data from json and store into ArrayList as class objects
                 for(int i=0;i<jArray.length();i++){
                     JSONObject json_data = jArray.getJSONObject(i);
-                    dataList.add(json_data.getString("cart_id"));
+                    dataList.add(json_data.getString("id"));
                     DataVar EData = new DataVar();
-                    EData.cart_id = json_data.getString("cart_id");
-                    EData.cartproduct_id = json_data.getString("product_id");
-                    EData.cartproduct_name = json_data.getString("product_name");
-                    EData.carthsn_code = json_data.getString("hsn_code");
-                    EData.cartproduct_discription_1 = json_data.getString("product_discription_1");
-                    EData.cartproduct_discription_2 = json_data.getString("product_discription_2");
-                    EData.cartproduct_image = json_data.getString("product_image");
-                    EData.cartgst_id = json_data.getString("gst_id");
-                    EData.cartpcategory_id = json_data.getString("category_id");
-                    EData.cartproduct_price = json_data.getString("product_price");
-                    EData.cartproduct_mrp = json_data.getString("product_mrp");
-                    EData.cartproduct_weight = json_data.getString("product_weight");
-                    EData.cartminimum_quantity = json_data.getString("minimum_quantity");
-                    EData.cartunits = json_data.getString("units");
-                    EData.cartstatus = json_data.getString("status");
-                    EData.cartqty = json_data.getString("product_qty");
-                    EData.cartcustomer_id = json_data.getString("customer_id");
+                    EData.quantity = json_data.getString("quantity");
+                    EData.order_product_price = json_data.getString("order_product_price");
+                    EData.orderproduct_image = json_data.getString("product_image");
+                    EData.orderproduct_name = json_data.getString("product_name");
                     data.add(EData);
                 }
                 strArrData = dataList.toArray(new String[dataList.size()]);
 
                 // Setup and Handover data to recyclerview
-                recyclerView.setAdapter(new CartAdapter(context,data));
+                recyclerView.setAdapter(new SubOrderAdapter(SubOrderHistory.this,data));
 
 
             } catch (JSONException e) {
                 Snackbar snackbar = Snackbar.make(parentLayout, "Connection Problem! OR No Internet Connection !", LENGTH_LONG);
-
                 snackbar.show();
-                //Toast.makeText(context, "Please Check Internet Connection", Toast.LENGTH_LONG).show();
             }
 
         }
