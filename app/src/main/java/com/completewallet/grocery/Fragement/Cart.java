@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+import android.widget.TextView;
 
 import com.completewallet.grocery.Activity.Credentials;
 import com.completewallet.grocery.Activity.DataVar;
@@ -58,12 +59,14 @@ public class Cart extends Fragment {
     public static final int READ_TIMEOUT = 15000;
     private String[] strArrData = {"No Suggestions"};
     public Context context;
+    public TextView txttotal;
     public String email;
     View parentLayout;
     public Credentials CData;
     public RecyclerView recyclerView;
     LinearLayout guestlayout ;
     SessionManager manager ;
+    int total= 0;
 
     @Nullable
     @Override
@@ -71,12 +74,13 @@ public class Cart extends Fragment {
         View view =inflater.inflate(R.layout.cartview,container,false);
 
         manager=new SessionManager(getActivity());
-            guestlayout = view.findViewById(R.id.guesusererror);
-            recyclerView=view.findViewById(R.id.cartRecycler);
+        guestlayout = view.findViewById(R.id.guesusererror);
+        recyclerView=view.findViewById(R.id.cartRecycler);
+        txttotal = view.findViewById(R.id.carttotal);
 
-            if (manager.isSkip()){
-                guestlayout.setVisibility(View.VISIBLE);
-                recyclerView.setVisibility(View.GONE);
+        if (manager.isSkip()){
+            guestlayout.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
         }
 
         recyclerView.setNestedScrollingEnabled(false);
@@ -214,6 +218,11 @@ public class Cart extends Fragment {
                     EData.cartgst_id = json_data.getString("gst_id");
                     EData.cartpcategory_id = json_data.getString("category_id");
                     EData.cartproduct_price = json_data.getString("product_price");
+
+                    int price = Integer.parseInt(json_data.getString("product_price"));
+
+                    total = price + total;
+
                     EData.cartproduct_mrp = json_data.getString("product_mrp");
                     EData.cartproduct_weight = json_data.getString("product_weight");
                     EData.cartminimum_quantity = json_data.getString("minimum_quantity");
@@ -223,6 +232,8 @@ public class Cart extends Fragment {
                     EData.cartcustomer_id = json_data.getString("customer_id");
                     data.add(EData);
                 }
+
+                txttotal.setText(String.valueOf(total));
                 strArrData = dataList.toArray(new String[dataList.size()]);
 
                 // Setup and Handover data to recyclerview
