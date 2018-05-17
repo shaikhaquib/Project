@@ -55,8 +55,8 @@
         <activity android:name=".Activity.AboutUs" />
         <activity android:name=".Activity.OrderHistoryActivity" />
         <activity android:name=".Activity.SubOrderHistory" />
+        <activity android:name=".BuyNow"/>
         <activity android:name=".Activity.AddReview" />
-        <activity android:name=".BuyNow" />
     </application>
 
 </manifest>

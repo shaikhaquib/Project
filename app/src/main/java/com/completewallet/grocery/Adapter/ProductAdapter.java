@@ -142,10 +142,11 @@ public class ProductAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHold
                     }
                     builder.setTitle("Sorry ! please login first")
                             .setMessage("guest user this feature not available for guest user")
-                            .setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // continue with delete
-                                    context.startActivity(new Intent(context,LoginActivity.class));
+                                    //SessionManager
+                                    //context.startActivity(new Intent(context,LoginActivity.class));
                                 }
                             })
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

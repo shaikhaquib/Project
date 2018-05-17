@@ -45,6 +45,17 @@ public class Menu extends Fragment {
 
         login=rootview.findViewById(R.id.menuLogin);
         logout=rootview.findViewById(R.id.menuLogout);
+
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                manager.setLogin(false);
+                manager.setSkip(false);
+                startActivity(new Intent(getActivity(),LoginActivity.class));
+            }
+        });
+
         chpassword=rootview.findViewById(R.id.changepass);
         acc=rootview.findViewById(R.id.acc);
         about=rootview.findViewById(R.id.about);
@@ -90,8 +101,9 @@ public class Menu extends Fragment {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),LoginActivity.class));
-            }
+                manager.setLogin(false);
+                manager.setSkip(false);
+                startActivity(new Intent(getActivity(),LoginActivity.class));            }
         });
         return  rootview;
     }

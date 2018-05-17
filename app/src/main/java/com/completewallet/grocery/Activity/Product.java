@@ -57,10 +57,10 @@ public class Product extends AppCompatActivity {
 
     TextView title , desription , mrp  ,price ,quantity ,reviewcount;
     CheckBox minus ,plus;
-    String minimum_quantity,amount ,unit;
+    String minimum_quantity,amount ,unit ,s;
     Button Buynow;
     float wt ,strprice;
-    int count ;
+    int count = 1 ;
 
     private int[] img1 = {
             R.drawable.img,
@@ -125,6 +125,8 @@ public class Product extends AppCompatActivity {
                             .setPositiveButton("Login", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // continue with delete
+                                    manager.setLogin(false);
+                                    manager.setSkip(false);
                                     startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                                 }
                             })
@@ -152,40 +154,41 @@ public class Product extends AppCompatActivity {
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int qt = Integer.valueOf(minimum_quantity);
-                if(count>0){
-                    count--;
-                }
+                    count++;
+                    quantity.setText(String.valueOf(count));
 
                 String s = Float.toString(wt);
-                quantity.setText(String.valueOf(count));
 
                 float amt = Float.valueOf(amount);
-                strprice  = strprice * count;
-                String s2 = Float.toString(strprice);
+                float v1 = strprice * count;
+               // strprice  = strprice * count;
+                String s2 = Float.toString(v1);
 
                 mrp.setText("MRP: Rs."+s2+" /"+ s +" "+ unit);
+
+
 
             }
         });
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int qt = Integer.valueOf(minimum_quantity);
-                if(count>0){
+                if (count >= 1){
                     count--;
+                    quantity.setText(String.valueOf(count));
                 }
-
+//                int qt = Integer.valueOf(minimum_quantity);
                 String s = Float.toString(wt);
-                quantity.setText(String.valueOf(count));
 
-                float amt = Float.valueOf(amount);
-                strprice  = strprice * count;
-                String s2 = Float.toString(strprice);
+                float v1 = strprice * count;
+                String s2 = Float.toString(v1);
 
                 mrp.setText("MRP: Rs."+s2+" /"+ s +" "+ unit);
+
+
             }
         });
+
 
         Reviewlist();
 
@@ -204,8 +207,8 @@ public class Product extends AppCompatActivity {
                     JSONObject jsonObject = array.getJSONObject(0);
 
                     title.setText(jsonObject.getString("product_name"));
-                    quantity.setText(jsonObject.getString("minimum_quantity"));
-                    count = Integer.parseInt(jsonObject.getString("minimum_quantity"));
+                    quantity.setText("1");
+                   // count = 1;
                     minimum_quantity = jsonObject.getString("product_weight");
                     unit=jsonObject.getString("units");
                     mrp.setText("MRP: Rs."+jsonObject.getString("product_price")+" /" +jsonObject.getString("product_weight")+" " + jsonObject.getString("units"));

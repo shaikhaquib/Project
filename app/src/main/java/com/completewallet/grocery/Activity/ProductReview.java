@@ -67,6 +67,8 @@ public class ProductReview extends AppCompatActivity {
                              .setPositiveButton("Login", new DialogInterface.OnClickListener() {
                                  public void onClick(DialogInterface dialog, int which) {
                                      // continue with delete
+                                     manager.setLogin(false);
+                                     manager.setSkip(false);
                                      startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                                  }
                              })
