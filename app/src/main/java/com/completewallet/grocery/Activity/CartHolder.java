@@ -30,7 +30,7 @@ public class CartHolder extends RecyclerView.ViewHolder implements View.OnClickL
         proimg = (ImageView) itemView.findViewById(R.id.proimg);
         /*test=itemView.findViewById(R.id.testtext);
         checkBox=itemView.findViewById(R.id.test);*/
-        //itemView.setOnClickListener(this);
+        //fitemView.setOnClickListener(this);
 
     }
 

@@ -1,9 +1,12 @@
 package com.completewallet.grocery.Activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +25,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.completewallet.grocery.Connecttodb;
 import com.completewallet.grocery.R;
+import com.completewallet.grocery.SessionManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +41,8 @@ public class ProductReview extends AppCompatActivity {
     ArrayList<DataVar>list=new ArrayList<>();
     RequestQueue queue;
     FloatingActionButton actionButton;
+    SessionManager manager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +51,36 @@ public class ProductReview extends AppCompatActivity {
          recyclerView=findViewById(R.id.rvReview);
          queue= Volley.newRequestQueue(this);
          actionButton = findViewById(R.id.addreview);
+         manager = new SessionManager(this);
          actionButton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
 
+                 if (manager.isSkip()){  AlertDialog.Builder builder;
+                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                         builder = new AlertDialog.Builder(ProductReview.this);
+                     } else {
+                         builder = new AlertDialog.Builder(ProductReview.this);
+                     }
+                     builder.setTitle("Sorry ! please login first")
+                             .setMessage("guest user this feature not available for guest user")
+                             .setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                                 public void onClick(DialogInterface dialog, int which) {
+                                     // continue with delete
+                                     startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                                 }
+                             })
+                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                 public void onClick(DialogInterface dialog, int which) {
+                                     //  startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                                 }
+                             })
+                             .show();}else {
+
                  Context context=getApplicationContext();
                  Intent intent = new Intent(context,AddReview.class);
                  intent.putExtra("product_id",getIntent().getStringExtra("product_id"));
-                 startActivity(intent);
+                 startActivity(intent);}
              }
          });
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

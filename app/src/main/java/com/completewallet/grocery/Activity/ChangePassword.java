@@ -77,7 +77,7 @@ public class ChangePassword extends AppCompatActivity {
             final String r1 = confpass.getText().toString().trim();
             final String r2 = old.getText().toString().trim();
             //final String email = getIntent().getStringExtra("EMAIL");
-            final String email = "qwerty@gmail.com";
+            final String email = Global.email;
 
             // Initialize  AsyncLogin() class with email and password
             new ChangePassword.AsyncLogin().execute(r1, r2, email);

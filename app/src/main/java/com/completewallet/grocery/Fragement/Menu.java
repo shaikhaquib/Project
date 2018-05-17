@@ -86,6 +86,12 @@ public class Menu extends Fragment {
             }
         });
 
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),LoginActivity.class));
+            }
+        });
         return  rootview;
     }
 

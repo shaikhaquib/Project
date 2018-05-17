@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
@@ -53,6 +54,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
+
+        SharedPreferences shared =getSharedPreferences("login", MODE_PRIVATE);
+        Global.email = shared.getString( "email", "");
+        Global.password = shared.getString("password","");
+
         parentLayout = findViewById(android.R.id.content);
         bottomNavigationView = (BottomNavigationView)findViewById(R.id.navigation);
         BottomNavigationHelper.disableShiftMode(bottomNavigationView);

@@ -64,7 +64,7 @@ public class AccountUpdate extends AppCompatActivity {
         phno = (EditText) findViewById(R.id.contact);
         btn = (Button) findViewById(R.id.btnreg);
         parentLayout = findViewById(android.R.id.content);
-        new AccountUpdate.UserInfo().execute("qwerty@gmail.com");
+        new AccountUpdate.UserInfo().execute(Global.email);
     }
 
 

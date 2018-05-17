@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_margin="@dimen/activity_vertical_margin"
+    tools:context="com.completewallet.grocery.BuyNow">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/pinlayout"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:text="Please first confirm Pincode"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            android:id="@+id/edtpincode"
+            android:inputType="number"
+            android:hint="PINCODE"
+            android:gravity="center"
+            android:maxLength="6"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:background="@drawable/borderblack"/>
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/validatepin"
+            android:background="@color/colorPrimary"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:textColor="@color/white"
+            android:text="Submit"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:id="@+id/confirmlayout"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:id="@+id/cntitle"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:id="@+id/cnquantity"
+            android:text="quantity : 20 kg"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/activity_vertical_margin"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:id="@+id/cnmrp"
+            android:layout_marginTop="4dp"
+            android:text="MRP: Rs. 110.00"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/activity_vertical_margin"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:id="@+id/cnemai"
+            android:layout_marginTop="20dp"
+            android:text="Email: aquib@gmail.com"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/activity_vertical_margin"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:id="@+id/cnpin"
+            android:layout_marginTop="4dp"
+            android:text="PIN CODE: 410206"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/activity_vertical_margin"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:layout_marginTop="4dp"
+            android:text="Payment : Cash on Delivery"/>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:text="Confirm Order"
+            android:id="@+id/confirmorder"/>
+    </LinearLayout>
+
+</LinearLayout>

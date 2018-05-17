@@ -19,6 +19,7 @@ import com.completewallet.grocery.Activity.Product;
 import com.completewallet.grocery.Adapter.ProductAdapter;
 import com.completewallet.grocery.Adapter.RewardAdapter;
 import com.completewallet.grocery.R;
+import com.completewallet.grocery.SessionManager;
 import com.completewallet.grocery.SpacesItemDecoration;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.InfiniteScrollAdapter;
@@ -60,6 +61,8 @@ public class Home extends Fragment {
     View parentLayout;
     DiscreteScrollView RewardView, RecentTranaction;
     public RecyclerView MainRecycler;
+    SessionManager manager;
+    boolean login =true ;
     private InfiniteScrollAdapter infiniteAdapter, infRecent;
 
 
@@ -69,6 +72,13 @@ public class Home extends Fragment {
         // Inflate the layout for this fragment
         View rootview = inflater.inflate(R.layout.home, container, false);
         context = getActivity();
+        manager =new SessionManager(getActivity());
+
+        if (manager.isSkip()){
+            login=false;
+        }else {
+            login=true;
+        }
         category = "1";
         parentLayout = rootview.findViewById(android.R.id.content);
 
@@ -247,7 +257,7 @@ public class Home extends Fragment {
                 strArrData = dataList.toArray(new String[dataList.size()]);
 
                 // Setup and Handover data to recyclerview
-                MainRecycler.setAdapter(new ProductAdapter(context,data));
+                MainRecycler.setAdapter(new ProductAdapter(context,data,login));
 
 
             } catch (JSONException e) {

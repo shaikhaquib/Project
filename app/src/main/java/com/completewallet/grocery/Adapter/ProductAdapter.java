@@ -1,9 +1,12 @@
 package com.completewallet.grocery.Adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +18,14 @@ import com.completewallet.grocery.Activity.Category;
 import com.completewallet.grocery.Activity.Credentials;
 import com.completewallet.grocery.Activity.DataVar;
 import com.completewallet.grocery.Activity.ItemClickListener;
+import com.completewallet.grocery.Activity.LoginActivity;
 import com.completewallet.grocery.Activity.MainActivity;
 import com.completewallet.grocery.Activity.MyHolder;
 import com.completewallet.grocery.Activity.Product;
 import com.completewallet.grocery.Activity.ProductHolder;
 import com.completewallet.grocery.CustomerRegisterActivity;
 import com.completewallet.grocery.R;
+import com.completewallet.grocery.SessionManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,11 +46,15 @@ public class ProductAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHold
     int currentPos=0;
     int[] img;
     String s;
+    boolean login;
 
-    public ProductAdapter(Context context, List<DataVar> data){
+    public ProductAdapter(Context context, List<DataVar> data, boolean login){
         this.context=context;
         //inflater= LayoutInflater.from(context);
         this.data=data;
+        this.login=login;
+        //SessionManager manager = new SessionManager(context);
+
     }
 
     @Override
@@ -124,12 +133,34 @@ public class ProductAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHold
         myHolder.addtocart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (!login){  AlertDialog.Builder builder;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        builder = new AlertDialog.Builder(context);
+                    } else {
+                        builder = new AlertDialog.Builder(context);
+                    }
+                    builder.setTitle("Sorry ! please login first")
+                            .setMessage("guest user this feature not available for guest user")
+                            .setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+                                    context.startActivity(new Intent(context,LoginActivity.class));
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //  startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                                }
+                            })
+                            .show();}else {
+
                 MainActivity outerObject = new MainActivity();
                 MainActivity.AddToCart innerObject = outerObject.new AddToCart();
                //MainActivity.new AddToCart().execute(current.product_id,current.product_weight,"qwerty@gmail.com");
                 innerObject.execute(current.product_id,s,email);
                 Snackbar snackbar = Snackbar.make(view, "Product Successfully Added To Cart !", Snackbar.LENGTH_LONG);
-                snackbar.show();
+                snackbar.show();}
             }
         });
     }
