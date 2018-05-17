@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:layout_margin="@dimen/activity_vertical_margin"
+    android:background="@drawable/o"
+    android:backgroundTintMode="multiply"
+    android:backgroundTint="#660"
     tools:context="com.completewallet.grocery.BuyNow">
 
 
@@ -14,36 +16,61 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:id="@+id/pinlayout"
         >
-
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/klogo"
+            android:layout_margin="20dp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/activity_vertical_margin"
             android:textSize="20dp"
             android:gravity="center"
+            android:textColor="@color/white"
             android:text="Please first confirm Pincode"/>
 
+        <!--<EditText-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="6dp"-->
+            <!--android:id="@+id/edtpincode"-->
+            <!--android:inputType="number"-->
+            <!--android:hint="PINCODE"-->
+            <!--android:gravity="center"-->
+            <!--android:maxLength="6"-->
+            <!--android:layout_marginLeft="@dimen/activity_vertical_margin"-->
+            <!--android:layout_marginRight="@dimen/activity_vertical_margin"-->
+            <!--android:background="@drawable/borderblack"/>-->
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="6dp"
             android:id="@+id/edtpincode"
-            android:inputType="number"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/border2"
             android:hint="PINCODE"
+            android:textColorHint="#FFFFFF"
+            android:textColor="#FFFFFF"
             android:gravity="center"
-            android:maxLength="6"
-            android:layout_marginLeft="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_vertical_margin"
-            android:background="@drawable/borderblack"/>
-
+            android:inputType="number"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:singleLine="true"
+            android:drawableLeft="@drawable/ic_place"
+            android:drawableTint="@color/white"
+            android:drawableTintMode="src_atop"/>
         <Button
-            android:layout_width="150dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:background="@drawable/border2"
             android:id="@+id/validatepin"
-            android:background="@color/colorPrimary"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_marginRight="@dimen/activity_vertical_margin"
@@ -59,13 +86,21 @@
         android:gravity="center_horizontal"
         android:id="@+id/confirmlayout"
         android:orientation="vertical"
+        android:background="@drawable/o"
+        android:backgroundTintMode="multiply"
+        android:backgroundTint="#660"
         android:visibility="gone">
-
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/klogo"
+            android:layout_margin="20dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Title"
             android:id="@+id/cntitle"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="20dp"/>
 
@@ -73,6 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:textColor="@color/white"
             android:id="@+id/cnquantity"
             android:text="quantity : 20 kg"/>
 
@@ -81,7 +117,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/activity_vertical_margin"
             android:textStyle="bold"
-            android:textColor="#000"
+            android:textColor="@color/white"
             android:id="@+id/cnmrp"
             android:layout_marginTop="4dp"
             android:text="MRP: Rs. 110.00"/>
@@ -91,7 +127,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/activity_vertical_margin"
             android:textStyle="bold"
-            android:textColor="#000"
+            android:textColor="@color/white"
             android:id="@+id/cnemai"
             android:layout_marginTop="20dp"
             android:text="Email: aquib@gmail.com"/>
@@ -101,7 +137,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/activity_vertical_margin"
             android:textStyle="bold"
-            android:textColor="#000"
+            android:textColor="@color/white"
             android:id="@+id/cnpin"
             android:layout_marginTop="4dp"
             android:text="PIN CODE: 410206"/>
@@ -111,17 +147,28 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/activity_vertical_margin"
             android:textStyle="bold"
-            android:textColor="#000"
+            android:textColor="@color/white"
             android:layout_marginTop="4dp"
             android:text="Payment : Cash on Delivery"/>
 
 
+        <!--<Button-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="@dimen/activity_vertical_margin"-->
+            <!--android:text="Confirm Order"-->
+            <!--android:id="@+id/confirmorder"/>-->
         <Button
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_vertical_margin"
-            android:text="Confirm Order"
-            android:id="@+id/confirmorder"/>
+            android:layout_gravity="center"
+            android:background="@drawable/border2"
+            android:id="@+id/confirmorder"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:textColor="@color/white"
+            android:text="Confirm Order"/>
     </LinearLayout>
 
 </LinearLayout>

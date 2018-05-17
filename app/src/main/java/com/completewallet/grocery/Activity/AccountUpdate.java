@@ -371,7 +371,7 @@ public class AccountUpdate extends AppCompatActivity {
                     email.setText((json_data.getString("email_id")));
                     phno.setText((json_data.getString("contact_no")));
                     int spinnerPosition = adapter.getPosition((json_data.getString("city")).trim());
-                    spinner.setSelection(spinnerPosition);
+                    spinner.setSelection(spinnerPosition+1);
                 }
             } catch (JSONException e) {
 

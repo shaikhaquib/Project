@@ -92,7 +92,7 @@ public class Cart extends Fragment {
 
         return view;
     }
-    private class ProductFetch extends AsyncTask<String, String, String> {
+    public class ProductFetch extends AsyncTask<String, String, String> {
         ProgressDialog pdLoading = new ProgressDialog(context);
         HttpURLConnection conn;
         URL url = null;
@@ -233,7 +233,7 @@ public class Cart extends Fragment {
                     data.add(EData);
                 }
 
-                txttotal.setText(String.valueOf(total));
+                txttotal.setText(String.valueOf("Total Price :- ₹. "+total));
                 strArrData = dataList.toArray(new String[dataList.size()]);
 
                 // Setup and Handover data to recyclerview
@@ -250,4 +250,5 @@ public class Cart extends Fragment {
         }
 
     }
+
 }

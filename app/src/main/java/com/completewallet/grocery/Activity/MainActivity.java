@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     Alert alert;
     Cart cart;
     Menu menu;
-
+    public String catid;
     BottomNavigationView bottomNavigationView;
     MenuItem prevMenuItem;
 
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
-
+        catid = getIntent().getStringExtra("category_id");
         SharedPreferences shared =getSharedPreferences("login", MODE_PRIVATE);
         Global.email = shared.getString( "email", "");
         Global.password = shared.getString("password","");
@@ -92,6 +93,10 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.navigation_home:
                 // Action to perform when Home Menu item is selected.
+                Bundle bundle = new Bundle();
+                bundle.putString("catid", catid);
+                Home tabe = new Home();
+                tabe.setArguments(bundle);
                 pushFragment(new Home());
                 break;
             case R.id.navigation_alert:
@@ -100,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.navigation_cart:
                 // Action to perform when Account Menu item is selected.
+
                 pushFragment(new Cart());
                 break;
             case R.id.navigation_menu:

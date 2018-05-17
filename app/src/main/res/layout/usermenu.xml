@@ -5,6 +5,9 @@
     android:id="@+id/appbar_layout_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/o"
+    android:backgroundTintMode="multiply"
+    android:backgroundTint="#660"
     >
 
     <android.support.design.widget.AppBarLayout
@@ -17,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:title="User Menu"
+            app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -48,7 +52,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <TextView
                 android:id="@+id/acc"
@@ -57,7 +62,8 @@
                 android:text="Account"
                 android:textSize="@dimen/activity_vertical_margin"
                 android:drawableLeft="@drawable/ic_person_black_24dp"
-                android:drawableTint="@android:color/darker_gray"
+                android:drawableTint="@android:color/white"
+                android:textColor="@color/white"
                 android:drawablePadding="@dimen/activity_vertical_margin"
                 android:padding="12dp"/>
 
@@ -73,7 +79,8 @@
                 android:text="Order History"
                 android:textSize="@dimen/activity_vertical_margin"
                 android:drawableLeft="@drawable/ic_shopping_cart_black_24dp"
-                android:drawableTint="@android:color/darker_gray"
+                android:drawableTint="@android:color/white"
+                android:textColor="@color/white"
                 android:drawablePadding="@dimen/activity_vertical_margin"
                 android:padding="12dp"/>
 
@@ -89,7 +96,8 @@
                 android:text="Change Password"
                 android:textSize="@dimen/activity_vertical_margin"
                 android:drawableLeft="@drawable/ic_key"
-                android:drawableTint="@android:color/darker_gray"
+                android:drawableTint="@android:color/white"
+                android:textColor="@color/white"
                 android:drawablePadding="@dimen/activity_vertical_margin"
                 android:padding="12dp"/>
 
@@ -104,7 +112,8 @@
                 android:layout_height="wrap_content"
                 android:text="About us"
                 android:drawableLeft="@drawable/ic_aboutus"
-                android:drawableTint="@android:color/darker_gray"
+                android:drawableTint="@android:color/white"
+                android:textColor="@color/white"
                 android:drawablePadding="@dimen/activity_vertical_margin"
                 android:textSize="@dimen/activity_vertical_margin"
                 android:padding="12dp"/>
@@ -122,7 +131,8 @@
                 android:padding="12dp"
                 android:id="@+id/menuLogout"
                 android:drawableLeft="@drawable/ic_power_settings_new_black_24dp"
-                android:drawableTint="@android:color/darker_gray"
+                android:drawableTint="@android:color/white"
+                android:textColor="@color/white"
                 android:drawablePadding="@dimen/activity_vertical_margin"/>
 
             <View
@@ -138,7 +148,8 @@
                 android:padding="12dp"
                 android:id="@+id/menuLogin"
                 android:drawableLeft="@drawable/ic_power_settings_new_black_24dp"
-                android:drawableTint="@android:color/darker_gray"
+                android:drawableTint="@android:color/white"
+                android:textColor="@color/white"
                 android:drawablePadding="@dimen/activity_vertical_margin"/>
 
 

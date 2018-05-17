@@ -19,7 +19,8 @@ import com.completewallet.grocery.Activity.Category;
         import com.completewallet.grocery.Activity.Product;
         import com.completewallet.grocery.Activity.ProductHolder;
         import com.completewallet.grocery.CustomerRegisterActivity;
-        import com.completewallet.grocery.R;
+import com.completewallet.grocery.Fragement.Cart;
+import com.completewallet.grocery.R;
 
         import java.util.ArrayList;
         import java.util.Collections;
@@ -86,6 +87,8 @@ public class CartAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
                 innerObject.execute(current.cart_id);
                 Snackbar snackbar = Snackbar.make(view, "Product Successfully Removed From Cart !"+current.cart_id, Snackbar.LENGTH_LONG);
                 snackbar.show();
+                Intent intent = new Intent(context,MainActivity.class);
+                context.startActivity(intent);
             }
         });
     }
