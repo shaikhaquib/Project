@@ -79,7 +79,10 @@ public class Home extends Fragment {
         }else {
             login=true;
         }
-        category = "1";
+        if (getArguments() != null) {
+            //category = getArguments().getString("catid");
+        }
+        category = "2";
         parentLayout = rootview.findViewById(android.R.id.content);
 
         Intialization(rootview);
