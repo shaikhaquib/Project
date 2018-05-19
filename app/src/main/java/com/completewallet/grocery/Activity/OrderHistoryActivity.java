@@ -2,6 +2,8 @@ package com.completewallet.grocery.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
@@ -12,8 +14,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.completewallet.grocery.Adapter.CartAdapter;
 import com.completewallet.grocery.Adapter.OrderHistoryAdapter;
@@ -48,34 +53,51 @@ public class OrderHistoryActivity extends AppCompatActivity {
     public String email;
     View parentLayout;
     SwipeRefreshLayout mSwipeRefreshLayout;
+    public TextView loginlink;
     public Credentials CData;
     public RecyclerView recyclerView;
-    LinearLayout guestlayout ;
+    LinearLayout guestlayout,main ;
     SessionManager manager ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_history);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         parentLayout = findViewById(android.R.id.content);
         manager=new SessionManager(OrderHistoryActivity.this);
         guestlayout = findViewById(R.id.guesusererror);
+        loginlink = findViewById(R.id.loginlink);
+        main = findViewById(R.id.main);
         recyclerView=findViewById(R.id.rvHistory);
 
         if (manager.isSkip()){
             guestlayout.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
+            main.setVisibility(View.GONE);
         }
+        loginlink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                manager.setLogin(false);
+                manager.setSkip(false);
+                SharedPreferences login = getSharedPreferences("login", MODE_PRIVATE);
+                SharedPreferences.Editor deditor = login.edit();
+                deditor.clear();
+                deditor.commit();
+                startActivity(new Intent(OrderHistoryActivity.this,LoginActivity.class));
+                finish();
+            }
+        });
         LinearLayoutManager layoutManager = new LinearLayoutManager(OrderHistoryActivity.this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layoutManager);
         mSwipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swifeRefresh);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new OrderFetch().execute("qwerty@gmail.com");
+                new OrderFetch().execute(Global.email);
             }
         });
         //Make call to AsyncTask
-        new OrderFetch().execute("qwerty@gmail.com");
+        new OrderFetch().execute(Global.email);
     }
     private class OrderFetch extends AsyncTask<String, String, String> {
         ProgressDialog pdLoading = new ProgressDialog(OrderHistoryActivity.this);
@@ -216,7 +238,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
 
             } catch (JSONException e) {
-                Snackbar snackbar = Snackbar.make(parentLayout, "Connection Problem! OR No Internet Connection !", LENGTH_LONG);
+                Snackbar snackbar = Snackbar.make(parentLayout, "Sorry Your Order History is Empty !", LENGTH_LONG);
 
                 snackbar.show();
                 //Toast.makeText(context, "Please Check Internet Connection", Toast.LENGTH_LONG).show();
@@ -224,5 +246,13 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
         }
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                super.onBackPressed();
+                break;
+        } return true;
     }
 }

@@ -20,6 +20,9 @@ public class DataVar {
     public String units;
     public String status;
     public String minimum_quantity;
+    public int minimum;
+    public int minteger;
+    public String finalqty;
 
     //cart item holder variables
     public String cart_id;
@@ -60,4 +63,14 @@ public class DataVar {
     public String order_product_price;
     public String orderproduct_image;
     public String orderproduct_name;
+    public String ppri;
+
+
+    public int multicartprice;
+    public int multicartweight;
+    public int multicartqty;
+    public String current_product_weight;
+    public int mul_current_product_weight;
+    public String current_product_unit;
+    public int mul_current_product_qty;
 }

@@ -125,7 +125,7 @@
                 android:id="@+id/productreviews"
                 android:textColor="@color/colorPrimary"
                 android:layout_marginRight="@dimen/activity_vertical_margin"
-                android:text="2 Review"/>
+                android:text="0 Review"/>
         </LinearLayout>
 
         <TextView
@@ -133,7 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:id="@+id/prdesc"
-            android:text="Striking the perfect blend between sweet and tangy, the Kissan Strawberry Blast Jam is a rare combination of lush, red, succulent strawberries with a tiny bite of the seed, to create mouth-watering spread with a burst of real fruit flavour."/>
+            android:text="Description Not Available Sorry !"/>
 
 
 

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.completewallet.grocery.Activity.DataVar;
+import com.completewallet.grocery.Activity.Global;
 import com.completewallet.grocery.Activity.Product;
 import com.completewallet.grocery.Adapter.ProductAdapter;
 import com.completewallet.grocery.Adapter.RewardAdapter;
@@ -64,13 +65,15 @@ public class Home extends Fragment {
     SessionManager manager;
     boolean login =true ;
     private InfiniteScrollAdapter infiniteAdapter, infRecent;
+    View rootview;
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootview = inflater.inflate(R.layout.home, container, false);
+        rootview = inflater.inflate(R.layout.home, container, false);
         context = getActivity();
         manager =new SessionManager(getActivity());
 
@@ -79,10 +82,8 @@ public class Home extends Fragment {
         }else {
             login=true;
         }
-        if (getArguments() != null) {
-            //category = getArguments().getString("catid");
-        }
-        category = "2";
+
+        category = Global.cateid;
         parentLayout = rootview.findViewById(android.R.id.content);
 
         Intialization(rootview);
@@ -90,21 +91,7 @@ public class Home extends Fragment {
         return rootview;
     }
 
-    public  boolean success(){
-        Snackbar snackbar = Snackbar.make(getView(), "Product Successfully Added To Cart !", Snackbar.LENGTH_LONG);
-        snackbar.show();
-        return true;
-    }
-    public  boolean error(){
-        Snackbar snackbar = Snackbar.make(getView(), "oops! Please try again !", Snackbar.LENGTH_LONG);
-        snackbar.show();
-        return true;
-    }
-    public  boolean tryagain(){
-        Snackbar snackbar = Snackbar.make(getView(), "Connection Problem! OR No Internet Connection !", Snackbar.LENGTH_LONG);
-        snackbar.show();
-        return true;
-    }
+
     private void Intialization(View rootview) {
         MainRecycler=rootview.findViewById(R.id.homelist);
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.activity_horzontal);
@@ -253,6 +240,7 @@ public class Home extends Fragment {
                     EData.product_mrp = json_data.getString("product_mrp");
                     EData.product_weight = json_data.getString("product_weight");
                     EData.minimum_quantity = json_data.getString("minimum_quantity");
+                    EData.minimum = Integer.parseInt(json_data.getString("minimum_quantity"));
                     EData.units = json_data.getString("units");
                     EData.status = json_data.getString("status");
                     data.add(EData);
@@ -264,10 +252,10 @@ public class Home extends Fragment {
 
 
             } catch (JSONException e) {
-                Snackbar snackbar = Snackbar.make(parentLayout, "Connection Problem! OR No Internet Connection !", LENGTH_LONG);
+                Snackbar snackbar = Snackbar.make(rootview, "No Product Available In This Category !", LENGTH_LONG);
 
                 snackbar.show();
-                //Toast.makeText(context, "Please Check Internet Connection", Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, "No Product Available In This Category !", Toast.LENGTH_LONG).show();
             }
 
         }

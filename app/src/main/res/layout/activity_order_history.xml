@@ -7,6 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".Activity.OrderHistoryActivity"
     android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/main">
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swifeRefresh"
         android:layout_width="match_parent"
@@ -14,34 +19,39 @@
         >
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rvHistory"/>
         </ScrollView>
+
     </android.support.v4.widget.SwipeRefreshLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/guesusererror"
-        android:visibility="gone"
-        android:layout_centerInParent="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/activity_vertical_margin"
-            android:textColor="@android:color/black"
-            android:text="You have login as a guest user !"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/activity_vertical_margin"
-            android:textColor="@color/colorPrimary"
-            android:text=" Login"/>
+</LinearLayout>
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:gravity="center"
+    android:layout_gravity="center"
+android:id="@+id/guesusererror"
+android:visibility="gone"
+android:layout_centerInParent="true">
 
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="@dimen/activity_vertical_margin"
+    android:textColor="@android:color/black"
+    android:text="You have login as a guest user !"/>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/loginlink"
+    android:textSize="@dimen/activity_vertical_margin"
+    android:textColor="@color/colorPrimary"
+    android:text=" Login"/>
 
-    </LinearLayout>
+</LinearLayout>
 </LinearLayout>

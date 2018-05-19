@@ -76,11 +76,12 @@ public class AddReview extends AppCompatActivity {
                 dialog.dismiss();
                 Toast.makeText(AddReview.this, response, Toast.LENGTH_LONG).show();
 
-                if (response.equals("Thanks for you review")){
+                if (response.equals("Thanks for your review")){
                     Context context=getApplicationContext();
                     Intent intent = new Intent(context,ProductReview.class);
                     intent.putExtra("product_id",getIntent().getStringExtra("product_id"));
                     startActivity(intent);
+                    finish();
                 }
             }
         }, new Response.ErrorListener() {

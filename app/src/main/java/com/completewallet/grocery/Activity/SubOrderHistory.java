@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.completewallet.grocery.Adapter.OrderHistoryAdapter;
@@ -51,6 +52,7 @@ public class SubOrderHistory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub_order_history);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         parentLayout = findViewById(android.R.id.content);
         oid = getIntent().getStringExtra("orderid");
         cid = getIntent().getStringExtra("custid");
@@ -188,6 +190,8 @@ public class SubOrderHistory extends AppCompatActivity {
                     EData.order_product_price = json_data.getString("order_product_price");
                     EData.orderproduct_image = json_data.getString("product_image");
                     EData.orderproduct_name = json_data.getString("product_name");
+                    EData.current_product_weight = json_data.getString("current_product_weight");
+                    EData.current_product_unit = json_data.getString("current_product_unit");
                     data.add(EData);
                 }
                 strArrData = dataList.toArray(new String[dataList.size()]);
@@ -203,5 +207,13 @@ public class SubOrderHistory extends AppCompatActivity {
 
         }
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                super.onBackPressed();
+                break;
+        } return true;
     }
 }

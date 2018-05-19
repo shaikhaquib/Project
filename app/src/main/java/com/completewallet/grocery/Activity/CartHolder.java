@@ -11,7 +11,7 @@ package com.completewallet.grocery.Activity;
 
 public class CartHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-    public TextView productname,description,price,mrp,quantity;
+    public TextView productname,description,price,mrp,cquantity;
     public CheckBox minus,plus,removefromcart;
     public Button buynow;
     public ImageView proimg;
@@ -25,6 +25,7 @@ public class CartHolder extends RecyclerView.ViewHolder implements View.OnClickL
         description= (TextView) itemView.findViewById(R.id.description);
         price= (TextView) itemView.findViewById(R.id.price);
         mrp= (TextView) itemView.findViewById(R.id.mrp);
+        cquantity= (TextView) itemView.findViewById(R.id.cartqty);
         removefromcart= (CheckBox) itemView.findViewById(R.id.removefromcart);
         buynow= (Button) itemView.findViewById(R.id.buynow);
         proimg = (ImageView) itemView.findViewById(R.id.proimg);

@@ -23,6 +23,7 @@ import com.completewallet.grocery.Activity.MainActivity;
 import com.completewallet.grocery.Activity.MyHolder;
 import com.completewallet.grocery.Activity.Product;
 import com.completewallet.grocery.Activity.ProductHolder;
+import com.completewallet.grocery.BuyNow;
 import com.completewallet.grocery.CustomerRegisterActivity;
 import com.completewallet.grocery.R;
 import com.completewallet.grocery.SessionManager;
@@ -35,7 +36,8 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class ProductAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHolder>  {
     //ProductHolder myHolder;
-    float wt;
+    int minteger = 1;
+    int cal2,cal3;
     int i=0;
     public View view;
     public Credentials CData;
@@ -45,7 +47,7 @@ public class ProductAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHold
     DataVar current;
     int currentPos=0;
     int[] img;
-    String s;
+    String s,sp,swt;
     boolean login;
 
     public ProductAdapter(Context context, List<DataVar> data, boolean login){
@@ -77,15 +79,19 @@ public class ProductAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHold
         myHolder.mrp.setText("₹."+current.product_mrp+" "+"/"+" "+current.product_weight+current.units);
       //  myHolder.quantity.setText(current.product_weight);
 
-
+        final int calwt=Integer.parseInt(current.product_weight);
+        final int calprice=Integer.parseInt(current.product_price);
+current.finalqty="1";
+current.ppri = current.product_price;
         myHolder.plus.setTag(current);
         myHolder.minus.setTag(current);
-        myHolder.quantity.setTag(current);
+        myHolder.quantity.setText(current.minimum_quantity);
         myHolder.addtocart.setTag(current);
     myHolder.viewdetails.setTag(current);
 
         Glide.with(context).load(current.product_image).into(myHolder.proimg);
-        wt = Float.valueOf(current.product_weight);
+
+        final int[] wt = {Integer.parseInt(current.product_weight)};
 
        /* myHolder.serItemClickListener(new ItemClickListener() {
             @Override
@@ -111,23 +117,56 @@ public class ProductAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHold
             @Override
             public void onClick(View v) {
 
-                float qt = Float.valueOf(current.minimum_quantity);
-                wt = wt + qt;
+                /*int qt = Integer.parseInt(current.minimum_quantity);
+                wt[0] = wt[0] + qt;
 
-                 s = Float.toString(wt);
-                myHolder.quantity.setText(s);
+                 s = Float.toString(wt[0]);
+                myHolder.quantity.setText(s);*/
+
+
+                if(current.minimum<99) {
+                    current.minimum = current.minimum + 1;
+
+                    cal2 = calprice * current.minimum;
+                    cal3 = calwt * current.minimum;
+                    sp =String.valueOf(cal2);
+                    current.ppri = sp;
+                    swt =String.valueOf(cal3);
+                    String mn =String.valueOf(current.minimum);
+                    current.minteger = current.minimum;
+                    myHolder.price.setText("₹. "+sp+" "+"/"+" "+swt+current.units);
+                    myHolder.quantity.setText(mn);
+                    current.finalqty = mn;
+
+                }
             }
         });
         myHolder.minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                float qt = Float.valueOf(current.minimum_quantity);
-                if(wt>0){
-                    wt = wt - qt;
+                /*int qt = Integer.parseInt(current.minimum_quantity);
+                if(wt[0] >0){
+                    wt[0] = wt[0] - qt;
                 }
 
-                 s = Float.toString(wt);
-                myHolder.quantity.setText(s);
+                 s = Float.toString(wt[0]);
+                myHolder.quantity.setText(s);*/
+                if(current.minteger>1) {
+                    current.minteger = current.minteger - 1;
+                    cal2 = calprice * current.minteger;
+                    cal3 = calwt * current.minteger;
+                    sp =String.valueOf(cal2);
+                    current.ppri = sp;
+                    swt =String.valueOf(cal3);
+                    String mn =String.valueOf(current.minteger);
+                    current.minimum = current.minteger;
+                    myHolder.price.setText("₹. "+sp+" "+"/"+" "+swt+current.units);
+                    myHolder.quantity.setText(mn);
+                    current.finalqty = mn;
+                }
+                else {
+                    myHolder.quantity.setText("1");
+                }
             }
         });
         myHolder.addtocart.setOnClickListener(new View.OnClickListener() {
@@ -141,7 +180,7 @@ public class ProductAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHold
                         builder = new AlertDialog.Builder(context);
                     }
                     builder.setTitle("Sorry ! please login first")
-                            .setMessage("guest user this feature not available for guest user")
+                            .setMessage("This feature not available for guest user")
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // continue with delete
@@ -159,9 +198,47 @@ public class ProductAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHold
                 MainActivity outerObject = new MainActivity();
                 MainActivity.AddToCart innerObject = outerObject.new AddToCart();
                //MainActivity.new AddToCart().execute(current.product_id,current.product_weight,"qwerty@gmail.com");
-                innerObject.execute(current.product_id,s,email);
+
+                /*if(myHolder.quantity.getText().toString().trim() == "1"){
+                    innerObject.execute(current.product_id,"1",email);
+                }else{*/
+                    innerObject.execute(current.product_id,current.finalqty,email);
+                //}
                 Snackbar snackbar = Snackbar.make(view, "Product Successfully Added To Cart !", Snackbar.LENGTH_LONG);
                 snackbar.show();}
+            }
+        });
+        myHolder.buynow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!login){  AlertDialog.Builder builder;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        builder = new AlertDialog.Builder(context);
+                    } else {
+                        builder = new AlertDialog.Builder(context);
+                    }
+                    builder.setTitle("Sorry ! please login first")
+                            .setMessage("This feature not available for guest user")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+                                    //SessionManager
+                                    //context.startActivity(new Intent(context,LoginActivity.class));
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //  startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                                }
+                            })
+                            .show();}else {
+                    Intent intent = new Intent(context, BuyNow.class);
+                    intent.putExtra("product_id", current.product_id);
+                    intent.putExtra("quantity", current.finalqty);
+                    intent.putExtra("name", current.product_name);
+                    intent.putExtra("price", current.ppri);
+                    context.startActivity(intent);
+                }
             }
         });
     }

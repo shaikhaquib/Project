@@ -114,7 +114,10 @@ public class BuyNow extends AppCompatActivity {
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // continue with delete
-                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                //startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                                intent.putExtra("category_id","1");
+                                getApplicationContext().startActivity(intent);
                             }
                         })
                         .show();

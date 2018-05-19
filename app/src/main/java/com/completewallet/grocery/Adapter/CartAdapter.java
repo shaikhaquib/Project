@@ -1,9 +1,12 @@
 package com.completewallet.grocery.Adapter;
 
 import android.content.Context;
-        import android.content.Intent;
-        import android.support.design.widget.Snackbar;
-        import android.support.v7.widget.RecyclerView;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Build;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.RecyclerView;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
@@ -18,7 +21,8 @@ import com.completewallet.grocery.Activity.Category;
         import com.completewallet.grocery.Activity.MyHolder;
         import com.completewallet.grocery.Activity.Product;
         import com.completewallet.grocery.Activity.ProductHolder;
-        import com.completewallet.grocery.CustomerRegisterActivity;
+import com.completewallet.grocery.BuyNow;
+import com.completewallet.grocery.CustomerRegisterActivity;
 import com.completewallet.grocery.Fragement.Cart;
 import com.completewallet.grocery.R;
 
@@ -37,11 +41,14 @@ public class CartAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
     DataVar current;
     int currentPos=0;
     int[] img;
+    boolean login;
 
-    public CartAdapter(Context context, List<DataVar> data){
+    public CartAdapter(Context context, List<DataVar> data, boolean login){
         this.context=context;
         //inflater= LayoutInflater.from(context);
         this.data=data;
+        this.login=login;
+        //SessionManager manager = new SessionManager(context);
     }
 
     @Override
@@ -58,8 +65,18 @@ public class CartAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         myHolder.productname.setText(current.cartproduct_name);
         myHolder.description.setText(current.cartproduct_discription_1);
-        myHolder.price.setText("₹. "+current.cartproduct_price+" "+"/"+" "+current.cartproduct_weight+current.cartunits);
+        current.multicartprice= Integer.parseInt(current.cartproduct_price);
+        current.multicartweight= Integer.parseInt(current.cartproduct_weight);
+        current.multicartqty= Integer.parseInt(current.cartqty);
+        current.multicartprice = current.multicartprice * current.multicartqty;
+        current.multicartweight = current.multicartweight * current.multicartqty;
+
+        //myHolder.price.setText("₹. "+current.cartproduct_price+" "+"/"+" "+current.cartproduct_weight+current.cartunits);
+        myHolder.price.setText("₹. "+current.multicartprice+" "+"/"+" "+current.multicartweight+current.cartunits);
         myHolder.mrp.setText("₹."+current.cartproduct_mrp+" "+"/"+" "+current.cartproduct_weight+current.cartunits);
+
+
+        myHolder.cquantity.setText("Quantity :- "+current.cartqty);
         //  myHolder.quantity.setText(current.product_weight);
 
         myHolder.removefromcart.setTag(current);
@@ -76,7 +93,39 @@ public class CartAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
                 context.startActivity(intent);
             }
         });*/
-
+        myHolder.buynow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!login){  AlertDialog.Builder builder;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        builder = new AlertDialog.Builder(context);
+                    } else {
+                        builder = new AlertDialog.Builder(context);
+                    }
+                    builder.setTitle("Sorry ! please login first")
+                            .setMessage("This feature not available for guest user")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+                                    //SessionManager
+                                    //context.startActivity(new Intent(context,LoginActivity.class));
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //  startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                                }
+                            })
+                            .show();}else {
+                    Intent intent = new Intent(context, BuyNow.class);
+                    intent.putExtra("product_id", current.cartproduct_id);
+                    intent.putExtra("quantity", current.cartqty);
+                    intent.putExtra("name", current.cartproduct_name);
+                    intent.putExtra("price", current.multicartprice);
+                    context.startActivity(intent);
+                }
+            }
+        });
 
         myHolder.removefromcart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +137,7 @@ public class CartAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
                 Snackbar snackbar = Snackbar.make(view, "Product Successfully Removed From Cart !"+current.cart_id, Snackbar.LENGTH_LONG);
                 snackbar.show();
                 Intent intent = new Intent(context,MainActivity.class);
+                intent.putExtra("category_id","1");
                 context.startActivity(intent);
             }
         });

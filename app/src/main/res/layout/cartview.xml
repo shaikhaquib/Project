@@ -13,7 +13,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="Total Price :- ₹. "
+        android:text="Total Price :- ₹. 00"
         android:id="@+id/carttotal"
         android:gravity="center"
         android:textSize="20sp"
@@ -66,6 +66,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/loginlink"
             android:textSize="@dimen/activity_vertical_margin"
             android:textColor="@color/colorPrimary"
             android:text=" Login"/>

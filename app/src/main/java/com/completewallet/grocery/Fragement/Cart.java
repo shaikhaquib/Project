@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,6 +21,9 @@ import android.widget.TextView;
 
 import com.completewallet.grocery.Activity.Credentials;
 import com.completewallet.grocery.Activity.DataVar;
+import com.completewallet.grocery.Activity.Global;
+import com.completewallet.grocery.Activity.LoginActivity;
+import com.completewallet.grocery.Activity.OrderHistoryActivity;
 import com.completewallet.grocery.Activity.Product;
 import com.completewallet.grocery.Adapter.CartAdapter;
 import com.completewallet.grocery.Adapter.Holder;
@@ -59,7 +63,7 @@ public class Cart extends Fragment {
     public static final int READ_TIMEOUT = 15000;
     private String[] strArrData = {"No Suggestions"};
     public Context context;
-    public TextView txttotal;
+    public TextView txttotal,loginlink;
     public String email;
     View parentLayout;
     public Credentials CData;
@@ -67,26 +71,48 @@ public class Cart extends Fragment {
     LinearLayout guestlayout ;
     SessionManager manager ;
     int total= 0;
-
+    boolean login =true ;
+    View view;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.cartview,container,false);
+        view =inflater.inflate(R.layout.cartview,container,false);
 
         manager=new SessionManager(getActivity());
         guestlayout = view.findViewById(R.id.guesusererror);
         recyclerView=view.findViewById(R.id.cartRecycler);
         txttotal = view.findViewById(R.id.carttotal);
+        loginlink = view.findViewById(R.id.loginlink);
+
+        if (manager.isSkip()){
+            login=false;
+        }else {
+            login=true;
+        }
 
         if (manager.isSkip()){
             guestlayout.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
         }
-
+        loginlink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                manager.setLogin(false);
+                manager.setSkip(false);
+                SharedPreferences login = getActivity().getSharedPreferences("login", getActivity().MODE_PRIVATE);
+                SharedPreferences.Editor deditor = login.edit();
+                deditor.clear();
+                deditor.commit();
+                startActivity(new Intent(getActivity(),LoginActivity.class));
+                getActivity().finish();
+            }
+        });
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         context = getActivity();
-        email = "qwerty@gmail.com";
+        /*SharedPreferences shared =this.getActivity().getSharedPreferences("login", context.MODE_PRIVATE);
+        Global.email = shared.getString( "email", "");*/
+        email = Global.email;
         parentLayout = view.findViewById(android.R.id.content);
         new Cart.ProductFetch().execute(email);
 
@@ -219,9 +245,7 @@ public class Cart extends Fragment {
                     EData.cartpcategory_id = json_data.getString("category_id");
                     EData.cartproduct_price = json_data.getString("product_price");
 
-                    int price = Integer.parseInt(json_data.getString("product_price"));
 
-                    total = price + total;
 
                     EData.cartproduct_mrp = json_data.getString("product_mrp");
                     EData.cartproduct_weight = json_data.getString("product_weight");
@@ -229,6 +253,12 @@ public class Cart extends Fragment {
                     EData.cartunits = json_data.getString("units");
                     EData.cartstatus = json_data.getString("status");
                     EData.cartqty = json_data.getString("product_qty");
+
+                    int price = Integer.parseInt(json_data.getString("product_price"));
+                    int wt = Integer.parseInt(json_data.getString("product_qty"));
+                    price=price*wt;
+
+                    total = price + total;
                     EData.cartcustomer_id = json_data.getString("customer_id");
                     data.add(EData);
                 }
@@ -237,14 +267,14 @@ public class Cart extends Fragment {
                 strArrData = dataList.toArray(new String[dataList.size()]);
 
                 // Setup and Handover data to recyclerview
-                recyclerView.setAdapter(new CartAdapter(context,data));
+                recyclerView.setAdapter(new CartAdapter(context,data,login));
 
 
             } catch (JSONException e) {
-//                Snackbar snackbar = Snackbar.make(parentLayout, "Connection Problem! OR No Internet Connection !", LENGTH_LONG);
-//
-//                snackbar.show();
-                Toast.makeText(context, "No Item In Cart Or Please Check Internet Connection", Toast.LENGTH_LONG).show();
+                Snackbar snackbar = Snackbar.make(view, "No Item In Cart Or Please Check Internet Connection !", LENGTH_LONG);
+
+                snackbar.show();
+                //Toast.makeText(context, "No Item In Cart Or Please Check Internet Connection", Toast.LENGTH_LONG).show();
             }
 
         }

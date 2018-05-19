@@ -82,7 +82,8 @@ public class ProductReview extends AppCompatActivity {
                  Context context=getApplicationContext();
                  Intent intent = new Intent(context,AddReview.class);
                  intent.putExtra("product_id",getIntent().getStringExtra("product_id"));
-                 startActivity(intent);}
+                 startActivity(intent);
+                 finish();}
              }
          });
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

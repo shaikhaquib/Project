@@ -1,7 +1,9 @@
 package com.completewallet.grocery.Fragement;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -27,7 +29,7 @@ import com.completewallet.grocery.SessionManager;
 
 public class Menu extends Fragment {
 
-    TextView login ,logout,chpassword,acc,about,ohis;
+    TextView login ,logout,chpassword,acc,about,ohis,menuLogout;
     SessionManager manager;
 
     @Override
@@ -53,12 +55,14 @@ public class Menu extends Fragment {
                 manager.setLogin(false);
                 manager.setSkip(false);
                 startActivity(new Intent(getActivity(),LoginActivity.class));
+                getActivity().finish();
             }
         });
 
         chpassword=rootview.findViewById(R.id.changepass);
         acc=rootview.findViewById(R.id.acc);
         about=rootview.findViewById(R.id.about);
+        menuLogout=rootview.findViewById(R.id.menuLogout);
         ohis=rootview.findViewById(R.id.ohis);
         manager=new SessionManager(getActivity());
 
@@ -103,7 +107,26 @@ public class Menu extends Fragment {
             public void onClick(View v) {
                 manager.setLogin(false);
                 manager.setSkip(false);
-                startActivity(new Intent(getActivity(),LoginActivity.class));            }
+                SharedPreferences login = getActivity().getSharedPreferences("login", getActivity().MODE_PRIVATE);
+                SharedPreferences.Editor deditor = login.edit();
+                deditor.clear();
+                deditor.commit();
+                startActivity(new Intent(getActivity(),LoginActivity.class));
+                getActivity().finish();
+            }
+        });
+        menuLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                manager.setLogin(false);
+                manager.setSkip(false);
+                SharedPreferences login = getActivity().getSharedPreferences("login", getActivity().MODE_PRIVATE);
+                SharedPreferences.Editor deditor = login.edit();
+                deditor.clear();
+                deditor.commit();
+                startActivity(new Intent(getActivity(),LoginActivity.class));
+                getActivity().finish();
+            }
         });
         return  rootview;
     }

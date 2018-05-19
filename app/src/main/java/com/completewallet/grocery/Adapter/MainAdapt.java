@@ -59,7 +59,6 @@ public class MainAdapt extends  RecyclerView.Adapter<RecyclerView.ViewHolder>  {
             public void onItemClick(View v, int pos) {
                 Intent intent = new Intent(context,MainActivity.class);
                 intent.putExtra("category_id",current.category_id);
-                Toast.makeText(context, ""+current.category_id, Toast.LENGTH_SHORT).show();
                 context.startActivity(intent);
             }
         });

@@ -51,7 +51,11 @@ public class SubOrderAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHold
         SubOrderHolder myHolder= (SubOrderHolder) holder;
         final DataVar current=data.get(position);
         myHolder.productname.setText(current.orderproduct_name);
-        myHolder.price.setText("Price :- ₹. "+current.order_product_price);
+        current.mul_current_product_weight = Integer.parseInt(current.current_product_weight);
+        current.mul_current_product_qty = Integer.parseInt(current.quantity);
+        current.mul_current_product_weight = current.mul_current_product_weight * current.mul_current_product_qty;
+        current.current_product_weight = String.valueOf(current.mul_current_product_weight);
+        myHolder.price.setText("Price :- ₹. "+current.order_product_price+" / "+current.current_product_weight+current.current_product_unit);
         myHolder.qty.setText("Product Quantity :- "+current.quantity);
         Glide.with(context).load(current.orderproduct_image).into(myHolder.ProductImage);
     }

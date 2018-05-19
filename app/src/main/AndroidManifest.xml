@@ -52,7 +52,12 @@
             android:screenOrientation="portrait" />
         <activity android:name=".Activity.ChangePassword" />
         <activity android:name=".Activity.AccountUpdate" />
-        <activity android:name=".Activity.AboutUs" />
+        <activity android:name=".Activity.AboutUs"
+            android:parentActivityName=".Activity.MainActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MainActivity" /></activity>
         <activity android:name=".Activity.OrderHistoryActivity" />
         <activity android:name=".Activity.SubOrderHistory" />
         <activity android:name=".BuyNow"/>
