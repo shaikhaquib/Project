@@ -3,7 +3,9 @@ package com.completewallet.grocery.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Rating;
 import android.os.Build;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -11,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -46,22 +49,23 @@ import java.util.TimerTask;
 
 public class Product extends AppCompatActivity {
 
-
+    int minteger = 1;
     ViewPager viewPager;
+    RatingBar rating;
     LinearLayout sliderDotspanel;
     private int dotscount;
     private ImageView[] dots;
     RequestQueue queue ;
     SessionManager manager;
     ArrayList<DataVar> list=new ArrayList<>();
-
+    boolean login =true ;
     TextView title , desription , mrp  ,price ,quantity ,reviewcount;
-    CheckBox minus ,plus;
+    CheckBox minus ,plus, addtocart;
     String minimum_quantity,amount ,unit ,s;
     Button Buynow;
-    float wt ,strprice;
-    int count = 1 ;
-
+    float totalrating;
+    int count = 1,wt ;
+    View parentLayout;
     private int[] img1 = {
             R.drawable.img,
             R.drawable.img2,
@@ -80,21 +84,30 @@ public class Product extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        parentLayout = findViewById(android.R.id.content);
         queue= Volley.newRequestQueue(this);
 
         review = findViewById(R.id.productreviews);
+        manager =new SessionManager(Product.this);
 
+        if (manager.isSkip()){
+            login=false;
+        }else {
+            login=true;
+        }
 
         quantity = findViewById(R.id.prquantity);
         minus =findViewById(R.id.prminus);
         plus = findViewById(R.id.replus);
         title =findViewById(R.id.prtitle);
+        addtocart =findViewById(R.id.addtocartp);
         desription = findViewById(R.id.prdesc);
         mrp=findViewById(R.id.prmrp);
         Buynow=findViewById(R.id.prdBuynow);
         manager=new SessionManager(this);
-
+        quantity.setText(String.valueOf(minteger));
+        rating=findViewById(R.id.prRatingBar);
         //  stock=findViewById(R.id.prstock);
         price=findViewById(R.id.prprice);
         review.setOnClickListener(new View.OnClickListener() {
@@ -154,7 +167,7 @@ public class Product extends AppCompatActivity {
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    count++;
+                    /*count++;
                     quantity.setText(String.valueOf(count));
 
                 String s = Float.toString(wt);
@@ -164,16 +177,24 @@ public class Product extends AppCompatActivity {
                // strprice  = strprice * count;
                 String s2 = Float.toString(v1);
 
-                mrp.setText("MRP: Rs."+s2+" /"+ s +" "+ unit);
-
-
+                mrp.setText("MRP: Rs."+s2+" /"+ s +" "+ unit);*/
+                if(minteger<99) {
+                    minteger = minteger + 1;
+                    quantity.setText(String.valueOf(minteger));
+                    int amt = Integer.parseInt(amount);
+                    int cal2 = amt * minteger;
+                    int cal3 = wt * minteger;
+                    s = String.valueOf(cal2);
+                   // calculatedprice.setText(s);
+                    mrp.setText("MRP: Rs."+s+" /"+ cal3 +" "+ unit);
+                }
 
             }
         });
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (count >= 1){
+                /*if (count >= 1){
                     count--;
                     quantity.setText(String.valueOf(count));
                 }
@@ -184,11 +205,62 @@ public class Product extends AppCompatActivity {
                 String s2 = Float.toString(v1);
 
                 mrp.setText("MRP: Rs."+s2+" /"+ s +" "+ unit);
-
+*/
+                if(minteger>1) {
+                    minteger = minteger - 1;
+                    quantity.setText(String.valueOf(minteger));
+                    int amt = Integer.parseInt(amount);
+                    int cal2 = amt * minteger;
+                    int cal3 = wt * minteger;
+                    s = String.valueOf(cal2);
+                    // calculatedprice.setText(s);
+                    mrp.setText("MRP: Rs."+s+" /"+ cal3 +" "+ unit);
+                }
+                else {
+                    quantity.setText("1");
+                }
 
             }
         });
+        addtocart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                if (!login){  AlertDialog.Builder builder;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        builder = new AlertDialog.Builder(Product.this);
+                    } else {
+                        builder = new AlertDialog.Builder(Product.this);
+                    }
+                    builder.setTitle("Sorry ! please login first")
+                            .setMessage("This feature not available for guest user")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+                                    //SessionManager
+                                    //context.startActivity(new Intent(context,LoginActivity.class));
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //  startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                                }
+                            })
+                            .show();}else {
+
+                    MainActivity outerObject = new MainActivity();
+                    MainActivity.AddToCart innerObject = outerObject.new AddToCart();
+                    //MainActivity.new AddToCart().execute(current.product_id,current.product_weight,"qwerty@gmail.com");
+
+                /*if(myHolder.quantity.getText().toString().trim() == "1"){
+                    innerObject.execute(current.product_id,"1",email);
+                }else{*/
+                    innerObject.execute(getIntent().getStringExtra("product_id"),quantity.getText().toString().trim(),Global.email);
+                    //}
+                    Snackbar snackbar = Snackbar.make(parentLayout, "Product Successfully Added To Cart !", Snackbar.LENGTH_LONG);
+                    snackbar.show();}
+            }
+        });
 
         Reviewlist();
 
@@ -213,10 +285,10 @@ public class Product extends AppCompatActivity {
                     unit=jsonObject.getString("units");
                     mrp.setText("MRP: Rs."+jsonObject.getString("product_price")+" /" +jsonObject.getString("product_weight")+" " + jsonObject.getString("units"));
                     desription.setText(jsonObject.getString("product_discription_1")+jsonObject.getString("product_discription_2"));
-                    strprice = Float.parseFloat(jsonObject.getString("product_price"));
+                   // strprice = Float.parseFloat(jsonObject.getString("product_price"));
                     amount = (jsonObject.getString("product_price"));
                  //   stock.setText(jsonObject.getString("status"));
-                    wt = Float.valueOf(jsonObject.getString("product_weight"));
+                    wt = Integer.parseInt(jsonObject.getString("product_weight"));
                     price.setText("₹"+jsonObject.getString("product_mrp")+" /" +jsonObject.getString("product_weight")+" " + jsonObject.getString("units"));
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -336,10 +408,11 @@ public class Product extends AppCompatActivity {
 
                         list.add(dataVar);
                         count++;
-
+                        totalrating= Float.parseFloat(totalrating+jsonObject.getString("rating"));
+                        rating.setRating(totalrating);
                             review.setText(String.valueOf(i+1)+" Review");
+                            System.out.print(totalrating);
                     }
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -362,5 +435,12 @@ public class Product extends AppCompatActivity {
         queue.add(request);
 
     }
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                super.onBackPressed();
+                break;
+        } return true;
+    }
 }

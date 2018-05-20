@@ -109,7 +109,7 @@ current.ppri = current.product_price;
             public void onClick(View v) {
                 Intent intent = new Intent(context,Product.class);
                 intent.putExtra("product_id",current.product_id);
-                Toast.makeText(context, ""+current.product_id, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, ""+current.product_id, Toast.LENGTH_SHORT).show();
                 context.startActivity(intent);
             }
         });
