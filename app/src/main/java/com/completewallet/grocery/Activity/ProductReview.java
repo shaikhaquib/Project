@@ -166,4 +166,11 @@ public class ProductReview extends AppCompatActivity {
         queue.add(request);
 
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(),Product.class);
+        intent.putExtra("product_id",getIntent().getStringExtra("product_id"));
+        startActivity(intent);
+    }
 }

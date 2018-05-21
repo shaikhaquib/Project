@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.completewallet.grocery.R;
 
 
@@ -19,9 +20,9 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private int[] images = new int[10] ;
+    private String[] images ;
 
-    public ViewPagerAdapter(Context context, int[] img_array) {
+    public ViewPagerAdapter(Context context, String[] img_array) {
         this.context = context;
         this.images=img_array;
     }
@@ -42,7 +43,9 @@ public class ViewPagerAdapter extends PagerAdapter {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.custom_layout, null);
         ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
-       imageView.setImageResource(images[position]);
+       //imageView.setImageResource(images[position]);
+
+        Glide.with(context).load(images[position]).into(imageView);
 
 
 

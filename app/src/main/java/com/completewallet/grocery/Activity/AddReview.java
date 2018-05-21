@@ -106,4 +106,12 @@ public class AddReview extends AppCompatActivity {
         queue.add(request);
 
     }
+
+    @Override
+    public void onBackPressed() {
+        Context context=getApplicationContext();
+        Intent intent = new Intent(context,ProductReview.class);
+        intent.putExtra("product_id",getIntent().getStringExtra("product_id"));
+        startActivity(intent);
+    }
 }

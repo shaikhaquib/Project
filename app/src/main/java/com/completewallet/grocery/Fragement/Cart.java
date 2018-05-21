@@ -19,6 +19,10 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.completewallet.grocery.Activity.Credentials;
 import com.completewallet.grocery.Activity.DataVar;
 import com.completewallet.grocery.Activity.Global;
@@ -27,6 +31,7 @@ import com.completewallet.grocery.Activity.OrderHistoryActivity;
 import com.completewallet.grocery.Activity.Product;
 import com.completewallet.grocery.Adapter.CartAdapter;
 import com.completewallet.grocery.Adapter.Holder;
+import com.completewallet.grocery.Checkout;
 import com.completewallet.grocery.Connecttodb;
 import com.completewallet.grocery.R;
 import com.completewallet.grocery.SessionManager;
@@ -63,13 +68,14 @@ public class Cart extends Fragment {
     public static final int READ_TIMEOUT = 15000;
     private String[] strArrData = {"No Suggestions"};
     public Context context;
-    public TextView txttotal,loginlink;
-    public String email;
+    public TextView txttotal,loginlink , checkout;
+    public String email , responce;
     View parentLayout;
     public Credentials CData;
     public RecyclerView recyclerView;
     LinearLayout guestlayout ;
     SessionManager manager ;
+    RequestQueue queue;
     int total= 0;
     boolean login =true ;
     View view;
@@ -78,11 +84,23 @@ public class Cart extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view =inflater.inflate(R.layout.cartview,container,false);
 
+        queue = Volley.newRequestQueue(getActivity());
         manager=new SessionManager(getActivity());
         guestlayout = view.findViewById(R.id.guesusererror);
         recyclerView=view.findViewById(R.id.cartRecycler);
         txttotal = view.findViewById(R.id.carttotal);
+        checkout =view.findViewById(R.id.checkout);
         loginlink = view.findViewById(R.id.loginlink);
+
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(getActivity() , Checkout.class);
+                intent.putExtra("array",responce);
+                intent.putExtra("total",total);
+                startActivity(intent);
+            }
+        });
 
         if (manager.isSkip()){
             login=false;
@@ -118,6 +136,11 @@ public class Cart extends Fragment {
 
         return view;
     }
+
+    private void checkoutservice() {
+        //Intent intent=new Intent(getActivity() , )
+    }
+
     public class ProductFetch extends AsyncTask<String, String, String> {
         ProgressDialog pdLoading = new ProgressDialog(context);
         HttpURLConnection conn;
@@ -219,6 +242,7 @@ public class Cart extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             //this method will be running on UI thread
+            responce = result;
             ArrayList<String> dataList = new ArrayList<String>();
 
             pdLoading.dismiss();

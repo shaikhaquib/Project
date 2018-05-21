@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.completewallet.grocery.R;
 
 
@@ -17,9 +18,9 @@ import com.completewallet.grocery.R;
 public class RewardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
     Context context;
-    int[] img;
+    String[] img;
 
-    public RewardAdapter(Context applicationContext, int[] img) {
+    public RewardAdapter(Context applicationContext, String[] img) {
        this.context = applicationContext;
         this.img = img;
     }
@@ -33,7 +34,7 @@ public class RewardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder myViewHolder=(ViewHolder) holder;
-        myViewHolder.image.setImageResource(img[position]);
+        Glide.with(context).load(img[position]).into(myViewHolder.image);
 
     }
 

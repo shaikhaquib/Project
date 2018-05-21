@@ -10,25 +10,16 @@ import android.support.v7.widget.RecyclerView;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
-        import android.widget.Toast;
 
-        import com.bumptech.glide.Glide;
+import com.bumptech.glide.Glide;
 import com.completewallet.grocery.Activity.CartHolder;
-import com.completewallet.grocery.Activity.Category;
-        import com.completewallet.grocery.Activity.DataVar;
-        import com.completewallet.grocery.Activity.ItemClickListener;
-        import com.completewallet.grocery.Activity.MainActivity;
-        import com.completewallet.grocery.Activity.MyHolder;
-        import com.completewallet.grocery.Activity.Product;
-        import com.completewallet.grocery.Activity.ProductHolder;
-import com.completewallet.grocery.BuyNow;
-import com.completewallet.grocery.CustomerRegisterActivity;
-import com.completewallet.grocery.Fragement.Cart;
+import com.completewallet.grocery.Activity.DataVar;
+import com.completewallet.grocery.Activity.MainActivity;
+import com.completewallet.grocery.Activity.BuyNow;
 import com.completewallet.grocery.R;
 
         import java.util.ArrayList;
-        import java.util.Collections;
-        import java.util.List;
+import java.util.List;
 
 public class CartAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHolder>  {
     //ProductHolder myHolder;

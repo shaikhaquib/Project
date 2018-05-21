@@ -1,6 +1,8 @@
 package com.completewallet.grocery.Activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -17,11 +19,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.completewallet.grocery.Adapter.MainAdapt;
 import com.completewallet.grocery.Adapter.RewardAdapter;
 import com.completewallet.grocery.Adapter.ViewPagerAdapter;
 import com.completewallet.grocery.Connecttodb;
 import com.completewallet.grocery.R;
+import com.completewallet.grocery.Service.MyNotificationService;
 import com.completewallet.grocery.SpacesItemDecoration;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.InfiniteScrollAdapter;
@@ -40,7 +49,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -50,12 +61,14 @@ public class Category extends AppCompatActivity {
     public RecyclerView rvcategory;
     private String[] strArrData = {"No Suggestions"};
     View parentLayout;
-
+    String[] imagearray ;
+    RequestQueue queue;
     ViewPager viewPager;
     LinearLayout sliderDotspanel;
     private int dotscount;
     private ImageView[] dots;
 
+/*
     private int[] img = {
             R.drawable.watch_09,
             R.drawable.mi_09,
@@ -64,6 +77,7 @@ public class Category extends AppCompatActivity {
             R.drawable.laptop_09,
             R.drawable.jupiter_09
     };
+*/
     DiscreteScrollView RewardView;
     private InfiniteScrollAdapter infiniteAdapter;
 
@@ -73,10 +87,16 @@ public class Category extends AppCompatActivity {
         setContentView(R.layout.activity_category);
         setTitle("Category..");
 
+        queue= Volley.newRequestQueue(this);
+        multipleimage();
+        SharedPreferences shared =getSharedPreferences("login", MODE_PRIVATE);
+        Global.email = shared.getString( "email", "");
+        Global.password = shared.getString("password","");
+        startService(new Intent(getApplicationContext(),MyNotificationService.class));
         RewardView = findViewById(R.id.offereSlider);
         parentLayout = findViewById(android.R.id.content);
 
-        infiniteAdapter = InfiniteScrollAdapter.wrap(new RewardAdapter(getApplicationContext(), img));
+        infiniteAdapter = InfiniteScrollAdapter.wrap(new RewardAdapter(getApplicationContext(), imagearray));
         RewardView.setAdapter(infiniteAdapter);
         RewardView.setItemTransformer(new ScaleTransformer.Builder()
                 .setMaxScale(1.05f)
@@ -95,16 +115,20 @@ public class Category extends AppCompatActivity {
         //MainRecycler.setAdapter(new MainAdapt(getApplicationContext(),img1));
         new AsyncFetch().execute();
 
-        viewPager = (ViewPager) findViewById(R.id.catviewPager);
+
+
+    }
+
+    public void slider(){ viewPager = (ViewPager) findViewById(R.id.catviewPager);
 
         sliderDotspanel = (LinearLayout) findViewById(R.id.catSliderDots);
 
-        if (img.length<2){
+        if (imagearray.length<2){
 
             sliderDotspanel.setVisibility(View.GONE );
         }
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this,img);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this,imagearray);
 
         viewPager.setAdapter(viewPagerAdapter);
 
@@ -124,7 +148,7 @@ public class Category extends AppCompatActivity {
 
         }
 
-        dots[0].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
+//        dots[0].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -150,9 +174,7 @@ public class Category extends AppCompatActivity {
         });
 
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new MyTimerTask(), 2000, 4000);
-
-    }
+        timer.scheduleAtFixedRate(new MyTimerTask(), 2000, 4000);}
     private class AsyncFetch extends AsyncTask<String, String, String> {
         ProgressDialog pdLoading = new ProgressDialog(Category.this);
         HttpURLConnection conn;
@@ -295,4 +317,42 @@ public class Category extends AppCompatActivity {
 
         }
     }
+
+    private void multipleimage() {
+        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "getmultipleimage.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                ArrayList<String> dataList = new ArrayList<String>();
+
+                try {
+                    JSONArray array =new JSONArray(response);
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject json_data = array.getJSONObject(i);
+                        dataList.add(json_data.getString("product_img"));
+
+                    }
+                    imagearray=dataList.toArray(new String[dataList.size()]);
+                    slider();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Category.this, "Connection problem !", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                HashMap<String ,String> map = new HashMap<>();
+                map.put("product_id","2");
+                return map;
+            }
+        };
+        queue.add(request);
+    }
+
 }

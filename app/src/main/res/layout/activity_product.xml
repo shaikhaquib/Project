@@ -135,6 +135,14 @@
             android:layout_margin="8dp"
             android:id="@+id/prdesc"
             android:text="Description Not Available Sorry !"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:id="@+id/prdesc2"
+            android:text="Description Not Available Sorry !"/>
+
 
 
 

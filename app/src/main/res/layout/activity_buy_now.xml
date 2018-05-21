@@ -9,7 +9,7 @@
     android:background="@drawable/o"
     android:backgroundTintMode="multiply"
     android:backgroundTint="#660"
-    tools:context="com.completewallet.grocery.BuyNow">
+    tools:context="com.completewallet.grocery.Activity.BuyNow">
 
 
     <LinearLayout
@@ -19,6 +19,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:id="@+id/pinlayout"
+        android:visibility="visible"
         >
         <ImageView
             android:layout_width="match_parent"
@@ -95,61 +96,160 @@
             android:layout_height="150dp"
             android:src="@drawable/klogo"
             android:layout_margin="20dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Title"
-            android:id="@+id/cntitle"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="20dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="@color/white"
-            android:id="@+id/cnquantity"
-            android:text="quantity : 20 kg"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/activity_vertical_margin"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:id="@+id/cnmrp"
-            android:layout_marginTop="4dp"
-            android:text="MRP: Rs. 110.00"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="Product Name :"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="@dimen/activity_vertical_margin"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/activity_vertical_margin"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:id="@+id/cnemai"
-            android:layout_marginTop="20dp"
-            android:text="Email: aquib@gmail.com"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:text="Title"
+                    android:id="@+id/cntitle"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/activity_vertical_margin"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/activity_vertical_margin"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:id="@+id/cnpin"
-            android:layout_marginTop="4dp"
-            android:text="PIN CODE: 410206"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="Quantity :"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="@dimen/activity_vertical_margin"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/activity_vertical_margin"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:layout_marginTop="4dp"
-            android:text="Payment : Cash on Delivery"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="Title"
+                android:gravity="center"
+                android:id="@+id/cnquantity"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="@dimen/activity_vertical_margin"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="Total Amount :"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="@dimen/activity_vertical_margin"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:id="@+id/cnmrp"
+                android:textSize="@dimen/activity_vertical_margin"
+                android:gravity="center"
+                android:text="Title"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="Email ID :"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="@dimen/activity_vertical_margin"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="@dimen/activity_vertical_margin"
+                android:id="@+id/cnemai"
+                android:gravity="center"
+                android:text="Title"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="Pincode :"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="@dimen/activity_vertical_margin"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="@dimen/activity_vertical_margin"
+                android:gravity="center"
+                android:id="@+id/cnpin"
+                android:text="Title"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="Payment :"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="@dimen/activity_vertical_margin"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="@dimen/activity_vertical_margin"
+                android:gravity="center"
+                android:text=" Cash on Delivery"/>
+        </LinearLayout>
+
 
 
         <!--<Button-->

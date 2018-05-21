@@ -3,7 +3,6 @@ package com.completewallet.grocery.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Rating;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -11,11 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -25,14 +22,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.completewallet.grocery.Adapter.ViewPagerAdapter;
-import com.completewallet.grocery.BuyNow;
 import com.completewallet.grocery.Connecttodb;
 import com.completewallet.grocery.R;
 import com.completewallet.grocery.SessionManager;
@@ -59,13 +54,15 @@ public class Product extends AppCompatActivity {
     SessionManager manager;
     ArrayList<DataVar> list=new ArrayList<>();
     boolean login =true ;
-    TextView title , desription , mrp  ,price ,quantity ,reviewcount;
+    TextView title , desription,description2 , mrp  ,price ,quantity ,reviewcount;
     CheckBox minus ,plus, addtocart;
-    String minimum_quantity,amount ,unit ,s;
+    String minimum_quantity,amount ,unit ,s ;
+    String[] imagearray ;
     Button Buynow;
-    float totalrating;
-    int count = 1,wt ;
+    int totalrating;
+    int count = 0,wt ;
     View parentLayout;
+/*
     private int[] img1 = {
             R.drawable.img,
             R.drawable.img2,
@@ -77,6 +74,7 @@ public class Product extends AppCompatActivity {
             R.drawable.img8,
             R.drawable.img9,
             R.drawable.img10};
+*/
 
     TextView review;
 
@@ -88,6 +86,7 @@ public class Product extends AppCompatActivity {
         parentLayout = findViewById(android.R.id.content);
         queue= Volley.newRequestQueue(this);
 
+        multipleimage();
         review = findViewById(R.id.productreviews);
         manager =new SessionManager(Product.this);
 
@@ -103,6 +102,7 @@ public class Product extends AppCompatActivity {
         title =findViewById(R.id.prtitle);
         addtocart =findViewById(R.id.addtocartp);
         desription = findViewById(R.id.prdesc);
+        description2=findViewById(R.id.prdesc2);
         mrp=findViewById(R.id.prmrp);
         Buynow=findViewById(R.id.prdBuynow);
         manager=new SessionManager(this);
@@ -116,9 +116,6 @@ public class Product extends AppCompatActivity {
                 Context context=getApplicationContext();
                 Intent intent = new Intent(context,ProductReview.class);
                 intent.putExtra("product_id",getIntent().getStringExtra("product_id"));
-                intent.putExtra("quantity",quantity.getText().toString());
-                intent.putExtra("name",title.getText().toString());
-                intent.putExtra("price",mrp.getText().toString());
 
                 startActivity(intent);
             }
@@ -161,23 +158,12 @@ public class Product extends AppCompatActivity {
             }
         });
 
-        Slider();
+
         productDetail();
 
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    /*count++;
-                    quantity.setText(String.valueOf(count));
-
-                String s = Float.toString(wt);
-
-                float amt = Float.valueOf(amount);
-                float v1 = strprice * count;
-               // strprice  = strprice * count;
-                String s2 = Float.toString(v1);
-
-                mrp.setText("MRP: Rs."+s2+" /"+ s +" "+ unit);*/
                 if(minteger<99) {
                     minteger = minteger + 1;
                     quantity.setText(String.valueOf(minteger));
@@ -186,7 +172,7 @@ public class Product extends AppCompatActivity {
                     int cal3 = wt * minteger;
                     s = String.valueOf(cal2);
                    // calculatedprice.setText(s);
-                    mrp.setText("MRP: Rs."+s+" /"+ cal3 +" "+ unit);
+                    mrp.setText("Price:  ₹"+s+" /"+ cal3 +" "+ unit);
                 }
 
             }
@@ -194,18 +180,6 @@ public class Product extends AppCompatActivity {
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*if (count >= 1){
-                    count--;
-                    quantity.setText(String.valueOf(count));
-                }
-//                int qt = Integer.valueOf(minimum_quantity);
-                String s = Float.toString(wt);
-
-                float v1 = strprice * count;
-                String s2 = Float.toString(v1);
-
-                mrp.setText("MRP: Rs."+s2+" /"+ s +" "+ unit);
-*/
                 if(minteger>1) {
                     minteger = minteger - 1;
                     quantity.setText(String.valueOf(minteger));
@@ -214,7 +188,7 @@ public class Product extends AppCompatActivity {
                     int cal3 = wt * minteger;
                     s = String.valueOf(cal2);
                     // calculatedprice.setText(s);
-                    mrp.setText("MRP: Rs."+s+" /"+ cal3 +" "+ unit);
+                    mrp.setText("Price: ₹."+s+" /"+ cal3 +" "+ unit);
                 }
                 else {
                     quantity.setText("1");
@@ -264,6 +238,8 @@ public class Product extends AppCompatActivity {
 
         Reviewlist();
 
+        if (count >0){
+        }
 
     }
 
@@ -283,8 +259,9 @@ public class Product extends AppCompatActivity {
                    // count = 1;
                     minimum_quantity = jsonObject.getString("product_weight");
                     unit=jsonObject.getString("units");
-                    mrp.setText("MRP: Rs."+jsonObject.getString("product_price")+" /" +jsonObject.getString("product_weight")+" " + jsonObject.getString("units"));
-                    desription.setText(jsonObject.getString("product_discription_1")+jsonObject.getString("product_discription_2"));
+                    mrp.setText("Price: ₹ "+jsonObject.getString("product_price")+" /" +jsonObject.getString("product_weight")+" " + jsonObject.getString("units"));
+                    desription.setText(jsonObject.getString("product_discription_1"));
+                    description2.setText(jsonObject.getString("product_discription_2"));
                    // strprice = Float.parseFloat(jsonObject.getString("product_price"));
                     amount = (jsonObject.getString("product_price"));
                  //   stock.setText(jsonObject.getString("status"));
@@ -316,12 +293,12 @@ public class Product extends AppCompatActivity {
 
         sliderDotspanel = (LinearLayout) findViewById(R.id.SliderDots);
 
-        if (img1.length<2){
+        if (imagearray.length<2){
 
             sliderDotspanel.setVisibility(View.GONE );
         }
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this,img1);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this,imagearray);
 
         viewPager.setAdapter(viewPagerAdapter);
 
@@ -405,13 +382,14 @@ public class Product extends AppCompatActivity {
                         dataVar.rating=jsonObject.getString("rating");
                         dataVar.comment=jsonObject.getString("comment");
                         dataVar.time=jsonObject.getString("time");
-
-                        list.add(dataVar);
                         count++;
-                        totalrating= Float.parseFloat(totalrating+jsonObject.getString("rating"));
-                        rating.setRating(totalrating);
-                            review.setText(String.valueOf(i+1)+" Review");
-                            System.out.print(totalrating);
+                        totalrating= Integer.valueOf(jsonObject.getString("rating"))+totalrating;
+                        System.out.println("avgrating="+totalrating/count);
+                        rating.setProgress(totalrating/count);
+                       review.setText(String.valueOf(i+1)+" Review");
+                        Log.d(String.valueOf(totalrating), String.valueOf(count));
+                        list.add(dataVar);
+
                     }
 
                 } catch (JSONException e) {
@@ -443,4 +421,49 @@ public class Product extends AppCompatActivity {
                 break;
         } return true;
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        intent.putExtra("category_id",Global.cateid);
+        startActivity(intent);
+    finish();}
+
+    private void multipleimage() {
+        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "getmultipleimage.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                ArrayList<String> dataList = new ArrayList<String>();
+
+                try {
+                    JSONArray array =new JSONArray(response);
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject json_data = array.getJSONObject(i);
+                        dataList.add(json_data.getString("product_img"));
+
+                    }
+                    imagearray=dataList.toArray(new String[dataList.size()]);
+                    Slider();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Product.this, "Connection problem !", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                HashMap <String ,String> map = new HashMap<>();
+                map.put("product_id",getIntent().getStringExtra("product_id"));
+                return map;
+            }
+        };
+        queue.add(request);
+    }
+
 }

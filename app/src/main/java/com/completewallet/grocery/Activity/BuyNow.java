@@ -1,4 +1,4 @@
-package com.completewallet.grocery;
+package com.completewallet.grocery.Activity;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
@@ -21,13 +20,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.completewallet.grocery.Activity.Global;
-import com.completewallet.grocery.Activity.MainActivity;
-import com.completewallet.grocery.Activity.Product;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.completewallet.grocery.Connecttodb;
+import com.completewallet.grocery.R;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -73,7 +67,7 @@ public class BuyNow extends AppCompatActivity {
         title.setText(getIntent().getStringExtra("name"));
         qunt.setText(getIntent().getStringExtra("quantity"));
         amount.setText(getIntent().getStringExtra("price"));
-        email.setText("Email : "+Global.email);
+        email.setText(Global.email);
 
 
 
@@ -85,7 +79,7 @@ public class BuyNow extends AppCompatActivity {
                     edtpincode.setError("Please enter pincode");
                 }else {
                     validdatepin();
-                    pin.setText("Pincode : "+edtpincode.getText());
+                    pin.setText(edtpincode.getText());
                     strpin=edtpincode.getText().toString();
                 }
             }
@@ -117,7 +111,7 @@ public class BuyNow extends AppCompatActivity {
                                 //startActivity(new Intent(getApplicationContext(),MainActivity.class));
                                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                                 intent.putExtra("category_id","1");
-                                getApplicationContext().startActivity(intent);
+                                startActivity(intent);
                             }
                         })
                         .show();
@@ -160,6 +154,7 @@ public class BuyNow extends AppCompatActivity {
                 if (!response.equals("Not available in this area !") && !response.equals("error")){
                     pinlayout.setVisibility(View.GONE);
                     confirmlayout.setVisibility(View.VISIBLE);
+
                 }else {
                     AlertDialog.Builder builder;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

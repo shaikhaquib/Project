@@ -52,16 +52,33 @@
             android:screenOrientation="portrait" />
         <activity android:name=".Activity.ChangePassword" />
         <activity android:name=".Activity.AccountUpdate" />
-        <activity android:name=".Activity.AboutUs"
-            android:parentActivityName=".Activity.MainActivity" >
+        <activity
+            android:name=".Activity.AboutUs"
+            android:parentActivityName=".Activity.MainActivity">
+
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MainActivity" /></activity>
+                android:value=".Activity.MainActivity" />
+        </activity>
         <activity android:name=".Activity.OrderHistoryActivity" />
         <activity android:name=".Activity.SubOrderHistory" />
-        <activity android:name=".BuyNow"/>
+        <activity android:name=".Activity.BuyNow" />
         <activity android:name=".Activity.AddReview" />
+
+        <service android:name=".Service.MyNotificationService" />
+
+        <receiver
+            android:name=".Service.NotiBroadcast"
+            android:enabled="true"
+            android:exported="true"
+            android:label="RestartServiceWhenStopped">
+            <intent-filter>
+                <action android:name="com.dealwithusmail.dealwithusmailversion100.ServiceRestarterBroadcast" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".Checkout"></activity>
     </application>
 
 </manifest>
