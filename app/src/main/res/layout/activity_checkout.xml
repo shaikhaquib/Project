@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.completewallet.grocery.Checkout">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:id="@+id/chkpinlayout"
+        android:visibility="visible"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/klogo"
+            android:layout_margin="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:textColor="#000"
+            android:text="Please first confirm Pincode"/>
+
+        <EditText
+            android:id="@+id/chkpincode"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:hint="PINCODE"
+           android:background="@drawable/borderblack"
+            android:gravity="center"
+            android:inputType="number"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:singleLine="true"
+            android:drawableLeft="@drawable/ic_place"
+            android:drawableTintMode="src_atop"/>
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimary"
+            android:id="@+id/chkvalidatepin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:textColor="@color/white"
+            android:text="Submit"/>
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkoutlayout"
+            android:visibility="gone"
+            android:layout_margin="8dp"
+            android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="Email ID :"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="@dimen/activity_vertical_margin"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:textStyle="bold"
+                android:textSize="@dimen/activity_vertical_margin"
+                android:id="@+id/chkemail"
+                android:gravity="center"
+                android:text="Title"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="Pincode :"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="@dimen/activity_vertical_margin"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:textStyle="bold"
+                android:textSize="@dimen/activity_vertical_margin"
+                android:gravity="center"
+                android:id="@+id/chkpin"
+                android:text="Title"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="Payment :"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="@dimen/activity_vertical_margin"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:textStyle="bold"
+                android:textSize="@dimen/activity_vertical_margin"
+                android:gravity="center"
+                android:text=" Cash on Delivery"/>
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            >
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Product Name"
+                android:textSize="@dimen/activity_vertical_margin"
+                android:textColor="@color/cardview_dark_background"
+                android:layout_weight="5"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Quantity"
+                android:textSize="@dimen/activity_vertical_margin"
+                android:textColor="@color/cardview_dark_background"
+                android:layout_weight="2"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/cardview_dark_background"
+                android:text="Price"
+                android:textSize="@dimen/activity_vertical_margin"
+                android:layout_weight="3"/>
+        </LinearLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkoutRecycler"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@android:color/darker_gray"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:id="@+id/scharge"
+                android:text="Shipping charge = ₹ 50 "
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:gravity="end"
+                android:text="Tottal= ₹ 50 "
+                android:textSize="20dp"
+                android:id="@+id/chktotal"
+                android:textStyle="bold"
+                />
+
+
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:layout_marginTop="8dp"
+            android:text="Shipping Time = 4 hrs "
+            android:id="@+id/stime"
+            />
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirm order"
+            android:visibility="gone"
+            android:id="@+id/chkorder"
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary"/>
+</RelativeLayout>
