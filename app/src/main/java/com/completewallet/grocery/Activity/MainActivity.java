@@ -55,11 +55,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
-        catid = getIntent().getStringExtra("category_id");
-        if(catid == null){
-            Global.cateid="1";
-        }else{
+
+        if(getIntent().getExtras() != null){
+            catid = getIntent().getStringExtra("category_id");
             Global.cateid=catid.trim();
+
+        }else{
+            Global.cateid="1";
         }
 
         SharedPreferences shared =getSharedPreferences("login", MODE_PRIVATE);
