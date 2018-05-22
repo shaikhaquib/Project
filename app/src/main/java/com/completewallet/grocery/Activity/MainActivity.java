@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.completewallet.grocery.BottomNavigationHelper;
@@ -83,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
             android.view.Menu menu = bottomNavigationView.getMenu();
             selectFragment(menu.getItem(0));
 
+            TextView view = (TextView) bottomNavigationView.getMenu().findItem(R.id.navigation_alert).getActionView();
+            view.setText(Global.notiCount > 0 ? String.valueOf(Global.notiCount) : null);
             // Set action to perform when any menu-item is selected.
             bottomNavigationView.setOnNavigationItemSelectedListener(
                     new BottomNavigationView.OnNavigationItemSelectedListener() {

@@ -14,6 +14,7 @@ public class Global {
     public static String email = null ;
     public static String password= null;
     public static String cateid= null;
+    public static int notiCount = 0;
 
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);

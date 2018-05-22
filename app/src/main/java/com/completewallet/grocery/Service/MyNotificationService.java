@@ -236,24 +236,24 @@ public class MyNotificationService extends Service {
                             NotificationCompat.BigTextStyle style=new NotificationCompat.BigTextStyle();
                             style.bigText(subject);
                             style.setBigContentTitle(title);
-                            style.setSummaryText("DealwithusMail" );
+                            style.setSummaryText("K2D");
 
+                            Global.notiCount++;
 
                             Intent intent =new Intent(getApplicationContext(),Category.class);
                             intent.setAction("Notify");
 
-                          NotificationCompat.Builder nbuilder=(NotificationCompat.Builder)new NotificationCompat.Builder(MyNotificationService.this)
-                                .setSmallIcon(R.mipmap.ic_launcher)
-                                .setContentTitle(title)
-                                .setContentText(subject)
-                                .setAutoCancel(true)
-                                .setStyle(style)
-                                  .setBadgeIconType(R.mipmap.ic_launcher)
-                                .setPriority(Notification.PRIORITY_MAX)
-                                .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(),R.mipmap.ic_launcher))
-                                .setSmallIcon(R.mipmap.ic_launcher)
-                                .setGroup("Complete Wallet")
-                                .setTicker("Complete Wallet");
+                            NotificationCompat.Builder nbuilder=(NotificationCompat.Builder)new NotificationCompat.Builder(MyNotificationService.this)
+                                    .setSmallIcon(R.drawable.kiranaicon)
+                                    .setContentTitle("Order "+title)
+                                    .setContentText("Your order has been "+subject)
+                                    .setAutoCancel(true)
+                                    .setStyle(style).setBadgeIconType(R.drawable.kiranaicon)
+                                    .setPriority(Notification.PRIORITY_MAX)
+                                    .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(),R.drawable.kiranaicon))
+                                    .setSmallIcon(R.drawable.kiranaicon)
+                                    .setGroup("K2D")
+                                    .setTicker("K2D");
 
 
 
@@ -278,28 +278,29 @@ public class MyNotificationService extends Service {
                             title=jsonObject.getString("order_id");
                             subject=jsonObject.getString("order_status");
 
+                            Global.notiCount++;
 
 
                             NotificationCompat.BigTextStyle style=new NotificationCompat.BigTextStyle();
                             style.bigText(subject);
                             style.setBigContentTitle(title);
-                            style.setSummaryText("DealwithusMail" );
+                            style.setSummaryText("K2D" );
 
 
                             Intent intent =new Intent(getApplicationContext(),Category.class);
                             intent.setAction("Notify");
 
                             NotificationCompat.Builder nbuilder=(NotificationCompat.Builder)new NotificationCompat.Builder(MyNotificationService.this)
-                                    .setSmallIcon(R.mipmap.ic_launcher)
-                                    .setContentTitle(title)
-                                    .setContentText(subject)
+                                    .setSmallIcon(R.drawable.kiranaicon)
+                                    .setContentTitle("Order "+title)
+                                    .setContentText("Your order has been "+subject)
                                     .setAutoCancel(true)
-                                    .setStyle(style).setBadgeIconType(R.mipmap.ic_launcher)
+                                    .setStyle(style).setBadgeIconType(R.drawable.kiranaicon)
                                     .setPriority(Notification.PRIORITY_MAX)
-                                    .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(),R.mipmap.ic_launcher))
-                                    .setSmallIcon(R.mipmap.ic_launcher)
-                                    .setGroup("Complete Wallet")
-                                    .setTicker("Complete Wallet");
+                                    .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(),R.drawable.kiranaicon))
+                                    .setSmallIcon(R.drawable.kiranaicon)
+                                    .setGroup("K2D")
+                                    .setTicker("K2D");
 
 
 
