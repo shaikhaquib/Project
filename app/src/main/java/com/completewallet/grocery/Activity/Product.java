@@ -27,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.completewallet.grocery.Adapter.ViewPagerAdapter;
 import com.completewallet.grocery.Connecttodb;
 import com.completewallet.grocery.R;
@@ -49,6 +50,7 @@ public class Product extends AppCompatActivity {
     RatingBar rating;
     LinearLayout sliderDotspanel;
     private int dotscount;
+    ImageView imageView;
     private ImageView[] dots;
     RequestQueue queue ;
     SessionManager manager;
@@ -89,6 +91,7 @@ public class Product extends AppCompatActivity {
         multipleimage();
         review = findViewById(R.id.productreviews);
         manager =new SessionManager(Product.this);
+        imageView=findViewById(R.id.prdimg);
 
         if (manager.isSkip()){
             login=false;
@@ -110,6 +113,7 @@ public class Product extends AppCompatActivity {
         rating=findViewById(R.id.prRatingBar);
         //  stock=findViewById(R.id.prstock);
         price=findViewById(R.id.prprice);
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
         review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -267,6 +271,7 @@ public class Product extends AppCompatActivity {
                  //   stock.setText(jsonObject.getString("status"));
                     wt = Integer.parseInt(jsonObject.getString("product_weight"));
                     price.setText("₹"+jsonObject.getString("product_mrp")+" /" +jsonObject.getString("product_weight")+" " + jsonObject.getString("units"));
+                    Glide.with(getApplicationContext()).load(jsonObject.getString("product_image")).into(imageView);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -289,7 +294,6 @@ public class Product extends AppCompatActivity {
     }
 
     private void Slider() {
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
 
         sliderDotspanel = (LinearLayout) findViewById(R.id.SliderDots);
 
@@ -447,6 +451,8 @@ public class Product extends AppCompatActivity {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    viewPager.setVisibility(View.GONE);
+                    imageView.setVisibility(View.VISIBLE);
                 }
             }
         }, new Response.ErrorListener() {

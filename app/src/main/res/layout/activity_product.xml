@@ -24,6 +24,14 @@
             android:layout_margin="10dp"
             android:layout_height="230dp"/>
 
+        <ImageView
+            android:id="@+id/prdimg"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            android:layout_height="230dp"/>
+
         <LinearLayout
             android:id="@+id/SliderDots"
             android:layout_below="@+id/viewPager"

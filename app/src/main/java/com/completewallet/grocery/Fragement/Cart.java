@@ -92,6 +92,13 @@ public class Cart extends Fragment {
         checkout =view.findViewById(R.id.checkout);
         loginlink = view.findViewById(R.id.loginlink);
 
+
+/*
+        if (responce.isEmpty()){
+            checkout.setVisibility(View.GONE);
+        }
+*/
+
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -243,6 +250,7 @@ public class Cart extends Fragment {
         protected void onPostExecute(String result) {
             //this method will be running on UI thread
             responce = result;
+
             ArrayList<String> dataList = new ArrayList<String>();
 
             pdLoading.dismiss();
@@ -296,8 +304,8 @@ public class Cart extends Fragment {
 
             } catch (JSONException e) {
                 Snackbar snackbar = Snackbar.make(view, "No Item In Cart Or Please Check Internet Connection !", LENGTH_LONG);
-
                 snackbar.show();
+                    checkout.setVisibility(View.GONE);
                 //Toast.makeText(context, "No Item In Cart Or Please Check Internet Connection", Toast.LENGTH_LONG).show();
             }
 
