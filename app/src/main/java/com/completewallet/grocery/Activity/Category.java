@@ -319,7 +319,7 @@ public class Category extends AppCompatActivity {
     }
 
     private void multipleimage() {
-        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "getmultipleimage.php", new Response.Listener<String>() {
+        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "getmultiplebanner.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -329,7 +329,7 @@ public class Category extends AppCompatActivity {
                     JSONArray array =new JSONArray(response);
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject json_data = array.getJSONObject(i);
-                        dataList.add(json_data.getString("product_img"));
+                        dataList.add(json_data.getString("banner_img"));
 
                     }
                     imagearray=dataList.toArray(new String[dataList.size()]);
