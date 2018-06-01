@@ -64,19 +64,6 @@ public class Product extends AppCompatActivity {
     int totalrating;
     int count = 0,wt ;
     View parentLayout;
-/*
-    private int[] img1 = {
-            R.drawable.img,
-            R.drawable.img2,
-            R.drawable.img3,
-            R.drawable.img4,
-            R.drawable.img5,
-            R.drawable.img6,
-            R.drawable.img7,
-            R.drawable.img8,
-            R.drawable.img9,
-            R.drawable.img10};
-*/
 
     TextView review;
 
@@ -88,7 +75,6 @@ public class Product extends AppCompatActivity {
         parentLayout = findViewById(android.R.id.content);
         queue= Volley.newRequestQueue(this);
 
-        multipleimage();
         review = findViewById(R.id.productreviews);
         manager =new SessionManager(Product.this);
         imageView=findViewById(R.id.prdimg);
@@ -162,7 +148,7 @@ public class Product extends AppCompatActivity {
             }
         });
 
-
+        multipleimage();
         productDetail();
 
         plus.setOnClickListener(new View.OnClickListener() {
@@ -272,6 +258,20 @@ public class Product extends AppCompatActivity {
                     wt = Integer.parseInt(jsonObject.getString("product_weight"));
                     price.setText("₹"+jsonObject.getString("product_mrp")+" /" +jsonObject.getString("product_weight")+" " + jsonObject.getString("units"));
                     Glide.with(getApplicationContext()).load(jsonObject.getString("product_image")).into(imageView);
+
+
+                    if(imagearray != null && imagearray.length > 0) {
+                        //has items here. The fact that has items does not mean that the items are != null.
+                        //You have to check the nullity for every item
+                        Log.d("True","Not Empty");
+                    }
+                    else {
+                        // either there is no instance of ArrayList in arrayList or the list is empty.
+                        viewPager.setVisibility(View.GONE);
+                        imageView.setVisibility(View.VISIBLE);
+                    }
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -451,8 +451,8 @@ public class Product extends AppCompatActivity {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    viewPager.setVisibility(View.GONE);
-                    imageView.setVisibility(View.VISIBLE);
+                   /* viewPager.setVisibility(View.GONE);
+                    imageView.setVisibility(View.VISIBLE);*/
                 }
             }
         }, new Response.ErrorListener() {

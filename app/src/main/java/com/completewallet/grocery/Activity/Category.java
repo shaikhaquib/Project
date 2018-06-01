@@ -3,6 +3,10 @@ package com.completewallet.grocery.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.icu.util.ULocale;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -14,9 +18,11 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -67,17 +73,8 @@ public class Category extends AppCompatActivity {
     LinearLayout sliderDotspanel;
     private int dotscount;
     private ImageView[] dots;
+    String currentversion;
 
-/*
-    private int[] img = {
-            R.drawable.watch_09,
-            R.drawable.mi_09,
-            R.drawable.iphone8_09,
-            R.drawable.iball_09,
-            R.drawable.laptop_09,
-            R.drawable.jupiter_09
-    };
-*/
     DiscreteScrollView RewardView;
     private InfiniteScrollAdapter infiniteAdapter;
 
@@ -89,6 +86,7 @@ public class Category extends AppCompatActivity {
 
         queue= Volley.newRequestQueue(this);
         multipleimage();
+        update();
         SharedPreferences shared =getSharedPreferences("login", MODE_PRIVATE);
         Global.email = shared.getString( "email", "");
         Global.password = shared.getString("password","");
@@ -117,6 +115,67 @@ public class Category extends AppCompatActivity {
 
 
 
+    }
+
+    private void update() {
+        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "checkversion.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                    currentversion = pInfo.versionName;
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+
+                    JSONObject jsonObject =new JSONObject(response);
+                    double newverison = Double.parseDouble(jsonObject.getString("version"));
+                    double verison = Double.parseDouble(currentversion);
+                    final String link = jsonObject.getString("link");
+
+                    if (verison < newverison){
+                        LayoutInflater layoutInflaterAndroid = LayoutInflater.from(Category.this);
+                        View mView = layoutInflaterAndroid.inflate(R.layout.updateapp, null);
+                        android.app.AlertDialog.Builder alertDialogBuilderUserInput = new android.app.AlertDialog.Builder(Category.this);
+                        alertDialogBuilderUserInput.setView(mView);
+                        TextView button=mView.findViewById(R.id.UpdApp);
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(Intent.ACTION_VIEW);
+                                intent.setData(Uri.parse(link));
+                                startActivity(intent);
+                            }
+                        });
+                        final android.app.AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
+                        alertDialogAndroid.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                        alertDialogAndroid.setCancelable(false);
+                        alertDialogAndroid.show();
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Category.this, "Connection problem !", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                HashMap<String ,String> map = new HashMap<>();
+                map.put("product_id","2");
+                return map;
+            }
+        };
+        queue.add(request);
     }
 
     public void slider(){ viewPager = (ViewPager) findViewById(R.id.catviewPager);
