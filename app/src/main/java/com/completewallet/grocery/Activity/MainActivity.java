@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
             try {
 
                 // Enter URL address where your php file resides
-                url = new URL(Connecttodb.path+"addtocart.php");
+                url = new URL(Connecttodb.path+"addtocart");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
@@ -265,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
             try {
 
                 // Enter URL address where your php file resides
-                url = new URL(Connecttodb.path+"deletefromcart.php");
+                url = new URL(Connecttodb.path+"deletefromcart");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block

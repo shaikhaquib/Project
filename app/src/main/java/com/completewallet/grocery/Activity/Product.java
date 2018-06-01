@@ -237,7 +237,7 @@ public class Product extends AppCompatActivity {
 
 
 
-        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "productdetail.php", new Response.Listener<String>() {
+        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "productdetail", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -373,7 +373,7 @@ public class Product extends AppCompatActivity {
         }
     }
     public void Reviewlist(){
-        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "reviewlist.php", new Response.Listener<String>() {
+        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "reviewlist", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -433,7 +433,7 @@ public class Product extends AppCompatActivity {
     finish();}
 
     private void multipleimage() {
-        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "getmultipleimage.php", new Response.Listener<String>() {
+        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "getmultipleimage", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 

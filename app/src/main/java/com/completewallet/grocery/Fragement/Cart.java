@@ -170,7 +170,7 @@ public class Cart extends Fragment {
             try {
 
                 // Enter URL address where your json file resides
-                url = new URL(Connecttodb.path+"getcartitem.php");
+                url = new URL(Connecttodb.path+"getcartitem");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block

@@ -110,7 +110,7 @@ public class UserData {
 
                 // Enter URL address where your php file resides
 
-                url = new URL(Connecttodb.path+"fetch_user_info.php");
+                url = new URL(Connecttodb.path+"fetch_user_info");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block

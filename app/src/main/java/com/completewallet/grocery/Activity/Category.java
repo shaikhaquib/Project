@@ -118,7 +118,7 @@ public class Category extends AppCompatActivity {
     }
 
     private void update() {
-        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "checkversion.php", new Response.Listener<String>() {
+        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "checkversion", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -256,7 +256,7 @@ public class Category extends AppCompatActivity {
             try {
 
                 // Enter URL address where your json file resides
-                url = new URL(Connecttodb.path+"getcategory.php");
+                url = new URL(Connecttodb.path+"getcategory");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
@@ -378,7 +378,7 @@ public class Category extends AppCompatActivity {
     }
 
     private void multipleimage() {
-        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "getmultiplebanner.php", new Response.Listener<String>() {
+        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "getmultiplebanner", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 

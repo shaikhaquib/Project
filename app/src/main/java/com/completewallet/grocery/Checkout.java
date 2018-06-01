@@ -106,7 +106,7 @@ public class Checkout extends AppCompatActivity {
         dialog.show();
         dialog.setCancelable(false);
 
-        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "cartcheckout.php", new Response.Listener<String>() {
+        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "cartcheckout", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 dialog.dismiss();
@@ -212,7 +212,7 @@ public class Checkout extends AppCompatActivity {
         dialog.show();
         dialog.setCancelable(false);
 
-        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "availibilitycheck.php", new Response.Listener<String>() {
+        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "availibilitycheck", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 dialog.dismiss();

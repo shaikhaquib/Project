@@ -121,7 +121,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
             try {
 
                 // Enter URL address where your json file resides
-                url = new URL(Connecttodb.path+"orderhistory.php");
+                url = new URL(Connecttodb.path+"orderhistory");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block

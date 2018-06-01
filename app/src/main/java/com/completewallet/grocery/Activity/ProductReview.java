@@ -92,7 +92,7 @@ public class ProductReview extends AppCompatActivity {
     }
 
     public void Reviewlist(){
-        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "reviewlist.php", new Response.Listener<String>() {
+        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "reviewlist", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

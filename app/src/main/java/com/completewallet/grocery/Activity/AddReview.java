@@ -70,7 +70,7 @@ public class AddReview extends AppCompatActivity {
     private void addReview() {
         dialog.show();
 
-        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "newreview.php", new Response.Listener<String>() {
+        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "newreview", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 dialog.dismiss();

@@ -153,7 +153,7 @@ public class CustomerRegisterActivity extends AppCompatActivity {
             try {
 
                 // Enter URL address where your php file resides
-                url = new URL(Connecttodb.path+"registercustomer.php");
+                url = new URL(Connecttodb.path+"registercustomer");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block

@@ -58,7 +58,7 @@ public class Alert extends Fragment {
 
     private void alertService() {
         dialog.show();
-        StringRequest request =new StringRequest(StringRequest.Method.POST, Connecttodb.path + "orderhistory.php", new Response.Listener<String>() {
+        StringRequest request =new StringRequest(StringRequest.Method.POST, Connecttodb.path + "orderhistory", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 dialog.dismiss();

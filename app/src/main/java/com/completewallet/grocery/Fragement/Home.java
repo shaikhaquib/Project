@@ -134,7 +134,7 @@ public class Home extends Fragment {
             try {
 
                 // Enter URL address where your json file resides
-                url = new URL(Connecttodb.path+"productlistbypid.php");
+                url = new URL(Connecttodb.path+"productlistbypid");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block

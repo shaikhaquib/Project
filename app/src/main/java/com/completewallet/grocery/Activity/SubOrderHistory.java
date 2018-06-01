@@ -91,7 +91,7 @@ public class SubOrderHistory extends AppCompatActivity {
             try {
 
                 // Enter URL address where your json file resides
-                url = new URL(Connecttodb.path+"suborderhistory.php");
+                url = new URL(Connecttodb.path+"suborderhistory");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block

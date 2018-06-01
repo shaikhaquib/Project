@@ -149,7 +149,7 @@ public class AccountUpdate extends AppCompatActivity {
             try {
 
                 // Enter URL address where your php file resides
-                url = new URL(Connecttodb.path+"updatecustomer.php");
+                url = new URL(Connecttodb.path+"updatecustomer");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
@@ -278,7 +278,7 @@ public class AccountUpdate extends AppCompatActivity {
 
                 // Enter URL address where your php file resides
 
-                url = new URL(Connecttodb.path+"fetch_user_info.php");
+                url = new URL(Connecttodb.path+"fetch_user_info");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block

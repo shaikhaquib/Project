@@ -93,7 +93,7 @@ public class BuyNow extends AppCompatActivity {
         dialog.show();
         dialog.setCancelable(false);
 
-        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "buynow.php", new Response.Listener<String>() {
+        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "buynow", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 dialog.dismiss();
@@ -132,7 +132,7 @@ public class BuyNow extends AppCompatActivity {
                 map.put("pincode",strpin);
                 map.put("email",Global.email);
                 map.put("product_qty",getIntent().getStringExtra("quantity"));
-                map.put("payment_type","Home Delivery");
+                map.put("payment_type","Cash On Delivery");
 
                 return map;
             }
@@ -146,7 +146,7 @@ public class BuyNow extends AppCompatActivity {
         dialog.show();
         dialog.setCancelable(false);
 
-        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "availibilitycheck.php", new Response.Listener<String>() {
+        final StringRequest request = new StringRequest(StringRequest.Method.POST, Connecttodb.path + "availibilitycheck", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 dialog.dismiss();
