@@ -14,8 +14,10 @@ import android.support.v7.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.completewallet.grocery.Activity.CartHolder;
 import com.completewallet.grocery.Activity.DataVar;
+import com.completewallet.grocery.Activity.Global;
 import com.completewallet.grocery.Activity.MainActivity;
 import com.completewallet.grocery.Activity.BuyNow;
+import com.completewallet.grocery.Fragement.Cart;
 import com.completewallet.grocery.R;
 
         import java.util.ArrayList;
@@ -34,7 +36,7 @@ public class CartAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
     int[] img;
     boolean login;
 
-    public CartAdapter(Context context, List<DataVar> data, boolean login){
+    public CartAdapter(Context context, List<DataVar> data, boolean login, View v){
         this.context=context;
         //inflater= LayoutInflater.from(context);
         this.data=data;
@@ -127,6 +129,12 @@ public class CartAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
                 innerObject.execute(current.cart_id);
                 Snackbar snackbar = Snackbar.make(view, "Product Successfully Removed From Cart !"+current.cart_id, Snackbar.LENGTH_LONG);
                 snackbar.show();
+
+                /*Cart cart =new Cart();
+               // Cart.ProductFetch fetch=cart.new ProductFetch();
+
+
+                fetch.execute(Global.email);*/
                 Intent intent = new Intent(context,MainActivity.class);
                 intent.putExtra("category_id","1");
                 context.startActivity(intent);

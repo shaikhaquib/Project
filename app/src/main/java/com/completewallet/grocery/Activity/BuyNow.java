@@ -23,11 +23,14 @@ import com.android.volley.toolbox.Volley;
 import com.completewallet.grocery.Connecttodb;
 import com.completewallet.grocery.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import static android.support.design.widget.Snackbar.LENGTH_LONG;
-
 public class BuyNow extends AppCompatActivity {
 
     String pid , strpin;
@@ -36,7 +39,7 @@ public class BuyNow extends AppCompatActivity {
     RequestQueue queue;
     ProgressDialog dialog;
     LinearLayout pinlayout ,confirmlayout;
-    TextView title , qunt ,amount ,email ,pin ;
+    TextView title , qunt ,amount ,email ,pin ,time ,charge,price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,10 @@ public class BuyNow extends AppCompatActivity {
         amount=findViewById(R.id.cnmrp);
         email=findViewById(R.id.cnemai);
         pin=findViewById(R.id.cnpin);
+        charge=findViewById(R.id.cnCharge);
+        time=findViewById(R.id.cnTime);
+        price=findViewById(R.id.cnprice);
+
         confirmorder=findViewById(R.id.confirmorder);
 
         confirmorder.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +73,6 @@ public class BuyNow extends AppCompatActivity {
 
         title.setText(getIntent().getStringExtra("name"));
         qunt.setText(getIntent().getStringExtra("quantity"));
-        amount.setText(getIntent().getStringExtra("price"));
         email.setText(Global.email);
 
 
@@ -154,7 +160,33 @@ public class BuyNow extends AppCompatActivity {
                 if (!response.equals("Not available in this area !") && !response.equals("error")){
                     pinlayout.setVisibility(View.GONE);
                     confirmlayout.setVisibility(View.VISIBLE);
+                    try {
+                        JSONArray array = new JSONArray(response);
+                        JSONObject jsonObject =array.getJSONObject(0);
+                        int t = Integer.parseInt(jsonObject.getString("delivery_time"));
+                        int hours = t / 60; //since both are ints, you get an int
+                        int minutes = t % 60;
 
+
+                      String  Stime =String.valueOf(hours)+ " : " +String.valueOf(minutes)+" Hours";
+                        time.setText(Stime);
+                       int inttotal = Integer.parseInt(getIntent().getStringExtra("price"));
+
+                       price.setText(getIntent().getStringExtra("price"));
+                        int sch = Integer.parseInt(jsonObject.getString("shipping_charges"));
+
+                        int maintotal =inttotal + sch;
+
+
+                        amount.setText(String.valueOf(maintotal));
+                        charge.setText(String.valueOf(sch));
+
+                       /* int b = Integer.parseInt(Scharge);
+                        int c=a+b;
+                        finalprce = String.valueOf(c);*/
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }else {
                     AlertDialog.Builder builder;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

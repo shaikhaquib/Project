@@ -72,7 +72,6 @@ public class Checkout extends AppCompatActivity {
         shippinhtime =findViewById(R.id.stime);
         shpipintcharge=findViewById(R.id.scharge);
         Totalamount=findViewById(R.id.chktotal);
-        Totalamount.setText("Tottal= ₹ "+total);
         email=findViewById(R.id.chkemail);
         pin=findViewById(R.id.chkpin);
 
@@ -226,13 +225,23 @@ public class Checkout extends AppCompatActivity {
                     try {
                         JSONArray array = new JSONArray(response);
                         JSONObject jsonObject =array.getJSONObject(0);
-                        Stime =jsonObject.getString("delivery_time");
+                        int t = Integer.parseInt(jsonObject.getString("delivery_time"));
+                        int hours = t / 60; //since both are ints, you get an int
+                        int minutes = t % 60;
 
+                        Stime =String.valueOf(hours)+ " : " +String.valueOf(minutes)+" Hours";
 
+                        int inttotal = Integer.parseInt(total);
+                        int sch = Integer.parseInt(jsonObject.getString("shipping_charges"));
 
-                        shippinhtime.setText(Stime);
+                        int maintotal =inttotal + sch;
+
+                        shippinhtime.setText("Shipping Time "+Stime);
                         Scharge=jsonObject.getString("shipping_charges");
-                        shpipintcharge.setText("₹"+Scharge);
+                        shpipintcharge.setText("Shipping Charge "+"₹"+Scharge);
+
+                        Totalamount.setText("Total =  ₹  "+String.valueOf(maintotal));
+
 
                         int b = Integer.parseInt(Scharge);
                         int c=a+b;

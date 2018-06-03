@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,6 +79,7 @@ public class Cart extends Fragment {
     RequestQueue queue;
     int total= 0;
     boolean login =true ;
+    List<DataVar> data=new ArrayList<>();
     View view;
     @Nullable
     @Override
@@ -85,13 +87,13 @@ public class Cart extends Fragment {
         view =inflater.inflate(R.layout.cartview,container,false);
 
         queue = Volley.newRequestQueue(getActivity());
-        manager=new SessionManager(getActivity());
-        guestlayout = view.findViewById(R.id.guesusererror);
+        manager=new SessionManager(getActivity());        guestlayout = view.findViewById(R.id.guesusererror);
+
         recyclerView=view.findViewById(R.id.cartRecycler);
+
+        loginlink = view.findViewById(R.id.loginlink);
         txttotal = view.findViewById(R.id.carttotal);
         checkout =view.findViewById(R.id.checkout);
-        loginlink = view.findViewById(R.id.loginlink);
-
 
 /*
         if (responce.isEmpty()){
@@ -99,15 +101,7 @@ public class Cart extends Fragment {
         }
 */
 
-        checkout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent =new Intent(getActivity() , Checkout.class);
-                intent.putExtra("array",responce);
-                intent.putExtra("total",total);
-                startActivity(intent);
-            }
-        });
+
 
         if (manager.isSkip()){
             login=false;
@@ -118,6 +112,11 @@ public class Cart extends Fragment {
         if (manager.isSkip()){
             guestlayout.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
+            checkout.setVisibility(View.GONE);
+            txttotal.setVisibility(View.GONE);
+        }else {
+            parentLayout = view.findViewById(android.R.id.content);
+
         }
         loginlink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,7 +138,7 @@ public class Cart extends Fragment {
         Global.email = shared.getString( "email", "");*/
         email = Global.email;
         parentLayout = view.findViewById(android.R.id.content);
-        new Cart.ProductFetch().execute(email);
+
 
         return view;
     }
@@ -149,15 +148,22 @@ public class Cart extends Fragment {
     }
 
     public class ProductFetch extends AsyncTask<String, String, String> {
-        ProgressDialog pdLoading = new ProgressDialog(context);
+
         HttpURLConnection conn;
         URL url = null;
+        Context ctxt;
+        ProgressDialog pdLoading;
+        View v;
+        public ProductFetch(Context context, View v) {
+            this.ctxt =context;
+            this.v = v;
+        }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
-
+             pdLoading = new ProgressDialog(ctxt);
             //this method will be running on UI thread
             pdLoading.setMessage("\tLoading...");
             pdLoading.setCancelable(false);
@@ -254,9 +260,20 @@ public class Cart extends Fragment {
             ArrayList<String> dataList = new ArrayList<String>();
 
             pdLoading.dismiss();
-            List<DataVar> data=new ArrayList<>();
 
             pdLoading.dismiss();
+
+
+            checkout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent =new Intent(getActivity() , Checkout.class);
+                    intent.putExtra("array",responce);
+                    intent.putExtra("total",total);
+                    startActivity(intent);
+                }
+            });
+
             try {
 
                 JSONArray jArray = new JSONArray(result);
@@ -295,11 +312,26 @@ public class Cart extends Fragment {
                     data.add(EData);
                 }
 
-                txttotal.setText(String.valueOf("Total Price :- ₹. "+total));
-                strArrData = dataList.toArray(new String[dataList.size()]);
+
+                if(data != null && !data.isEmpty()) {
+                    //has items here. The fact that has items does not mean that the items are != null.
+                    //You have to check the nullity for every item
+                    Log.d("True","Not Empty");
+                    txttotal.setText(String.valueOf("Total Price :- ₹. "+total));
+                    strArrData = dataList.toArray(new String[dataList.size()]);
+                    //imagearray[0] = jsonObject.getString("product_image");
+                }
+                else {
+                    // either there is no instance of ArrayList in arrayList or the list is empty.
+                    TextView textView =view.findViewById(R.id.empcart);
+                    textView.setVisibility(View.VISIBLE);
+                    checkout.setVisibility(View.GONE);
+                    txttotal.setVisibility(View.GONE);
+                }
+
 
                 // Setup and Handover data to recyclerview
-                recyclerView.setAdapter(new CartAdapter(context,data,login));
+                recyclerView.setAdapter(new CartAdapter(context,data,login,v));
 
 
             } catch (JSONException e) {

@@ -264,6 +264,7 @@ public class Product extends AppCompatActivity {
                         //has items here. The fact that has items does not mean that the items are != null.
                         //You have to check the nullity for every item
                         Log.d("True","Not Empty");
+                        //imagearray[0] = jsonObject.getString("product_image");
                     }
                     else {
                         // either there is no instance of ArrayList in arrayList or the list is empty.
@@ -447,7 +448,19 @@ public class Product extends AppCompatActivity {
 
                     }
                     imagearray=dataList.toArray(new String[dataList.size()]);
-                    Slider();
+
+                    if(imagearray != null && imagearray.length > 0) {
+                        //has items here. The fact that has items does not mean that the items are != null.
+                        //You have to check the nullity for every item
+                        Log.d("True","Not Empty");
+                        Slider();
+
+                    }
+                    else {
+                    }
+
+
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();

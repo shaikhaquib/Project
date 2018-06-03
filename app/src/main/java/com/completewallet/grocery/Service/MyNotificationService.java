@@ -201,7 +201,7 @@ public class MyNotificationService extends Service {
                 Log.d("last id",uid);//"No name defined" is the default value.
             }
 
-            if (s != null){
+            if (s != null && !s.equals("unsuccessful")){
 
                 try {
 

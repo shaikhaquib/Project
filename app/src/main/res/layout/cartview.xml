@@ -69,12 +69,21 @@
             android:layout_height="wrap_content"
             android:id="@+id/loginlink"
             android:textSize="@dimen/activity_vertical_margin"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@android:color/holo_blue_dark"
             android:text=" Login"/>
 
 
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="YOUR CART IS EMPTY"
+        android:textSize="20sp"
+        android:id="@+id/empcart"
+        android:visibility="gone"
+        android:textColor="@android:color/black"
+        android:gravity="center"/>
 
 
 </RelativeLayout>
