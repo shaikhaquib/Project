@@ -112,8 +112,7 @@ public class Alert extends Fragment {
                     }
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-
-                    if(data != null && !data.isEmpty()) {
+                    if(!manager.isSkip() && data != null && !data.isEmpty()) {
                         //has items here. The fact that has items does not mean that the items are != null.
                         //You have to check the nullity for every item
                         Log.d("True","Not Empty");
@@ -124,6 +123,13 @@ public class Alert extends Fragment {
                         // either there is no instance of ArrayList in arrayList or the list is empty.
                         TextView textView =view.findViewById(R.id.empalert);
                         textView.setVisibility(View.VISIBLE);
+
+                        if (manager.isSkip()){
+
+                          //  TextView textView =view.findViewById(R.id.empalert);
+                            textView.setVisibility(View.GONE);
+
+                        }
 
                     }
 

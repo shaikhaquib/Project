@@ -107,7 +107,7 @@ public class MyNotificationService extends Service {
             try {
 
                 // Enter URL address where your php file resides
-                url = new URL(Connecttodb.path+"orderhistory.php");
+                url = new URL(Connecttodb.path+"orderhistory");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
