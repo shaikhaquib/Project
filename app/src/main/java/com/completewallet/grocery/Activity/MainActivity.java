@@ -77,6 +77,15 @@ public class MainActivity extends AppCompatActivity {
         Bottomnav();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(
+                getApplicationContext(),
+                Category.class
+        ));
+    }
+
     private void Bottomnav() {
         if (bottomNavigationView != null) {
 
