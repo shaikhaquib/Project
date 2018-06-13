@@ -25,6 +25,7 @@ import java.util.List;
 
 public class CartAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHolder>  {
     //ProductHolder myHolder;
+    public String actp;
     float wt;
     int i=0;
     public View view;
@@ -36,7 +37,7 @@ public class CartAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
     int[] img;
     boolean login;
 
-    public CartAdapter(Context context, List<DataVar> data, boolean login, View v){
+    public CartAdapter(Context context, List<DataVar> data, boolean login){
         this.context=context;
         //inflater= LayoutInflater.from(context);
         this.data=data;
@@ -63,7 +64,7 @@ public class CartAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
         current.multicartqty= Integer.parseInt(current.cartqty);
         current.multicartprice = current.multicartprice * current.multicartqty;
         current.multicartweight = current.multicartweight * current.multicartqty;
-
+        actp = String.valueOf(current.multicartprice);
         //myHolder.price.setText("₹. "+current.cartproduct_price+" "+"/"+" "+current.cartproduct_weight+current.cartunits);
         myHolder.price.setText("₹. "+current.multicartprice+" "+"/"+" "+current.multicartweight+current.cartunits);
         myHolder.mrp.setText("₹."+current.cartproduct_mrp+" "+"/"+" "+current.cartproduct_weight+current.cartunits);
@@ -114,7 +115,8 @@ public class CartAdapter  extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
                     intent.putExtra("product_id", current.cartproduct_id);
                     intent.putExtra("quantity", current.cartqty);
                     intent.putExtra("name", current.cartproduct_name);
-                    intent.putExtra("price", current.multicartprice);
+                    intent.putExtra("price", myHolder.price.getText().toString().trim());
+                    intent.putExtra("actprice", actp.trim());
                     context.startActivity(intent);
                 }
             }

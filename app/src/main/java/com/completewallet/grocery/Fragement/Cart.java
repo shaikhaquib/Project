@@ -87,7 +87,8 @@ public class Cart extends Fragment {
         view =inflater.inflate(R.layout.cartview,container,false);
 
         queue = Volley.newRequestQueue(getActivity());
-        manager=new SessionManager(getActivity());        guestlayout = view.findViewById(R.id.guesusererror);
+        manager=new SessionManager(getActivity());
+        guestlayout = view.findViewById(R.id.guesusererror);
 
         recyclerView=view.findViewById(R.id.cartRecycler);
 
@@ -116,7 +117,7 @@ public class Cart extends Fragment {
             txttotal.setVisibility(View.GONE);
         }else {
             parentLayout = view.findViewById(android.R.id.content);
-
+            new Cart.ProductFetch().execute(Global.email);
         }
         loginlink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,22 +149,21 @@ public class Cart extends Fragment {
     }
 
     public class ProductFetch extends AsyncTask<String, String, String> {
-
+        ProgressDialog pdLoading = new ProgressDialog(getActivity());
         HttpURLConnection conn;
         URL url = null;
-        Context ctxt;
-        ProgressDialog pdLoading;
+        /*Context ctxt;
         View v;
         public ProductFetch(Context context, View v) {
             this.ctxt =context;
             this.v = v;
-        }
+        }*/
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
-             pdLoading = new ProgressDialog(ctxt);
+
             //this method will be running on UI thread
             pdLoading.setMessage("\tLoading...");
             pdLoading.setCancelable(false);
@@ -331,7 +331,8 @@ public class Cart extends Fragment {
 
 
                 // Setup and Handover data to recyclerview
-                recyclerView.setAdapter(new CartAdapter(context,data,login,v));
+                //recyclerView.setAdapter(new CartAdapter(context,data,login,v));
+                recyclerView.setAdapter(new CartAdapter(context,data,login));
 
 
             } catch (JSONException e) {

@@ -228,7 +228,8 @@ current.ppri = current.product_price;
                     intent.putExtra("product_id", current.product_id);
                     intent.putExtra("quantity", current.finalqty);
                     intent.putExtra("name", current.product_name);
-                    intent.putExtra("price", current.ppri);
+                    intent.putExtra("price", myHolder.price.getText().toString().trim());
+                    intent.putExtra("actprice", current.ppri);
                     context.startActivity(intent);
                 }
             }

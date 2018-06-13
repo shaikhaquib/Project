@@ -48,6 +48,7 @@ public class Product extends AppCompatActivity {
     int minteger = 1;
     ViewPager viewPager;
     RatingBar rating;
+    public String pricesenttobuynow;
     LinearLayout sliderDotspanel;
     private int dotscount;
     ImageView imageView;
@@ -143,6 +144,7 @@ public class Product extends AppCompatActivity {
                 intent.putExtra("quantity",quantity.getText().toString());
                 intent.putExtra("name",title.getText().toString());
                 intent.putExtra("price",mrp.getText().toString());
+                intent.putExtra("actprice",pricesenttobuynow.toString().trim());
 
                 startActivity(intent);}
             }
@@ -163,6 +165,7 @@ public class Product extends AppCompatActivity {
                     s = String.valueOf(cal2);
                    // calculatedprice.setText(s);
                     mrp.setText("Price:  ₹"+s+" /"+ cal3 +" "+ unit);
+                    pricesenttobuynow = s.trim();
                 }
 
             }
@@ -179,6 +182,7 @@ public class Product extends AppCompatActivity {
                     s = String.valueOf(cal2);
                     // calculatedprice.setText(s);
                     mrp.setText("Price: ₹."+s+" /"+ cal3 +" "+ unit);
+                    pricesenttobuynow = s.trim();
                 }
                 else {
                     quantity.setText("1");
@@ -249,6 +253,7 @@ public class Product extends AppCompatActivity {
                    // count = 1;
                     minimum_quantity = jsonObject.getString("product_weight");
                     unit=jsonObject.getString("units");
+                    pricesenttobuynow = jsonObject.getString("product_price");
                     mrp.setText("Price: ₹ "+jsonObject.getString("product_price")+" /" +jsonObject.getString("product_weight")+" " + jsonObject.getString("units"));
                     desription.setText(jsonObject.getString("product_discription_1"));
                     description2.setText(jsonObject.getString("product_discription_2"));

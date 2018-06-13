@@ -3,6 +3,8 @@ package com.completewallet.grocery.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -20,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.completewallet.grocery.Checkout;
 import com.completewallet.grocery.Connecttodb;
 import com.completewallet.grocery.R;
 
@@ -27,12 +30,23 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 import static android.support.design.widget.Snackbar.LENGTH_LONG;
 public class BuyNow extends AppCompatActivity {
-
+    public static final int CONNECTION_TIMEOUT = 10000;
+    public static final int READ_TIMEOUT = 15000;
     String pid , strpin;
     EditText edtpincode ;
     Button validpin , confirmorder;
@@ -75,7 +89,7 @@ public class BuyNow extends AppCompatActivity {
         qunt.setText(getIntent().getStringExtra("quantity"));
         email.setText(Global.email);
 
-
+        new BuyNow.UserInfo().execute(Global.email);
 
 
         validpin.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +107,125 @@ public class BuyNow extends AppCompatActivity {
 
 
     }
+    public class UserInfo extends AsyncTask<String, String, String> {
+        ProgressDialog pdLoading = new ProgressDialog(BuyNow.this);
+        HttpURLConnection conn;
+        URL url = null;
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //this method will be running on UI thread
+            pdLoading.setMessage("\tLoading...");
+            pdLoading.setCancelable(false);
+            pdLoading.show();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+
+                // Enter URL address where your php file resides
+
+                url = new URL(Connecttodb.path+"fetch_user_info");
+
+            } catch (MalformedURLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                return "exception";
+            }
+            try {
+                // Setup HttpURLConnection class to send and receive data from php and mysql
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(READ_TIMEOUT);
+                conn.setConnectTimeout(CONNECTION_TIMEOUT);
+                conn.setRequestMethod("POST");
+
+                // setDoInput and setDoOutput method depict handling of both send and receive
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                // Append parameters to URL
+                Uri.Builder builder = new Uri.Builder()
+                        .appendQueryParameter("email_id", params[0]);
+                String query = builder.build().getEncodedQuery();
+
+                // Open connection for sending data
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(query);
+                writer.flush();
+                writer.close();
+                os.close();
+                conn.connect();
+
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+                return "exception";
+            }
+
+            try {
+
+                int response_code = conn.getResponseCode();
+
+                // Check if successful connection made
+                if (response_code == HttpURLConnection.HTTP_OK) {
+
+                    // Read data sent from server
+                    InputStream input = conn.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                    StringBuilder result = new StringBuilder();
+                    String line;
+
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }
+
+                    // Pass data to onPostExecute method
+                    return (result.toString());
+
+                } else {
+
+                    return ("unsuccessful");
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "exception";
+            } finally {
+                conn.disconnect();
+            }
+
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            pdLoading.dismiss();
+            //this method will be running on UI thread
+
+            try {
+
+                JSONArray jArray = new JSONArray(result);
+
+                // Extract data from json and store into ArrayList as class objects
+                for (int i = 0; i < jArray.length(); i++) {
+                    JSONObject json_data = jArray.getJSONObject(i);
+                    edtpincode.setText((json_data.getString("pincode")));
+                }
+            } catch (JSONException e) {
+
+            }
+
+        }
+
+        @Override
+        protected void onCancelled() {
+
+        }
+    }
     private void placeOrder() {
         dialog.setMessage("Loading....");
         dialog.show();
@@ -170,7 +302,7 @@ public class BuyNow extends AppCompatActivity {
 
                       String  Stime =String.valueOf(hours)+ " : " +String.valueOf(minutes)+" Hours";
                         time.setText(Stime);
-                       int inttotal = Integer.parseInt(getIntent().getStringExtra("price"));
+                       int inttotal = Integer.parseInt(getIntent().getStringExtra("actprice"));
 
                        price.setText(getIntent().getStringExtra("price"));
                         int sch = Integer.parseInt(jsonObject.getString("shipping_charges"));

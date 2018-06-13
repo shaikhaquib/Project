@@ -144,8 +144,30 @@ public class Menu extends Fragment {
         ohis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), OrderHistoryActivity.class);
-                startActivity(intent);
+                if (!manager.isLoggedIn()){  AlertDialog.Builder builder;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        builder = new AlertDialog.Builder(getActivity());
+                    } else {
+                        builder = new AlertDialog.Builder(getActivity());
+                    }
+                    builder.setTitle("Sorry ! please login first")
+                            .setMessage("This feature not available for guest user")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+                                    //SessionManager
+                                    //context.startActivity(new Intent(context,LoginActivity.class));
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //  startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                                }
+                            })
+                            .show();}else {
+                    Intent intent = new Intent(getActivity(), OrderHistoryActivity.class);
+                    startActivity(intent);}
+
             }
         });
 
