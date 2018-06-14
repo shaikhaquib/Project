@@ -130,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
             try {
 
                 // Enter URL address where your php file resides
-                url = new URL(Connecttodb.path+"login");
+                url = new URL(Connecttodb.path+"clogin");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
