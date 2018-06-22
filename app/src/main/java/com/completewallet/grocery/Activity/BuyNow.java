@@ -306,12 +306,16 @@ public class BuyNow extends AppCompatActivity {
 
                        price.setText(getIntent().getStringExtra("price"));
                         int sch = Integer.parseInt(jsonObject.getString("shipping_charges"));
-
-                        int maintotal =inttotal + sch;
-
-
+                        int maintotal;
+                        if(inttotal >= 500){
+                            maintotal = inttotal;
+                            charge.setText("0");
+                        }else {
+                            maintotal = inttotal + sch;
+                            charge.setText(String.valueOf(sch));
+                        }
                         amount.setText(String.valueOf(maintotal));
-                        charge.setText(String.valueOf(sch));
+
 
                        /* int b = Integer.parseInt(Scharge);
                         int c=a+b;

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.OtpVerification">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/custom_dialog_layout_design_user_input"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="30dp">
+
+        <TextView
+            android:id="@+id/dialogTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter One Time Password (OTP)"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="OTP has been sent to your registered Email ID. Please enter same here."
+            android:gravity="center"
+            android:textColor="#757575"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            />
+
+        <com.alimuzaffar.lib.pin.PinEntryEditText
+            android:id="@+id/otp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cursorVisible="false"
+            android:textColor="@color/colorPrimary"
+            android:padding="@dimen/activity_vertical_margin"
+            android:digits="1234567890"
+            android:inputType="number"
+            android:maxLength="6"
+            android:textIsSelectable="false"
+            android:textSize="20sp"
+            app:pinBackgroundIsSquare="true"
+            app:pinLineColors="@color/colorPrimary"
+            app:pinAnimationType="fromBottom" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_round"
+            android:text="Verify OTP"
+            android:id="@+id/vrotp"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

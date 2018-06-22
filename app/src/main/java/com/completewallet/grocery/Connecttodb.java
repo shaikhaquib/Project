@@ -6,6 +6,7 @@ package com.completewallet.grocery;
 
 public class Connecttodb {
     //public static final String path = "http://192.168.2.4:80/kirana/";
-    public static final String path = "http://192.168.42.43:80/kirana2door/customer/";
+    //public static final String path = "http://192.168.43.109:80/kirana2door/customer/";
+    public static final String path = "http://www.kirana2door.com/customer/";
 
 }

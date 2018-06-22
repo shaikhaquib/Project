@@ -19,20 +19,21 @@ public class AboutUs extends AppCompatActivity {
         View aboutPage = new AboutPage(this)
                 .isRTL(false)
                 .setImage(R.drawable.kiranalogo1)
-                .setDescription("Established under the sprawling business umbrella of Pune based APA Group of Companies; Veg Mart spearheads the organic lifestyle industry. Founded in 2014 by ‘Technopreneur’ and agro-enthusiast, Mr. Ashok Patil; the brand has evolved to become a sustainable lifestyle solution and lives up to its commitment of providing certified, eco-friendly, healthy and organic dietary options at affordable prices. Most importantly Veg Mart’s key goals are to empower farmers, retain sustaianble environment, enable consumer health and respect Indian farming culture.\n" +
-                        "\n" +
-                        "Currently supplying GAP (Good Agricultural Practices) and organic certified farm produce through its HO in Pune and liaising office in Mumbai, the brand has also mapped its international presence with representatives in UK, Europe, UAE & Singapore. Operating on a franchisee model, the brand accepts and delivers orders through its mobile app and franchisee outlets with free home delivery by establishing successful backward and forward integration of the entire agro supply chain.\n" +
-                        "\n" +
-                        "Offering a wide array of organic food choices in perishable and non-perishable items, its product portfolio encompasses of fresh fruits, vegetables, pulses, grains, flour, spices and dry fruits. Under its sub-brand ‘Keshar’, Veg Mart offers A2 milk and dairy products whereas ‘Fresh Fusion’ offers fruits and vegetable juices. Ensuring, quality and highest standards in hygiene, the company operates independently through its self-owned orchards and plantations in collaboration with organic farming groups as strategic partners. Company also has APEDA approved cold storage, processing and packaging units. Promoting environmentally conscious farming that aids in consumer health as well as farmers’ profits, the company has aligned its business strategy with over 500 certified organic farmers who together own over 1000 acres of land.")
+                .setDescription("We are glad to announce that we are coming up with new organization, an online grocery store & we need your valuable support & co operation.\n"+
+                        "From our busy schedule, we have no time to buy our daily needs grocery items like snack ,cold drink, vegetables, pulses, cosmetics, detergents & room freshener & other grocery items.\n"+
+                        "At this point of time, the technology made our life as easy life that by seating at home, office, travelling we can order our requirement by just one click.\n"+
+                        "To make your life easy, we are coming up with new e commerce website www.kirana2door.com & android app through which you can order your required items & we will deliver it to your address.\n"+
+                        "WITHOUT ANY EXTRA DELIVERY CHARGES.\n"+
+                        "At Kirana2Door we deliver the freshest groceries directly to your doorstep! You can choose your favourite groceries anytime at the comfort of your cozy home. With stringent quality checks and chilled transportation, your groceries will arrive fresh and ready to be cooked.")
+                .addItem(new Element().setTitle("Address : 29, Dwarkamai building no. 7/A, gurusharnam complex CHS Ltd. visruli naka, Old Panvel, Navi Mumbai, India 410206."))
                 .addItem(new Element().setTitle("Version 1.0"))
                 .addGroup("Connect with us")
-                .addEmail("pbhushan246@gmail.com","Kirana2Door")
+                .addEmail("info@kiran2door.com","Kirana2Door")
                 .addWebsite("http://kirana2door.com/")
                 .addFacebook("CKT-168084223695284")
-                .addTwitter("Bhushan_Patil__")
+                .addTwitter("Kirana2D")
                 .addYoutube("UC5YaiC_AvMioiWSQpUIbMVA")
-                .addInstagram("bhushan_patil____")
-                .addGitHub("Bhushan-CPatil")
+                .addInstagram("kirana2door")
                 .create();
 
         setContentView(aboutPage);

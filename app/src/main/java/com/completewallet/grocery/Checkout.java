@@ -366,12 +366,18 @@ public class Checkout extends AppCompatActivity {
 
                         int inttotal = Integer.parseInt(total);
                         int sch = Integer.parseInt(jsonObject.getString("shipping_charges"));
-
-                        int maintotal =inttotal + sch;
-
+                        int maintotal;
+                        if(inttotal >= 500){
+                            maintotal = inttotal;
+                            Scharge = "0";
+                            shpipintcharge.setText("Shipping Charge "+"₹"+Scharge);
+                        }else {
+                            maintotal = inttotal + sch;
+                            Scharge=jsonObject.getString("shipping_charges");
+                            shpipintcharge.setText("Shipping Charge "+"₹"+Scharge);
+                        }
                         shippinhtime.setText("Shipping Time "+Stime);
-                        Scharge=jsonObject.getString("shipping_charges");
-                        shpipintcharge.setText("Shipping Charge "+"₹"+Scharge);
+
 
                         Totalamount.setText("Total =  ₹  "+String.valueOf(maintotal));
 

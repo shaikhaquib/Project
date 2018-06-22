@@ -1,6 +1,7 @@
 package com.completewallet.grocery;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
@@ -13,6 +14,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.completewallet.grocery.Activity.LoginActivity;
+import com.completewallet.grocery.Activity.OtpVerification;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -250,9 +254,11 @@ public class CustomerRegisterActivity extends AppCompatActivity {
                 Snackbar snackbar = Snackbar.make(parentLayout, "Successfully Registered !", Snackbar.LENGTH_LONG);
 
                 snackbar.show();
+                Intent intent = new Intent(CustomerRegisterActivity.this,OtpVerification.class);
+                startActivity(intent);
+                finish();
                 //Toast.makeText(CustomerRegisterActivity.this, "Successfully Registered", Toast.LENGTH_SHORT).show();
                 //startActivity(new Intent(ClinicRegActivity.this,DoctorDashActivity.class));
-                finish();
 
             }else if (result.equalsIgnoreCase("User already Exist")){
                 Snackbar snackbar = Snackbar.make(parentLayout, "User already Exist !", Snackbar.LENGTH_LONG);

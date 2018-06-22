@@ -19,7 +19,7 @@
         <activity
             android:name=".Activity.LoginActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.SplshScreenActivity"
             android:configChanges="orientation"
@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.Registration"
+            android:name=".Activity.ForgotPassOne"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
@@ -54,16 +54,18 @@
             android:name=".Activity.ProductReview"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activity.ChangePassword"
+        <activity
+            android:name=".Activity.ChangePassword"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activity.AccountUpdate"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.AccountUpdate"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.AboutUs"
-            android:parentActivityName=".Activity.MainActivity"
             android:configChanges="orientation"
+            android:parentActivityName=".Activity.MainActivity"
             android:screenOrientation="portrait">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
@@ -71,22 +73,27 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.MainActivity" />
         </activity>
-        <activity android:name=".Activity.OrderHistoryActivity"
+        <activity
+            android:name=".Activity.OrderHistoryActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activity.SubOrderHistory"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.SubOrderHistory"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activity.BuyNow"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.BuyNow"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activity.AddReview"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.AddReview"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
-        <service android:name=".Service.MyNotificationService"
+        <service
+            android:name=".Service.MyNotificationService"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <receiver
             android:name=".Service.NotiBroadcast"
@@ -98,9 +105,12 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".Checkout"
+        <activity
+            android:name=".Checkout"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity android:name=".Activity.OtpVerification" />
+        <activity android:name=".Activity.ForgotPassTwo"></activity>
     </application>
 
 </manifest>

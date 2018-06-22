@@ -70,7 +70,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
+        txtforgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ForgotPassOne.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         // Managing User session
 
@@ -95,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void Registration(View view) {
-        //startActivity(new Intent(getApplicationContext(),Registration.class));
+        //startActivity(new Intent(getApplicationContext(),ForgotPassOne.class));
         startActivity(new Intent(getApplicationContext(),CustomerRegisterActivity.class));
     }
     // Triggers when LOGIN Button clicked
@@ -244,6 +251,10 @@ public class LoginActivity extends AppCompatActivity {
                 // If username and password does not match display a error message
                 //Toast.makeText(LoginActivity.this, "Invalid email or password", Toast.LENGTH_LONG).show();
 
+            }else if (result.equalsIgnoreCase("email verification not done")) {
+                Intent intent = new Intent(LoginActivity.this,OtpVerification.class);
+                startActivity(intent);
+                finish();
             } else if (result.equalsIgnoreCase("exception") || result.equalsIgnoreCase("unsuccessful")) {
 
                 Snackbar snackbar = Snackbar.make(parentLayout, "Connection Problem! OR No Internet Connection!", Snackbar.LENGTH_LONG);
