@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_gravity="center"
     android:gravity="center"
-    tools:context="com.completewallet.grocery.Activity.AddReview">
+    tools:context="com.abatechnology.kirana2door.Activity.AddReview">
 
     <RatingBar
         android:id="@+id/addmyRatingBar"

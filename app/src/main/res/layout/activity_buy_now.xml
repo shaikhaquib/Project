@@ -9,7 +9,7 @@
     android:background="@drawable/o"
     android:backgroundTintMode="multiply"
     android:backgroundTint="#660"
-    tools:context="com.completewallet.grocery.Activity.BuyNow">
+    tools:context="com.abatechnology.kirana2door.Activity.BuyNow">
 
 
     <LinearLayout

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context="com.completewallet.grocery.Activity.Product">
+    tools:context="com.abatechnology.kirana2door.Activity.Product">
 
     <ScrollView
         android:layout_width="match_parent"
