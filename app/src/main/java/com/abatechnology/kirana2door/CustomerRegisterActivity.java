@@ -13,10 +13,22 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.abatechnology.kirana2door.Activity.DataVar;
 import com.abatechnology.kirana2door.Activity.LoginActivity;
 import com.abatechnology.kirana2door.Activity.OtpVerification;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -28,6 +40,9 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,20 +53,28 @@ public class CustomerRegisterActivity extends AppCompatActivity {
     public static final int CONNECTION_TIMEOUT = 10000;
     public static final int READ_TIMEOUT = 15000;
     private EditText fname,lname, email, phno, pass,conpass,add,pin;
-    MaterialSpinner spinner;
+  //  MaterialSpinner spinner;
+    Spinner spnArea;
+    String area;
+    ProgressDialog pdLoading ;
+
     private Button btn;
     View parentLayout;
+    RequestQueue requestQueue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_register);
+        pdLoading = new ProgressDialog(CustomerRegisterActivity.this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        spinner =  findViewById(R.id.Circle);
+      //  spinner =  findViewById(R.id.Circle);
         String[] ITEMS = {"Mumbai", "Thane", "Panvel", "Navi Mumbai", "Kalyan", "Uran"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ITEMS);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinner.setAdapter(adapter);
+        requestQueue = Volley.newRequestQueue(this);
+        getArea();
+        spnArea=findViewById(R.id.spnarea);
+     //   spinner.setAdapter(adapter);
         fname = (EditText) findViewById(R.id.first);
         lname = (EditText) findViewById(R.id.last);
         add = (EditText) findViewById(R.id.address);
@@ -63,7 +86,50 @@ public class CustomerRegisterActivity extends AppCompatActivity {
         conpass = (EditText) findViewById(R.id.confpassword);
         btn = (Button) findViewById(R.id.btnreg);
         parentLayout = findViewById(android.R.id.content);
+
+        /*btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isValidFormData();
+            }
+        });*/
     }
+
+    private void getArea() {
+        pdLoading.setMessage("\tLoading...");
+        pdLoading.setCancelable(false);
+        pdLoading.show();
+        StringRequest stringRequest =new StringRequest(Request.Method.GET, "https://www.kirana2door.com/customer/getareaname", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                pdLoading.dismiss();
+                List<String> arrayList =new ArrayList<>();
+
+                try {
+                    JSONArray jsonArray =new JSONArray(response);
+                    for (int i = 0 ; i < jsonArray.length() ; i++){
+                        JSONObject jsonObject =jsonArray.getJSONObject(i);
+                        arrayList.add(jsonObject.getString("area_name").replaceAll("\\s+","_"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(CustomerRegisterActivity.this,  android.R.layout.simple_spinner_dropdown_item, arrayList);
+                adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+                spnArea.setAdapter(adapter);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                pdLoading.dismiss();
+
+            }
+        }){};
+        requestQueue.add(stringRequest);
+    }
+
     public boolean isValidFormData() {
         String edtstremail = email.getText().toString();
         String edtstrphno = phno.getText().toString();
@@ -106,11 +172,6 @@ public class CustomerRegisterActivity extends AppCompatActivity {
             phno.requestFocus();
             return false;
         }
-        if (!matcher4.matches()) {
-            pin.setError("Plz enter valid Pincode.");
-            pin.requestFocus();
-            return false;
-        }
         if (TextUtils.isEmpty(pass.getText().toString())) {
             pass.setError("Plz Enter Password.");
             pass.requestFocus();
@@ -126,19 +187,17 @@ public class CustomerRegisterActivity extends AppCompatActivity {
     public void Registercust(View arg0) {
         if (isValidFormData()) {
 
-            final String a1 = fname.getText().toString().trim();
-            final String a2 = lname.getText().toString().trim();
-            final String a3 = add.getText().toString().trim();
-            final String a4 = pin.getText().toString().trim();
-            final String a5 = email.getText().toString().trim();
-            final String a6 = phno.getText().toString().trim();
-            final String a7 = conpass.getText().toString().trim();
-            final String a8 = spinner.getSelectedItem().toString().trim();
-            new CustomerRegisterActivity.RegisterCustomer().execute(a1,a2,a3,a4,a5,a6,a7,a8);
+            final String a0 = fname.getText().toString().trim();
+            final String a1 = lname.getText().toString().trim();
+            final String a2 = add.getText().toString().trim();
+            final String a3 = email.getText().toString().trim();
+            final String a4 = phno.getText().toString().trim();
+            final String a5 = conpass.getText().toString().trim();
+            String a6 = spnArea.getSelectedItem().toString().trim();
+            new CustomerRegisterActivity.RegisterCustomer().execute(a0,a1,a2,a3,a4,a5,a6);
         }
     }
     private class RegisterCustomer extends AsyncTask<String, String, String>{
-        ProgressDialog pdLoading = new ProgressDialog(CustomerRegisterActivity.this);
         HttpURLConnection conn;
         URL url = null;
 
@@ -180,11 +239,10 @@ public class CustomerRegisterActivity extends AppCompatActivity {
                         .appendQueryParameter("fname",params[0])
                         .appendQueryParameter("lname",params[1])
                         .appendQueryParameter("address",params[2])
-                        .appendQueryParameter("pin",params[3])
-                        .appendQueryParameter("email",params[4])
-                        .appendQueryParameter("contact",params[5])
-                        .appendQueryParameter("password",params[6])
-                        .appendQueryParameter("city",params[7]);
+                        .appendQueryParameter("email",params[3])
+                        .appendQueryParameter("contact",params[4])
+                        .appendQueryParameter("password",params[5])
+                        .appendQueryParameter("area",params[6]);
 
                 String query = builder.build().getEncodedQuery();
 
