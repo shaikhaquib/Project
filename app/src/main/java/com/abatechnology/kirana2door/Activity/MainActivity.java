@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         item.setChecked(true);
 
         switch (item.getItemId()) {
+
             case R.id.navigation_home:
                 // Action to perform when Home Menu item is selected.
                 /*Bundle bundle = new Bundle();
@@ -123,6 +124,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.navigation_alert:
                 // Action to perform when Bag Menu item is selected.
                 pushFragment(new Alert());
+                break;
+            case R.id.navigation_category:
+                Intent intent = new Intent(MainActivity.this,Category.class);
+                startActivity(intent);
                 break;
             case R.id.navigation_cart:
                 // Action to perform when Account Menu item is selected.
