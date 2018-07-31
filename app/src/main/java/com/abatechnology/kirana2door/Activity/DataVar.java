@@ -23,6 +23,7 @@ public class DataVar {
     public int minimum;
     public int minteger;
     public String finalqty;
+    public String area;
 
     //cart item holder variables
     public String cart_id;

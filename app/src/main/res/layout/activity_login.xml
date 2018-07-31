@@ -111,27 +111,36 @@
 
         <!-- Link to Login Screen -->
 
-        <TextView
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
             android:text="Forgot Password ?"
-            android:gravity="center"
+            android:gravity="left"
             android:id="@+id/forgotp"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:textColor="@color/white"
             android:textSize="@dimen/activity_vertical_margin"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="5"
             android:text="New user?"
-            android:gravity="center"
+            android:gravity="end"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_gravity="end"
             android:id="@+id/registration"
             android:textColor="@color/white"
             android:onClick="Registration"
             android:textSize="@dimen/activity_vertical_margin"/>
 
-
+    </LinearLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
