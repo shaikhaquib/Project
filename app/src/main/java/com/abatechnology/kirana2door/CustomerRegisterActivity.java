@@ -53,7 +53,7 @@ public class CustomerRegisterActivity extends AppCompatActivity {
     public static final int CONNECTION_TIMEOUT = 10000;
     public static final int READ_TIMEOUT = 15000;
     private EditText fname,lname, email, phno, pass,conpass,add,pin;
-  //  MaterialSpinner spinner;
+    //  MaterialSpinner spinner;
     Spinner spnArea;
     String area;
     ProgressDialog pdLoading ;
@@ -67,14 +67,14 @@ public class CustomerRegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_customer_register);
         pdLoading = new ProgressDialog(CustomerRegisterActivity.this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-      //  spinner =  findViewById(R.id.Circle);
+        //  spinner =  findViewById(R.id.Circle);
         String[] ITEMS = {"Mumbai", "Thane", "Panvel", "Navi Mumbai", "Kalyan", "Uran"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ITEMS);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         requestQueue = Volley.newRequestQueue(this);
         getArea();
         spnArea=findViewById(R.id.spnarea);
-     //   spinner.setAdapter(adapter);
+        //   spinner.setAdapter(adapter);
         fname = (EditText) findViewById(R.id.first);
         lname = (EditText) findViewById(R.id.last);
         add = (EditText) findViewById(R.id.address);
@@ -99,7 +99,7 @@ public class CustomerRegisterActivity extends AppCompatActivity {
         pdLoading.setMessage("\tLoading...");
         pdLoading.setCancelable(false);
         pdLoading.show();
-        StringRequest stringRequest =new StringRequest(Request.Method.GET, "https://www.kirana2door.com/customer/getareaname", new Response.Listener<String>() {
+        StringRequest stringRequest =new StringRequest(Request.Method.GET, Connecttodb.path+"getareaname", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 pdLoading.dismiss();
@@ -109,7 +109,8 @@ public class CustomerRegisterActivity extends AppCompatActivity {
                     JSONArray jsonArray =new JSONArray(response);
                     for (int i = 0 ; i < jsonArray.length() ; i++){
                         JSONObject jsonObject =jsonArray.getJSONObject(i);
-                        arrayList.add(jsonObject.getString("area_name").replaceAll("\\s+","_"));
+                        //arrayList.add(jsonObject.getString("area_name").replaceAll("\\s+","_"));
+                        arrayList.add(jsonObject.getString("area_name"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -193,7 +194,7 @@ public class CustomerRegisterActivity extends AppCompatActivity {
             final String a3 = email.getText().toString().trim();
             final String a4 = phno.getText().toString().trim();
             final String a5 = conpass.getText().toString().trim();
-            String a6 = spnArea.getSelectedItem().toString().trim();
+            final String a6 = spnArea.getSelectedItem().toString().trim();
             new CustomerRegisterActivity.RegisterCustomer().execute(a0,a1,a2,a3,a4,a5,a6);
         }
     }
@@ -303,7 +304,7 @@ public class CustomerRegisterActivity extends AppCompatActivity {
             //this method will be running on UI thread
 
             pdLoading.dismiss();
-
+        //Toast.makeText(CustomerRegisterActivity.this,result,Toast.LENGTH_LONG).show();
             if(result.equalsIgnoreCase("successfully registered"))
             {
                 /* Here launching another activity when login successful. If you persist login state
