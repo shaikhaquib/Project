@@ -1,101 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-tools:context="com.abatechnology.kirana2door.Activity.ForgotPassOne">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/one"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    android:padding="30dp"
-    android:visibility="visible">
-
-    <TextView
-        android:id="@+id/dialogTitle"
+    tools:context="com.abatechnology.kirana2door.Activity.ForgotPassOne">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/one"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Enter registered Email here"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         android:gravity="center"
-        android:textStyle="bold"
-        android:textColor="#000"
-        android:textSize="20sp" />
+        android:padding="30dp"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/dialogTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter registered Email here"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:textSize="20sp" />
 
 
-    <EditText
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Email"
+            android:textColor="#000000"
+            android:id="@+id/remail"
+            android:textSize="22sp"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_round"
+            android:textSize="20sp"
+            android:text="Send OTP"
+            android:id="@+id/sdotp"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/two"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="Email"
-        android:textColor="#000000"
-        android:id="@+id/remail"
-        android:textSize="22sp"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/btn_round"
-        android:textSize="20sp"
-        android:text="Send OTP"
-        android:id="@+id/sdotp"
-        android:textColor="@color/white"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="30dp"
+        android:visibility="gone">
 
-</LinearLayout>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/two"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="30dp"
-    android:visibility="gone">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter One Time Password (OTP)"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:textSize="20sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Enter One Time Password (OTP)"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textColor="#000"
-        android:textSize="20sp" />
+        <TextView
 
-    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Six digit OTP has been sent to your Email. Please enter same here."
+            android:gravity="center"
+            android:textColor="#757575"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            />
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Six digit OTP has been sent to your Email. Please enter same here."
-        android:gravity="center"
-        android:textColor="#757575"
-        android:layout_margin="@dimen/activity_vertical_margin"
-        />
+        <com.alimuzaffar.lib.pin.PinEntryEditText
+            android:id="@+id/enotp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cursorVisible="false"
+            android:textColor="@color/colorPrimary"
+            android:padding="@dimen/activity_vertical_margin"
+            android:digits="1234567890"
+            android:inputType="number"
+            android:maxLength="6"
+            android:textIsSelectable="false"
+            android:textSize="20sp"
+            app:pinBackgroundIsSquare="true"
+            app:pinLineColors="@color/colorPrimary"
+            app:pinAnimationType="fromBottom" />
 
-    <com.alimuzaffar.lib.pin.PinEntryEditText
-        android:id="@+id/enotp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:cursorVisible="false"
-        android:textColor="@color/colorPrimary"
-        android:padding="@dimen/activity_vertical_margin"
-        android:digits="1234567890"
-        android:inputType="number"
-        android:maxLength="6"
-        android:textIsSelectable="false"
-        android:textSize="20sp"
-        app:pinBackgroundIsSquare="true"
-        app:pinLineColors="@color/colorPrimary"
-        app:pinAnimationType="fromBottom" />
+        <Button
+            android:id="@+id/varibtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_round"
+            android:text="Verify OTP"
+            android:textColor="@color/white"/>
 
-    <Button
-        android:id="@+id/varibtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/btn_round"
-        android:text="Verify OTP"
-        android:textColor="@color/white"/>
-
-</LinearLayout>
+    </LinearLayout>
 </RelativeLayout>
